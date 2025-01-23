@@ -7,7 +7,7 @@ export const ImagenPrincipal = () => {
           <h3 className="text-white text-lg font-semibold text-center px-3">Diseños únicos, personalizados y fáciles de compartir.</h3>
           <h3 className="text-white text-lg font-semibold text-center px-4">Haz que tu evento destaque desde el primer momento.</h3>
         </div>
-        <a href="#invitaciones"><button className="mt-8 py-4 px-6 rounded-full border-4 text-lg text-white hover:text-gray-900 hover:bg-slate-50 hover:transition font-bold">Ver demos</button></a>
+        <a href="#planes"><button className="mt-8 py-4 px-6 rounded-full border-4 text-lg text-white hover:text-gray-900 hover:bg-slate-50 hover:transition font-bold">Ver demos</button></a>
     </div>
   )
 }

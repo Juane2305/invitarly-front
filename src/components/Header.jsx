@@ -9,7 +9,7 @@ const Header = () => {
   };
 
   return (
-    <header className="w-full bg-white shadow-md">
+    <header className="w-full bg-white shadow-md fixed">
       <div className="max-w-7xl mx-auto p-5 flex justify-between items-center h-24">
         {/* Logo */}
         <div className="text-2xl font-bold">

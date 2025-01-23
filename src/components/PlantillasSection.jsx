@@ -1,49 +1,72 @@
-
+import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const PlantillasSection = () => {
+  const { nombrePlan } = useParams(); // Captura el parámetro de la URL
+  const navigate = useNavigate();
+  const [plan, setPlan] = useState(null); // Estado para el plan seleccionado
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchPlan = async () => {
+        if (!nombrePlan) {
+            setError("El nombre del plan no está definido.");
+            setLoading(false);
+            return;
+        }
+
+        try {
+            const response = await axios.get(
+                `http://localhost:8080/api/planes/nombre/${nombrePlan}`
+            );
+            console.log("Plan obtenido:", response.data);
+            setPlan(response.data);
+            setLoading(false);
+        } catch (err) {
+            console.error("Error al cargar el plan:", err);
+            setError("Hubo un error al cargar el plan.");
+            setLoading(false);
+        }
+    };
+
+    fetchPlan();
+}, [nombrePlan]);
+
+  if (loading) return <p>Cargando plantillas...</p>;
+  if (error) return <p className="text-red-500">{error}</p>;
+
   const plantillas = [
-    {
-      id: 1,
-      nombre: 'Invitación Elegante',
-      descripcion: 'Ideal para bodas y eventos formales.',
-      imagen: 'https://res.cloudinary.com/dfschbyq2/image/upload/v1736698388/Dise%C3%B1o_sin_t%C3%ADtulo_12_f2sslz.png',
-      link: '/plantillas/elegante'
-    },
-    {
-      id: 2,
-      nombre: 'Invitación Minimalista',
-      descripcion: 'Diseño simple y sofisticado para cualquier evento.',
-      imagen: 'https://res.cloudinary.com/dfschbyq2/image/upload/v1736698388/Dise%C3%B1o_sin_t%C3%ADtulo_12_f2sslz.png',
-      link: '/plantillas/minimalista'
-    },
-    {
-      id: 3,
-      nombre: 'Invitación Divertida',
-      descripcion: 'Perfecta para cumpleaños y celebraciones casuales.',
-      imagen: 'https://res.cloudinary.com/dfschbyq2/image/upload/v1736698388/Dise%C3%B1o_sin_t%C3%ADtulo_12_f2sslz.png',
-      link: '/plantillas/divertida'
-    },
-    {
-      id: 4,
-      nombre: 'Invitación Vintage',
-      descripcion: 'Un estilo retro para los amantes de lo clásico.',
-      imagen: 'https://res.cloudinary.com/dfschbyq2/image/upload/v1736698388/Dise%C3%B1o_sin_t%C3%ADtulo_12_f2sslz.png',
-      link: '/plantillas/vintage'
-    }
+    { nombre: "Moderna", descripcion: "Plantilla moderna y elegante", imagen: "https://res.cloudinary.com/dfschbyq2/image/upload/v1736810918/Disen%CC%83o_sin_ti%CC%81tulo_2_hlydij.png" },
+    { nombre: "Vintage", descripcion: "Plantilla con estilo clásico", imagen: "https://res.cloudinary.com/dfschbyq2/image/upload/v1736946812/0cbb8523-5c02-4114-bed2-4e26ef2b7fff.png" },
+    { nombre: "Elegante", descripcion: "Plantilla con diseño sofisticado", imagen: "https://res.cloudinary.com/dfschbyq2/image/upload/v1736966053/4d0944bf-da3f-4720-9547-4d55b8b5e838.png" },
   ];
 
+  const handleNavigateToPlantilla = (nombrePlantilla) => {
+    navigate(`/plantilla/${nombrePlan}/${nombrePlantilla.toLowerCase()}`);
+  };
+
+  const handleVolver = () => {
+    navigate(`/`);
+  };
+
   return (
-    <section className="bg-gray-100 py-12">
+    <section className="py-12 bg-gray-100 h-screen">
+      <button
+        onClick={handleVolver}
+        className="fixed top-4 left-4 bg-blue-500 text-white px-4 py-2 rounded shadow-lg hover:bg-blue-600 transition z-50"
+      >
+        Volver
+      </button>
       <div className="container mx-auto text-center">
-        <h2 className="text-4xl font-bold mb-8 text-gray-800">Plantillas</h2>
-        <p className="text-gray-600 mb-12">
-          Descubre nuestras plantillas diseñadas para todo tipo de eventos. Personalizables y únicas para ti.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <h2 className="text-4xl font-bold mb-8">Plantillas del plan {nombrePlan}</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
           {plantillas.map((plantilla) => (
             <div
-              key={plantilla.id}
-              className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+              key={plantilla.nombre}
+              className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer"
+              onClick={() => handleNavigateToPlantilla(plantilla.nombre)}
             >
               <img
                 src={plantilla.imagen}
@@ -51,16 +74,15 @@ const PlantillasSection = () => {
                 className="w-full h-48 object-cover"
               />
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                <h3 className="text-2xl font-semibold text-gray-800 mb-4">
                   {plantilla.nombre}
                 </h3>
                 <p className="text-gray-600 mb-4">{plantilla.descripcion}</p>
-                <a
-                  href={plantilla.link}
-                  className="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-300"
+                <button
+                  className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
                 >
-                  Ver más
-                </a>
+                  Ver Plantilla
+                </button>
               </div>
             </div>
           ))}

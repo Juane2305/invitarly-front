@@ -3,6 +3,8 @@ import { ImagenPrincipal } from '../components/ImagenPrincipal'
 import TestimonialSlider from '../components/TestimonialSlider'
 import Funciones from '../components/Funciones'
 import PlantillasSection from '../components/PlantillasSection'
+import Banner from '../components/Banner'
+import PlanesSection from '../components/PlanesSection'
 
 export const MainPage = () => {
   return (
@@ -10,7 +12,8 @@ export const MainPage = () => {
         <Header/>
         <ImagenPrincipal/>
         <Funciones/>
-        <PlantillasSection/>
+        <Banner/>
+        <PlanesSection/>
         <TestimonialSlider/>
     </div>
   )

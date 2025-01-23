@@ -81,11 +81,11 @@ const FeaturesSection = () => {
         </h2>
 
         {/* Grid de características iniciales */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-14">
           {initialFeatures.map((feature, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg shadow-md p-6 hover:shadow-2xl transition-shadow duration-300"
+              className="cursor-default"
             >
               <div className="text-4xl mb-4">
               {feature.icon.includes(".png") || feature.icon.includes(".jpg") ? (
@@ -101,7 +101,7 @@ const FeaturesSection = () => {
               <h3 className="text-xl font-semibold text-gray-700 mb-2">
                 {feature.title}
               </h3>
-              <p className="text-gray-600">{feature.description}</p>
+              <p className="text-gray-600 px-14">{feature.description}</p>
             </div>
           ))}
         </div>
@@ -112,11 +112,11 @@ const FeaturesSection = () => {
             showMore ? "max-h-[2000px]" : "max-h-0"
           }`}
         >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 my-8 ">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-14 my-8 ">
             {additionalFeatures.map((feature, index) => (
               <div
                 key={index}
-                className="bg-white rounded-lg shadow-md p-6 hover:shadow-2xl transition-shadow duration-300"
+                className="cursor-default"
               >
                 <div className="text-4xl mb-4">
                 {feature.icon.includes(".png") || feature.icon.includes(".jpg") ? (
@@ -132,7 +132,7 @@ const FeaturesSection = () => {
                 <h3 className="text-xl font-semibold text-gray-700 mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <p className="text-gray-600 px-14">{feature.description}</p>
               </div>
             ))}
           </div>
