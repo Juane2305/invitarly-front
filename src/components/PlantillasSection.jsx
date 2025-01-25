@@ -1,41 +1,10 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
+
 
 const PlantillasSection = () => {
   const { nombrePlan } = useParams(); // Captura el parámetro de la URL
   const navigate = useNavigate();
-  const [plan, setPlan] = useState(null); // Estado para el plan seleccionado
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchPlan = async () => {
-        if (!nombrePlan) {
-            setError("El nombre del plan no está definido.");
-            setLoading(false);
-            return;
-        }
-
-        try {
-            const response = await axios.get(
-                `http://localhost:8080/api/planes/nombre/${nombrePlan}`
-            );
-            console.log("Plan obtenido:", response.data);
-            setPlan(response.data);
-            setLoading(false);
-        } catch (err) {
-            console.error("Error al cargar el plan:", err);
-            setError("Hubo un error al cargar el plan.");
-            setLoading(false);
-        }
-    };
-
-    fetchPlan();
-}, [nombrePlan]);
-
-  if (loading) return <p>Cargando plantillas...</p>;
-  if (error) return <p className="text-red-500">{error}</p>;
+ 
 
   const plantillas = [
     { nombre: "Moderna", descripcion: "Plantilla moderna y elegante", imagen: "https://res.cloudinary.com/dfschbyq2/image/upload/v1736810918/Disen%CC%83o_sin_ti%CC%81tulo_2_hlydij.png" },
