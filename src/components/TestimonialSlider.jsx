@@ -91,7 +91,7 @@ const TestimonialSlider = () => {
   };
 
   return (
-    <section className="bg-gray-100 py-16">
+    <section className="bg-white py-16">
       <div className="container mx-auto px-6">
         <h2 className="text-3xl font-bold text-gray-800 text-center mb-8">
           Lo que dicen nuestros clientes

@@ -46,7 +46,7 @@ const ElegantePreview = () => {
   if (error) return <p>{error}</p>;
 
   const handleSeleccionarPlantilla = () => {
-    console.log("Plantilla seleccionada!");
+    navigate(`/confirmacion-pago/${nombrePlan}/elegante`);
   };
 
   const handleVolver = () => {

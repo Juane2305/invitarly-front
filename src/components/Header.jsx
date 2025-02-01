@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import logo from '../assets/logo-invitarly-dark.svg'
+import logo from '../assets/logo-light.svg'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -9,7 +9,7 @@ const Header = () => {
   };
 
   return (
-    <header className="w-full bg-white shadow-md fixed">
+    <header className="w-full bg-white shadow-md fixed z-50">
       <div className="max-w-7xl mx-auto p-5 flex justify-between items-center h-24">
         {/* Logo */}
         <div className="text-2xl font-bold">

@@ -8,7 +8,7 @@ export default {
     extend: {
       backgroundImage:{
         'fondo-inicio': "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1735597367/eb792da9-32cf-458d-ab1f-b21615d1953a_ieuwqb.jpg')",
-        'fondo-banner': "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1736711719/Dise%C3%B1o_sin_t%C3%ADtulo-8_twsh6y.png')",
+        'fondo-banner': "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1735580470/Agregar_un_t%C3%ADtulo-2_iz5elu.png')",
         'fondo-moderna': "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1736795744/White_Digitalism_Basic_Simple_Presentation_ut9ade.png')",
         'fondo-tela' : "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1735580470/Agregar_un_t%C3%ADtulo-2_iz5elu.png')",
         'fondo-vintage' : "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1736862851/Frann_y_Mari_qmysm9.png')",

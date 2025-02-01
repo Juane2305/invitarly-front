@@ -3,7 +3,6 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 
 import nombres from "../assets/nombresInicio.svg";
-import decoracionModern from "../assets/decoracionModerna.svg";
 import Countdown from "./Countdown";
 import Lugares from "./Lugares";
 import { FocusCardsDemo } from "./FocusCardsDemo";
@@ -48,7 +47,7 @@ const PlantillaPreview = () => {
   if (error) return <p>{error}</p>;
 
   const handleSeleccionarPlantilla = () => {
-    console.log("Plantilla seleccionada!");
+    navigate(`/confirmacion-pago/${nombrePlan}/moderna`);
   };
 
   const handleVolver = () => {
@@ -83,12 +82,6 @@ const PlantillaPreview = () => {
       {/* Fondo y contenido principal */}
       <div className="flex flex-col justify-center items-center h-screen w-full text-center bg-fondo-moderna bg-cover bg-no-repeat bg-fixed">
         <img src={nombres} alt="Nombres de los novios" className="" />
-        {/* SVG decorativo */}
-        <img
-          src={decoracionModern}
-          alt="Decoración"
-          className="absolute right-10 bottom-10 w-40 opacity-70"
-        />
       </div>
 
       {/* Plantilla dinámica */}
@@ -99,45 +92,26 @@ const PlantillaPreview = () => {
             id="contador"
             className="bg-beige w-full flex flex-col items-center justify-center gap-y-5 py-10 font-thin"
           >
-            <Countdown containerClasses={"w-full flex flex-col justify-center items-center gap-y-5"} />
+            <Countdown
+              containerClasses={
+                "w-full flex flex-col justify-center items-center gap-y-5"
+              }
+            />
           </section>
         )}
         <section id="lugares" className="relative">
           <Lugares />
-          {/* SVG decorativo */}
-          <img
-            src={decoracionModern}
-            alt="Decoración"
-            className="absolute left-10 top-10 w-32 opacity-70"
-          />
         </section>
         {funcionalidades.includes("galeriaFotos") && <FocusCardsDemo />}
         {funcionalidades.includes("instagramWall") && <InstagramWall />}
         {funcionalidades.includes("calendario") && (
           <div className="bg-principal-light text-center relative">
             <GoogleCalendarButton />
-            {/* SVG decorativo */}
-            <img
-              src={decoracionModern}
-              alt="Decoración"
-              className="absolute left-0 top-5 w-40 opacity-50"
-            />
           </div>
         )}
         {funcionalidades.includes("dressCode") && (
           <div className="relative">
             <DressCode />
-            {/* SVG decorativo en DressCode */}
-            <img
-              src={decoracionModern}
-              alt="Decoración"
-              className="absolute -left-10 top-0 w-40 opacity-50"
-            />
-            <img
-              src={decoracionModern}
-              alt="Decoración"
-              className="absolute -right-10 top-0 w-40 opacity-50"
-            />
           </div>
         )}
         {funcionalidades.includes("datosBancarios") && (
