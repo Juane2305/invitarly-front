@@ -1,9 +1,9 @@
 import React from "react";
 import {
   FaFacebookF,
-  FaTwitter,
+  FaEnvelope,
   FaInstagram,
-  FaLinkedinIn,
+  FaWhatsapp,
 } from "react-icons/fa";
 
 import logo from '../assets/logo.svg'
@@ -25,25 +25,25 @@ const Footer = () => {
         {/* Navegación */}
         <nav className="flex flex-col md:flex-row items-center">
           <a
-            href="/about"
+            href="/"
             className="mx-3 my-1 md:my-0 text-white hover:text-gray-400 transition-colors duration-300"
           >
-            Sobre Nosotros
+            Inicio
           </a>
           <a
-            href="/services"
+            href="#planes"
             className="mx-3 my-1 md:my-0 text-white hover:text-gray-400 transition-colors duration-300"
           >
-            Servicios
+            Planes
           </a>
           <a
-            href="/faq"
+            href="#faq"
             className="mx-3 my-1 md:my-0 text-white hover:text-gray-400 transition-colors duration-300"
           >
-            FAQ
+            Preguntas Frecuentes
           </a>
           <a
-            href="/contact"
+            href="#contacto"
             className="mx-3 my-1 md:my-0 text-white hover:text-gray-400 transition-colors duration-300"
           >
             Contacto
@@ -61,12 +61,12 @@ const Footer = () => {
             <FaFacebookF />
           </a>
           <a
-            href="https://twitter.com"
+            href="mailto:invitarly@gmail.com"
             target="_blank"
             rel="noopener noreferrer"
             className="mx-2 text-xl hover:text-gray-400 transition-colors duration-300"
           >
-            <FaTwitter />
+            <FaEnvelope />
           </a>
           <a
             href="https://instagram.com"
@@ -77,12 +77,12 @@ const Footer = () => {
             <FaInstagram />
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://wa.me/542612404253?text=%C2%A1Hola!%20Tengo%20una%20duda%20sobre%20las%20invitaciones"
             target="_blank"
             rel="noopener noreferrer"
             className="mx-2 text-xl hover:text-gray-400 transition-colors duration-300"
           >
-            <FaLinkedinIn />
+            <FaWhatsapp />
           </a>
         </div>
       </div>

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import LoginModal from './LoginModal';
 
 function AdminPage() {
   // Si /api/ventas requiere token, ponlo en "necesitaToken = true"
-  const necesitaToken = false; 
+  const necesitaToken = true; 
   const [token, setToken] = useState(localStorage.getItem("token") || "");
+  const [showLoginModal, setShowLoginModal] = useState(!token);
+
 
   const [ventas, setVentas] = useState([]);
   const [error, setError] = useState(null);
@@ -30,7 +33,7 @@ function AdminPage() {
   const cargarVentas = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/ventas",
+        "https://api.invitarly.com/api/ventas",
         getAxiosConfig()
       );
       setVentas(response.data);
@@ -44,7 +47,7 @@ function AdminPage() {
   const crearVenta = async () => {
     try {
       await axios.post(
-        "http://localhost:8080/api/ventas",
+        "https://api.invitarly.com/api/ventas",
         {
           clienteNombre: nuevoCliente,
           estado: nuevoEstado
@@ -65,7 +68,7 @@ function AdminPage() {
   const cambiarEstado = async (ventaId, estado) => {
     try {
       await axios.put(
-        `http://localhost:8080/api/ventas/${ventaId}/estado`,
+        `https://api.invitarly.com/api/ventas/${ventaId}/estado`,
         { estado },
         getAxiosConfig()
       );
@@ -81,7 +84,7 @@ function AdminPage() {
     try {
       // DELETE /api/ventas/{id}
       await axios.delete(
-        `http://localhost:8080/api/ventas/${ventaId}`,
+        `https://api.invitarly.com/api/ventas/${ventaId}`,
         getAxiosConfig()
       );
       // Actualizamos la lista
@@ -93,7 +96,16 @@ function AdminPage() {
   };
 
   if (necesitaToken && !token) {
-    return <div>Necesitas iniciar sesión para ver esta página</div>;
+    return (
+      <div>
+        {/* Mostrar el modal de inicio de sesión */}
+        <LoginModal onLoginSuccess={(newToken) => {
+          localStorage.setItem("token", newToken);
+          setToken(newToken);
+          setShowLoginModal(false);
+        }} />
+      </div>
+    );
   }
 
   return (

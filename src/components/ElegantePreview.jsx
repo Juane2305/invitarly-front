@@ -3,7 +3,6 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 
 import Countdown from "./Countdown";
-import Lugares from "./Lugares";
 import { FocusCardsDemo } from "./FocusCardsDemo";
 import MusicPlayer from "./MusicPlayer";
 import InstagramWall from "./InstagramWall";
@@ -13,7 +12,8 @@ import DatosBancarios from "./DatosBancarios";
 import Asistencia from "./Asistencia";
 import Footer from "./Footer";
 import TextoFinal from "./TextoFinal";
-import decoracionElegante from "../assets/decoracionElegante.svg";
+import LugaresLineal from "./LugaresLineal";
+import DressCodeElegante from "./DressCodeElegante";
 
 const ElegantePreview = () => {
   const [funcionalidades, setFuncionalidades] = useState([]);
@@ -29,7 +29,9 @@ const ElegantePreview = () => {
         return;
       }
       try {
-        const response = await axios.get(`http://localhost:8080/api/planes/${nombrePlan}/funcionalidades`);
+        const response = await axios.get(
+          `https://api.invitarly.com/api/planes/${nombrePlan}/funcionalidades`
+        );
         setFuncionalidades(response.data);
       } catch (err) {
         console.error("Error al cargar las funcionalidades:", err);
@@ -79,33 +81,54 @@ const ElegantePreview = () => {
       )}
 
       {/* Sección inicial */}
-      <div className="flex flex-col justify-center items-center h-screen w-full text-center bg-gradient-to-b from-[#1E1E1E] to-[#505050] font-eleganteTitle relative space-y-5">
-        {/* Decoración SVG */}
-        <img
-          src={decoracionElegante}
-          alt="Decoración elegante"
-          className="absolute top-56 left-1/2 transform -translate-x-1/2 w-[500px] opacity-90"
-        />
+      <div className="flex flex-col justify-center items-center h-screen w-full text-center bg-fondo-elegante bg-center bg-cover font-eleganteText relative space-y-5">
+        <p className="text-white text-xl">
+          Estás cordialmente invitado/a <br /> al casamiento de
+        </p>
+        <h1 className="text-4xl md:text-8xl font-eleganteTitle text-white z-10 italic">
+          Francisco & María
+        </h1>
+        <div className="flex items-center justify-center py-6 px-4">
+      <div className="relative border-t-2 border-b-2 border-dotted border-gold w-full max-w-lg flex flex-col items-center">
+        {/* Línea superior */}
+        <div className="absolute top-0 left-0 right-0 border-t-2 border-dotted mb-4 border-gold"></div>
 
-        <h1 className="text-4xl md:text-6xl text-white z-10 italic">Francisco y María</h1>
-        <div className="space-y-3">
-          <h2 className="leading-3 text-white text-xl md:text-3xl">¡Nos casamos!</h2>
-          <p className="leading-3 text-white text-xl md:text-3xl italic">6 de abril de 2025</p>
+        <div className="flex justify-between items-center w-full px-4 py-2 text-gold font-semibold text-lg tracking-wider relative">
+          <span className="mr-2 text-2xl">DOM</span>
+          
+          {/* Línea divisoria izquierda */}
+          <div className="border-l-4 border-dotted border-gold h-16 mt-2 mx-5"></div>
+
+          <span className="text-2xl font-light"><span className="text-5xl">06</span><br />ABR</span>
+
+          {/* Línea divisoria derecha */}
+          <div className="border-l-4 border-dotted border-gold h-16 mt-2 mx-5"></div>
+
+          <span className="ml-2 text-2xl">13 HS</span>
         </div>
+
+        {/* Línea inferior */}
+        <div className="absolute bottom-0 left-0 right-0 border-t-2 border-dotted border-gold mt-4"></div>
+      </div>
+    </div>
       </div>
 
       {/* Plantilla dinámica */}
       <div>
         {/* Contador */}
         {funcionalidades.includes("cuentaRegresiva") && (
-          <section id="contador" className="bg-[#2C2C2C] text-[#D4AF37] py-10 border-b-2 border-[#D4AF37]">
-            <Countdown containerClasses="w-full flex flex-col items-center justify-center gap-y-5 text-[#D4AF37]" />
+          <section
+            id="contador"
+            className="bg-white py-10 border-4 border-gold"
+          >
+            <Countdown containerClasses="w-full flex flex-col items-center justify-center gap-y-5 text-gold" />
           </section>
         )}
 
         {/* Lugares */}
-        <section id="lugares" className="py-10 border-b-2 border-[#D4AF37]">
-          <Lugares />
+        <section id="lugares" className="py-10 border-y-2 border-gold bg-[#171717] text-center">
+          <h2 className="text-gold text-4xl">Itinerario</h2>
+          <LugaresLineal />
           <div className="flex justify-center items-center">
             <a
               href="https://maps.app.goo.gl/4XyzMRjyujMSjckK7"
@@ -113,7 +136,7 @@ const ElegantePreview = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <button className="border-2 border-[#D4AF37] py-3 px-8 rounded-full bg-[#F8F5F0] text-[#D4AF37] font-bold hover:bg-[#D4AF37] hover:text-white mt-5 md:mt-10 transition">
+              <button className="border-2 border-[#D4AF37] py-3 px-8 rounded-full bg-[#F8F5F0] text-black  font-bold hover:bg-[#D4AF37] hover:text-white mt-5 md:mt-10 transition">
                 Cómo llegar
               </button>
             </a>
@@ -122,32 +145,34 @@ const ElegantePreview = () => {
 
         {/* Galería de Fotos */}
         {funcionalidades.includes("galeriaFotos") && (
-          <div className="relative my-10 border-b-2 border-[#D4AF37]">
-            <h2 className="text-2xl lg:text-3xl text-[#D4AF37] font-serif text-center mb-6">
-              Nuestra Historia
-            </h2>
+          <div className="relative py-10 border-b-2 border-[#D4AF37] bg-white text-gold">
             <FocusCardsDemo />
           </div>
         )}
-        {funcionalidades.includes("instagramWall") && <InstagramWall />}
+        {funcionalidades.includes("instagramWall") && (
+          <div className="bg-white border-dotted border-b-4 border-gold">
+            <InstagramWall userClass="text-gold" logoClass='text-gold'/>
+          </div>
+        )}
         {funcionalidades.includes("calendario") && (
-          <div className="bg-principal-light text-center relative">
-            <GoogleCalendarButton />
+          <div className="bg-white text-center relative">
+            <GoogleCalendarButton imgClass="text-gold"/>
           </div>
         )}
 
         {/* Dress Code */}
         {funcionalidades.includes("dressCode") && (
-          <div className="relative my-10 border-b-2 border-[#D4AF37]">
-            <DressCode />
+          <div className="">
+            <DressCodeElegante />
           </div>
         )}
 
         {/* Datos Bancarios */}
         {funcionalidades.includes("datosBancarios") && (
           <DatosBancarios
+            claseIcon="text-gold"
             claseContenedor="bg-[#F8F5F0] text-[#1E1E1E]"
-            claseBoton="hover:bg-[#D4AF37] hover:text-white transform transition-transform duration-300 ease-in-out font-semibold"
+            claseBoton="hover:bg-[#D4AF37] hover:text-white transform transition-transform duration-300 ease-in-out font-semibold border-gold"
             textSize="text-lg"
           />
         )}
@@ -155,13 +180,16 @@ const ElegantePreview = () => {
         {/* Confirmación de Asistencia */}
         {funcionalidades.includes("confirmacionAsistencia") && (
           <Asistencia
-            clase="py-10 bg-[#2C2C2C] bg-fixed"
-            claseButton="border-2 border-[#D4AF37] font-semibold hover:bg-[#D4AF37] hover:text-white"
+            clase="py-10 bg-[#171717] bg-fixed"
+            claseTitle="text-gold"
+            claseButton="border-2 border-[#D4AF37] font-semibold hover:bg-[#D4AF37] text-white"
           />
         )}
 
         {/* Texto Final */}
-        <TextoFinal />
+        <div className="font-eleganteTitle text-4xl">
+          <TextoFinal />  
+        </div>
 
         {/* Footer */}
         <Footer />

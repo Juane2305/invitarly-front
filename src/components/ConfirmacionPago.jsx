@@ -85,7 +85,7 @@ const ConfirmacionPago = () => {
     try {
       console.log("Payload a enviar:", payload);
       const response = await axios.post(
-        `http://localhost:8080/api/pagos/crear-preferencia?plan=${nombrePlan}&plantilla=${nombrePlantilla}`,
+        `https://api.invitarly.com/api/pagos/crear-preferencia?plan=${nombrePlan}&plantilla=${nombrePlantilla}`,
         payload,
         {
           headers: {

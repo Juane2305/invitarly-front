@@ -35,7 +35,7 @@ const VintagePreview = () => {
       }
       try {
         const response = await axios.get(
-          `http://localhost:8080/api/planes/${nombrePlan}/funcionalidades`
+          `https://api.invitarly.com/api/planes/${nombrePlan}/funcionalidades`
         );
         setFuncionalidades(response.data);
       } catch (err) {
@@ -62,6 +62,9 @@ const VintagePreview = () => {
 
   return (
     <div className="w-full font-vintageText relative overflow-hidden bg-[#FAF3E0]">
+      {/* ✅ Fondo Fijo (Reemplazo de bg-fixed) */}
+      <div className="fixed inset-0 -z-10 bg-[url('/img/fondo.jpg')] bg-cover bg-center"></div>
+
       {/* Botones fijos */}
       <div className="fixed top-4 right-4 z-50">
         <button
@@ -87,22 +90,23 @@ const VintagePreview = () => {
         </div>
       )}
 
-      {/* Sección inicial con fondo vintage y decoraciones */}
-      <div className="flex flex-col justify-center items-center h-screen w-full text-center bg-fondo-elegante bg-fixed bg-cover bg-no-repeat bg-center border-b-2 border-[#D4AF37] relative">
+      {/* Sección inicial SIN bg-fixed, usando relative */}
+      <div className="flex flex-col justify-center items-center h-screen w-full text-center bg-fondo-vintage bg-cover bg-no-repeat bg-center md:bg-fixed border-b-2 border-[#D4AF37] relative">
         <img
           src={nombres}
           alt="Nombres de los novios"
-          className="w-[1200px] lg:w-[700px] relative z-10"
+          className="w-[400px] md:w-[500px] lg:w-[700px] relative z-10"
         />
+        {/* Hojas decorativas - solo en desktop */}
         <img
           src={hojasVerdes}
-          alt="Decoración"
-          className="hidden lg:block absolute left-[-50px] top-1/2 transform -translate-y-1/2 w-36 lg:w-48 opacity-70"
+          alt="Decoración izquierda"
+          className="hidden sm:block absolute left-[-50px] top-1/2 transform -translate-y-1/2 w-36 lg:w-48 opacity-70"
         />
         <img
           src={hojasVerdes2}
-          alt="Decoración"
-          className="hidden lg:block absolute right-[-50px] top-1/2 transform -translate-y-1/2 w-36 lg:w-48 opacity-70"
+          alt="Decoración derecha"
+          className="hidden sm:block absolute right-[-50px] top-1/2 transform -translate-y-1/2 w-36 lg:w-48 opacity-70"
         />
       </div>
 
@@ -113,10 +117,7 @@ const VintagePreview = () => {
             id="contador"
             className="bg-[#A3B18A] text-white py-10 border-b-2 border-[#D4AF37]"
           >
-              <CountdownVintage
-                targetDate={targetDate}
-                containerClasses="my-8"
-              />
+            <CountdownVintage targetDate={targetDate} containerClasses="my-8" />
           </section>
         )}
         <section id="lugares" className="py-10 border-b-2 border-[#D4AF37]">

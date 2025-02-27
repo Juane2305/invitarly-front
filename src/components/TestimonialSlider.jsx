@@ -1,70 +1,81 @@
 import { useState } from "react";
+import { FaStar } from "react-icons/fa";
 
 const testimonials = [
   {
-    name: "Sofía Martínez",
-    role: "Novia",
+    name: "Sofía M.",
     comment:
-      "Invitarly nos facilitó todo. Las invitaciones digitales fueron un éxito y los formularios de confirmación nos ayudaron a organizarnos.",
-    image: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735861470/Dise%C3%B1o_sin_t%C3%ADtulo_9_qoetdk.png",
+      "Invitarly nos facilitó todo. Las invitaciones de casamiento fueron un éxito y el formulario de confirmación nos ayudó a organizarnos.",
+    stars: 5,
   },
   {
-    name: "Juan Gómez",
-    role: "Cumpleañero",
+    name: "Juan G.",
     comment:
-      "¡Increíble experiencia! Pude personalizar las invitaciones como quería y mis invitados las amaron. Súper recomendable.",
-    image: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735861226/Dise%C3%B1o_sin_t%C3%ADtulo_8_y8tpzg.jpg",
+      "¡Increíble experiencia! Pude personalizar las invitaciones de casamiento como quería y mis invitados las amaron. Súper recomendable.",
+    stars: 5,
   },
   {
-    name: "Valeria Pérez",
-    role: "Madre de quinceañera",
+    name: "Valeria P.",
     comment:
-      "La fiesta de mi hija fue inolvidable, y todo empezó con Invitarly. Las invitaciones digitales fueron elegantes y modernas.",
-    image: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735881571/Dise%C3%B1o_sin_t%C3%ADtulo_11_tqz5lf.png",
+      "Nuestra boda fue inolvidable, y todo empezó con Invitarly. Las invitaciones de casamiento fueron elegantes y modernas.",
+    stars: 5,
   },
   {
-    name: "Mariano López",
-    role: "Padre de egresado",
+    name: "Mariano L.",
     comment:
-      "Gracias a Invitarly, pudimos coordinar la fiesta de egresados de mi hijo sin problemas. Las invitaciones eran modernas y fáciles de compartir.",
-    image: "https://res.cloudinary.com/demo/image/upload/v1693200000/mariano.jpg",
+      "Gracias a Invitarly, pudimos coordinar la boda de mi hijo sin problemas. Las invitaciones de casamiento eran fáciles de compartir y lucían geniales.",
+    stars: 4,
   },
   {
-    name: "Luciana Fernández",
-    role: "Organizadora de eventos",
+    name: "Luciana F.",
     comment:
-      "Usé Invitarly para varias fiestas que organicé y fue un cambio total. A mis clientes les encanta la flexibilidad y el diseño de las invitaciones.",
-    image: "https://res.cloudinary.com/demo/image/upload/v1693200000/luciana.jpg",
+      "Usé Invitarly para nuestras invitaciones de casamiento y fue un gran acierto. La flexibilidad y el diseño conquistaron a todos.",
+    stars: 5,
   },
   {
-    name: "Carlos Méndez",
-    role: "Anfitrión de evento corporativo",
+    name: "Carlos M.",
     comment:
-      "Nuestro evento empresarial necesitaba invitaciones modernas y profesionales. Invitarly fue la solución perfecta, y todos quedaron impresionados.",
-    image: "https://res.cloudinary.com/demo/image/upload/v1693200000/carlos.jpg",
+      "Necesitaba invitaciones de casamiento modernas y profesionales. Invitarly fue la solución perfecta, y todos quedaron impresionados.",
+    stars: 4,
   },
   {
-    name: "Julieta Castro",
-    role: "Madre de mellizos",
+    name: "Julieta E.",
     comment:
-      "Las invitaciones para el cumpleaños de mis mellizos fueron perfectas. Poder incluir mapas y confirmaciones online nos ahorró mucho tiempo.",
-    image: "https://res.cloudinary.com/demo/image/upload/v1693200000/julieta.jpg",
+      "Las invitaciones de casamiento fueron perfectas. Poder incluir mapas y confirmaciones online nos ahorró mucho tiempo.",
+    stars: 5,
   },
   {
-    name: "Federico Arias",
-    role: "Novio",
+    name: "Federico A.",
     comment:
       "Quería algo único para nuestras invitaciones de casamiento, y Invitarly nos dio justo eso. Todos quedaron fascinados.",
-    image: "https://res.cloudinary.com/demo/image/upload/v1693200000/federico.jpg",
+    stars: 5,
   },
   {
-    name: "Paula Giménez",
-    role: "Quinceañera",
+    name: "Paula G.",
     comment:
-      "Gracias a Invitarly pude compartir mis invitaciones con mis amigos fácilmente. Los diseños eran modernos y totalmente personalizados.",
-    image: "https://res.cloudinary.com/demo/image/upload/v1693200000/paula.jpg",
-  }
+      "Gracias a Invitarly pude compartir mis invitaciones de casamiento con amigos y familia de forma fácil. Los diseños eran modernos y personalizados.",
+    stars: 5,
+  },
 ];
+
+// Componente auxiliar para mostrar las estrellas
+function StarRating({ rating }) {
+  // Creamos un array de 5 posiciones, y según el rating mostramos estrellas llenas o vacías
+  const totalStars = 5;
+  return (
+    <div className="flex justify-center mb-4">
+      {Array.from({ length: totalStars }, (_, i) => (
+        <FaStar
+          key={i}
+          className={`mx-1 ${
+            i < rating ? "text-yellow-400" : "text-gray-300"
+          }`}
+          size={20}
+        />
+      ))}
+    </div>
+  );
+}
 
 const TestimonialSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -87,13 +98,15 @@ const TestimonialSlider = () => {
         prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1
       );
       setFadeIn(true); // Inicia animación de entrada
-    }, 300); // Duración de la animación
+    }, 300);
   };
+
+  const currentTestimonial = testimonials[currentIndex];
 
   return (
     <section className="bg-white py-16">
       <div className="container mx-auto px-6">
-        <h2 className="text-3xl font-bold text-gray-800 text-center mb-8">
+        <h2 className="text-3xl font-bold text-gray-800 text-center mb-10">
           Lo que dicen nuestros clientes
         </h2>
         <div className="relative flex items-center justify-center">
@@ -104,18 +117,13 @@ const TestimonialSlider = () => {
                 fadeIn ? "opacity-100" : "opacity-0"
               }`}
             >
-              <img
-                src={testimonials[currentIndex].image}
-                alt={testimonials[currentIndex].name}
-                className="w-20 h-20 mx-auto rounded-full mb-4 border-2 border-gray-300 shadow-md"
-              />
+              {/* Reemplazamos la imagen por las estrellas */}
+              <StarRating rating={currentTestimonial.stars} />
+
               <h3 className="text-lg font-semibold text-gray-700 mb-1">
-                {testimonials[currentIndex].name}
+                {currentTestimonial.name}
               </h3>
-              <p className="text-sm text-gray-500 italic mb-3">
-                {testimonials[currentIndex].role}
-              </p>
-              <p className="text-gray-600">{testimonials[currentIndex].comment}</p>
+              <p className="text-gray-600 px-9 md:px-0">{currentTestimonial.comment}</p>
             </div>
           </div>
 

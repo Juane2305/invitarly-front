@@ -8,8 +8,8 @@ const PlantillasSection = () => {
 
   const plantillas = [
     { nombre: "Moderna", descripcion: "Plantilla moderna y elegante", imagen: "https://res.cloudinary.com/dfschbyq2/image/upload/v1736810918/Disen%CC%83o_sin_ti%CC%81tulo_2_hlydij.png" },
-    { nombre: "Vintage", descripcion: "Plantilla con estilo clásico", imagen: "https://res.cloudinary.com/dfschbyq2/image/upload/v1736946812/0cbb8523-5c02-4114-bed2-4e26ef2b7fff.png" },
-    { nombre: "Elegante", descripcion: "Plantilla con diseño sofisticado", imagen: "https://res.cloudinary.com/dfschbyq2/image/upload/v1736966053/4d0944bf-da3f-4720-9547-4d55b8b5e838.png" },
+    { nombre: "Vintage", descripcion: "Plantilla con estilo clásico", imagen: "https://res.cloudinary.com/dfschbyq2/image/upload/v1739397760/405d2bfd-435f-4f5c-a5df-831413b7d2e8.png" },
+    { nombre: "Elegante", descripcion: "Plantilla con diseño sofisticado", imagen: "https://res.cloudinary.com/dfschbyq2/image/upload/v1739540975/3bb55ba3-51a6-4701-9927-9ce52bc3d67a_v4buja.jpg" },
   ];
 
   const handleNavigateToPlantilla = (nombrePlantilla) => {

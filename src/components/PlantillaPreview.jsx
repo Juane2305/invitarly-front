@@ -30,7 +30,7 @@ const PlantillaPreview = () => {
       }
   
       try {
-        const response = await axios.get(`http://localhost:8080/api/planes/${nombrePlan}/funcionalidades`);
+        const response = await axios.get(`https://api.invitarly.com/api/planes/${nombrePlan}/funcionalidades`);
         setFuncionalidades(response.data);
       } catch (err) {
         console.error("Error al cargar las funcionalidades:", err);
@@ -99,14 +99,23 @@ const PlantillaPreview = () => {
             />
           </section>
         )}
-        <section id="lugares" className="relative">
+        <section id="lugares" className="relative text-center">
           <Lugares />
+          <a
+              href="https://maps.app.goo.gl/4XyzMRjyujMSjckK7"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className="border-2 border-gray-700 my-5 py-3 px-8 rounded-full text-gray-800 font-semibold hover:text-gray-600 transition">
+                CÓMO LLEGAR
+              </button>
+            </a>
         </section>
         {funcionalidades.includes("galeriaFotos") && <FocusCardsDemo />}
         {funcionalidades.includes("instagramWall") && <InstagramWall />}
         {funcionalidades.includes("calendario") && (
-          <div className="bg-principal-light text-center relative">
-            <GoogleCalendarButton />
+          <div className="bg-principal-light text-center text-white relative">
+            <GoogleCalendarButton imgClass="text-white" buttonClass="hover:bg-white hover:text-gray-800"/>
           </div>
         )}
         {funcionalidades.includes("dressCode") && (
@@ -117,14 +126,14 @@ const PlantillaPreview = () => {
         {funcionalidades.includes("datosBancarios") && (
           <DatosBancarios
             claseContenedor="bg-principal-light text-white"
-            claseBoton="hover:bg-white hover:text-gray-800 transform transition-transform duration-300 ease-in-out font-semibold"
+            claseBoton="border-2 py-3 px-6 rounded-full hover:bg-white hover:text-gray-800 transform transition-transform duration-300 ease-in-out font-semibold"
             textSize="text-lg"
           />
         )}
         {funcionalidades.includes("confirmacionAsistencia") && (
           <Asistencia
             clase="py-10 bg-fondo-tela bg-fixed"
-            claseButton="border-2 border-gray-800 font-semibold hover:border-gray-200 hover:bg-white hover:text-gray:800"
+            claseButton="border-2 py-3 px-6 rounded-full border-gray-800 font-semibold hover:border-gray-700 hover:bg-white hover:text-gray:800"
           />
         )}
         <TextoFinal />

@@ -31,7 +31,7 @@ export const Modal = ({claseBoton}) => {
   return (
     <>
       <button
-        className={`py-4 px-6 border-2 rounded-lg mt-5 transform transition-transform duration-300 ease-in-out hover:transition hover:scale-105 hover:shadow-lg ${claseBoton}`} data-aos= 'fade-up'
+        className={`py-4 px-6 border-2 mt-5 transition transform duration-300 ease-in-out hover:transition hover:scale-105 hover:shadow-lg ${claseBoton}`} data-aos= 'fade-up'
         onClick={() => setIsOpen(true)}
       >
         Ver Datos Bancarios

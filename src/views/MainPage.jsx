@@ -9,7 +9,7 @@ import FAQSection from '../components/FAQSection'
 import Footer from '../components/Footer'
 import ContactSection from '../components/ContactSection'
 
-export const MainPage = () => {
+const MainPage = () => {
   return (
     <div>
         <Header/>
@@ -25,3 +25,5 @@ export const MainPage = () => {
     </div>
   )
 }
+
+export default MainPage;

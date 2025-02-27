@@ -6,7 +6,7 @@ import 'aos/dist/aos.css';
 import { CiGift } from "react-icons/ci";
 
 
-const DatosBancarios = ({claseContenedor, claseBoton, textSize}) => {
+const DatosBancarios = ({claseContenedor, claseBoton, textSize, claseIcon}) => {
 
   useEffect(() => {
     AOS.init({
@@ -18,7 +18,7 @@ const DatosBancarios = ({claseContenedor, claseBoton, textSize}) => {
 
   return (
     <div className={`mt-20 flex flex-col justify-center items-center py-20 gap-y-5 ${claseContenedor}`}>
-        <CiGift className='size-32'/>
+        <CiGift className={`size-32 ${claseIcon}`}/>
         <div className={`flex flex-col items-center justify-center`}>
           <p className={`text-center px-5 md:px-0 ${textSize}`} data-aos= 'fade-up'>Si deseás hacernos un regalo te dejamos nuestros datos</p>
           <Modal claseBoton={claseBoton}/>

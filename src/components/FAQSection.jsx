@@ -19,7 +19,7 @@ const faqs = [
   {
     question: "¿Cómo gestiono la lista de invitados?",
     answer:
-      "Nuestro sistema te permite administrar y actualizar la lista de invitados en tiempo real, facilitando el seguimiento.",
+      "La lista de invitados se actualiza en tiempo real y se puede exportar a excel, facilitando el seguimiento.",
   },
 ];
 
@@ -31,7 +31,7 @@ const FAQSection = () => {
   };
 
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-100">
+    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-100" id="faq">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
           Preguntas Frecuentes
