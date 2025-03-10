@@ -1,10 +1,7 @@
 import React, { useState, useEffect, Suspense } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import PlantillasSection from "./components/PlantillasSection";
-import PlantillaPreview from "./components/PlantillaPreview";
-import VintagePreview from "./components/VintagePreview";
-import ElegantePreview from "./components/ElegantePreview";
-import ConfirmacionPago from "./components/ConfirmacionPago"; 
+import ConfirmacionPago from "./components/ConfirmacionPago";
 import PagoExitoso from "./components/PagoExitoso";
 import PagoPendiente from "./components/PagoPendiente";
 import PagoFallido from "./components/PagoFallido";
@@ -12,31 +9,52 @@ import AdminPage from "./components/AdminPage";
 import Spinner from "./components/Spinner";
 import WhatsAppFloatingButton from "./components/WhatsappFloatingButton";
 
-const MainPage = React.lazy(() => import("./views/MainPage"))
+// Importa tu map de componentes
+import { plantillasComponentsMap } from "./components/plantillasComponentsMap";
+
+// Carga diferida del MainPage
+const MainPage = React.lazy(() => import("./views/MainPage"));
+
+// (Opcional) Un componente simple para cuando no exista la plantilla en el map
+function NotFound() {
+  return <div className="text-center mt-20">Plantilla no encontrada</div>;
+}
+
+// Este componente intermedio decide qué plantilla renderizar
+function PlantillaRouter() {
+  const { nombrePlan, idPlantilla } = useParams();
+
+  const ComponentePlantilla = plantillasComponentsMap[idPlantilla] || NotFound;
+
+  // Pasamos `nombrePlan` como prop, por si cada plantilla la necesita
+  return <ComponentePlantilla nombrePlan={nombrePlan} />;
+}
 
 function App() {
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simula una carga. Reemplaza esto por la lógica real de carga de datos o de tu app.
     const timer = setTimeout(() => {
       setLoading(false);
     }, 2500);
-
     return () => clearTimeout(timer);
   }, []);
 
+  if (loading) {
+    return <Spinner />;
+  }
+
   return (
     <BrowserRouter>
-      <Suspense fallback={Spinner}>
+      <Suspense fallback={<Spinner />}>
         <Routes>
           <Route path="/" element={<MainPage />} />
+
           <Route path="/plantillas/:nombrePlan" element={<PlantillasSection />} />
-          <Route path="/plantilla/:nombrePlan/moderna" element={<PlantillaPreview />} />
-          <Route path="/plantilla/:nombrePlan/vintage" element={<VintagePreview />} />
-          <Route path="/plantilla/:nombrePlan/elegante" element={<ElegantePreview />} />
-          {/* Nueva ruta para la página de confirmación de pago */}
+
+          
+          <Route path="/plantilla/:nombrePlan/:idPlantilla" element={<PlantillaRouter />} />
+
           <Route
             path="/confirmacion-pago/:nombrePlan/:nombrePlantilla"
             element={<ConfirmacionPago />}
@@ -46,7 +64,7 @@ function App() {
           <Route path="/pago-fallido" element={<PagoFallido />} />
           <Route path="/admin" element={<AdminPage />} />
         </Routes>
-        <WhatsAppFloatingButton/>
+        <WhatsAppFloatingButton />
       </Suspense>
     </BrowserRouter>
   );

@@ -16,7 +16,7 @@ import DressCodeElegante from "./DressCodeElegante";
 import Loader from './Loader'
 import GalleryElegante from "./GalleryElegante";
 
-const ElegantePreview = () => {
+const TokyoPreview = () => {
   const [funcionalidades, setFuncionalidades] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -50,7 +50,7 @@ const ElegantePreview = () => {
   if (error) return <p>{error}</p>;
 
   const handleSeleccionarPlantilla = () => {
-    navigate(`/confirmacion-pago/${nombrePlan}/elegante`);
+    navigate(`/confirmacion-pago/${nombrePlan}/tokyo`);
   };
 
   const handleVolver = () => {
@@ -190,4 +190,4 @@ const ElegantePreview = () => {
   );
 };
 
-export default ElegantePreview;
+export default TokyoPreview;

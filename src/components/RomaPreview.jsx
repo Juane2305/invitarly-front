@@ -18,7 +18,7 @@ import Loader from './Loader'
 
 
 
-const PlantillaPreview = () => {
+const RomaPreview = () => {
   const [funcionalidades, setFuncionalidades] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -51,7 +51,7 @@ const PlantillaPreview = () => {
   if (error) return <p>{error}</p>;
 
   const handleSeleccionarPlantilla = () => {
-    navigate(`/confirmacion-pago/${nombrePlan}/moderna`);
+    navigate(`/confirmacion-pago/${nombrePlan}/roma`);
   };
 
   const handleVolver = () => {
@@ -147,4 +147,4 @@ const PlantillaPreview = () => {
   );
 };
 
-export default PlantillaPreview;
+export default RomaPreview;

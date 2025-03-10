@@ -21,7 +21,7 @@ import Loader from './Loader'
 import GalleryVintage from "./GalleryVintage";
 
 
-const VintagePreview = () => {
+const BerlinPreview = () => {
   const [funcionalidades, setFuncionalidades] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -56,7 +56,7 @@ const VintagePreview = () => {
   if (error) return <p className="text-center py-10">{error}</p>;
 
   const handleSeleccionarPlantilla = () => {
-    navigate(`/confirmacion-pago/${nombrePlan}/vintage`);
+    navigate(`/confirmacion-pago/${nombrePlan}/berlin`);
   };
 
   const handleVolver = () => {
@@ -184,4 +184,4 @@ const VintagePreview = () => {
   );
 };
 
-export default VintagePreview;
+export default BerlinPreview;
