@@ -96,7 +96,7 @@ const FeaturesSection = () => {
   };
 
   return (
-    <section className="bg-gray-100 py-16">
+    <section className="bg-gray-100 py-16" id="funcionalidades">
       <div className="container mx-auto px-6 text-center">
         <h2 className="text-3xl font-bold text-gray-800 mb-12">
           Todo lo que necesitas para hacer tu invitación inolvidable

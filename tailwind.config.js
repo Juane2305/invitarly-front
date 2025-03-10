@@ -7,13 +7,12 @@ export default {
   theme: {
     extend: {
       backgroundImage:{
-        'fondo-inicio': "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1735597367/eb792da9-32cf-458d-ab1f-b21615d1953a_ieuwqb.jpg')",
-        'fondo-banner': "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1735580470/Agregar_un_t%C3%ADtulo-2_iz5elu.png')",
-        'fondo-moderna': "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1739833177/White_Digitalism_Basic_Simple_Presentation_ut9ade_puh4ph.jpg')",
-        'fondo-tela' : "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1735580470/Agregar_un_t%C3%ADtulo-2_iz5elu.png')",
-        'fondo-vintage' : "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1736862851/Frann_y_Mari_qmysm9.png')",
-        'fondo-vintage': "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1737037828/Disen%CC%83o_Elegante_gem3ut.png')",
-        'fondo-elegante': "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1739401939/dom_3024_x_1960_px_4_dtinwr.jpg')"
+        'fondo-inicio': "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1740754250/eb792da9-32cf-458d-ab1f-b21615d1953a_ieuwqb_1_knpxbq.webp')",
+        'fondo-banner': "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1740754400/Agregar_un_ti%CC%81tulo-2_iz5elu_1_ipw8pe.webp')",
+        'fondo-moderna': "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1740754490/White_Digitalism_Basic_Simple_Presentation_ut9ade_puh4ph_nhvice.webp')",
+        'fondo-vintage' : "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1740755645/Frann_y_Mari_qmysm9_vnvkax.webp')",
+        'fondo-vintage': "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1740755815/Disen%CC%83o_Elegante_gem3ut_xq0rzs.webp')",
+        'fondo-elegante': "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1740756038/dom_3024_x_1960_px_4_dtinwr_nabgfh.webp')"
       },
       animation: {
         fadeIn: 'fadeIn 1s ease-out forwards',
@@ -38,12 +37,12 @@ export default {
         gold: "#c9a660",
       },
       fontFamily: {
-        modernaTitle: ['Montserrat', 'sans-serif'], // Títulos Moderna
-        modernaText: ['Quicksand', 'sans-serif'], // Textos Moderna
-        vintageTitle: ['Playfair Display', 'serif'], // Títulos Vintage
-        vintageText: ['Cormorant Infant', 'serif'], // Textos Vintage
-        eleganteTitle: ['Tangerine', 'cursive'], // Títulos Elegante
-        eleganteText: ['Great Vibes', 'serif'], // Textos Elegante
+        modernaTitle: ['Montserrat', 'sans-serif'], 
+        modernaText: ['Quicksand', 'sans-serif'], 
+        vintageTitle: ['Playfair Display', 'serif'], 
+        vintageText: ['Cormorant Infant', 'serif'], 
+        eleganteTitle: ['Tangerine', 'cursive'], 
+        eleganteText: ['Great Vibes', 'serif'], 
       },
     },
   },

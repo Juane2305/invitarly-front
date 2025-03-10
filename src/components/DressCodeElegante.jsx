@@ -31,7 +31,7 @@ const DressCodeElegante = () => {
         className="text-white text-6xl font-light tracking-wide font-eleganteTitle"
         data-aos="fade-up"
       >
-        Elegante
+        Formal
       </p>
     </section>
   );

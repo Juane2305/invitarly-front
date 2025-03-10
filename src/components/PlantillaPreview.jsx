@@ -14,6 +14,9 @@ import DatosBancarios from "./DatosBancarios";
 import Asistencia from "./Asistencia";
 import Footer from "./Footer";
 import TextoFinal from "./TextoFinal";
+import Loader from './Loader'
+
+
 
 const PlantillaPreview = () => {
   const [funcionalidades, setFuncionalidades] = useState([]);
@@ -23,6 +26,7 @@ const PlantillaPreview = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    window.scrollTo(0, 0); 
     const fetchFuncionalidades = async () => {
       if (!nombrePlan) {
         console.error("El nombre del plan no está definido.");
@@ -43,7 +47,7 @@ const PlantillaPreview = () => {
     fetchFuncionalidades();
   }, [nombrePlan]);
 
-  if (loading) return <p>Cargando plantilla...</p>;
+  if (loading) return <Loader/>;
   if (error) return <p>{error}</p>;
 
   const handleSeleccionarPlantilla = () => {
@@ -80,7 +84,7 @@ const PlantillaPreview = () => {
       )}
 
       {/* Fondo y contenido principal */}
-      <div className="flex flex-col justify-center items-center h-screen w-full text-center bg-fondo-moderna bg-cover bg-no-repeat bg-fixed">
+      <div className="flex flex-col justify-center items-center h-screen w-full text-center bg-fondo-moderna bg-cover bg-no-repeat">
         <img src={nombres} alt="Nombres de los novios" className="" />
       </div>
 
@@ -132,7 +136,7 @@ const PlantillaPreview = () => {
         )}
         {funcionalidades.includes("confirmacionAsistencia") && (
           <Asistencia
-            clase="py-10 bg-fondo-tela bg-fixed"
+            clase="py-10 bg-fondo-banner"
             claseButton="border-2 py-3 px-6 rounded-full border-gray-800 font-semibold hover:border-gray-700 hover:bg-white hover:text-gray:800"
           />
         )}

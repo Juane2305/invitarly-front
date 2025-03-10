@@ -2,7 +2,7 @@ import React from 'react';
 
 const Banner = () => {
   return (
-    <div className="relative h-60 bg-fondo-banner bg-fixed bg-cover bg-center">
+    <div className="relative h-60 bg-fondo-banner bg-cover bg-center">
       {/* Overlay oscuro para mejorar la legibilidad */}
       <div className="absolute inset-0 bg-black opacity-30"></div>
       <div className="relative flex flex-col justify-center items-center h-full px-4">

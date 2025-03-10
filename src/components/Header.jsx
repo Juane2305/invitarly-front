@@ -23,25 +23,25 @@ const Header = () => {
         <nav className="hidden lg:flex space-x-8">
           <a
             href="/"
-            className="text-lg text-gray-800 hover:text-blue-500 transition-colors duration-300 font-serif font-light"
+            className="text-lg text-gray-800 hover:text-principal-dark transition-colors duration-300 font-serif font-light"
           >
             Inicio
           </a>
           <a
             href="#invitaciones"
-            className="text-lg text-gray-800 hover:text-blue-500 transition-colors duration-300 font-serif font-light"
+            className="text-lg text-gray-800 hover:text-principal-dark transition-colors duration-300 font-serif font-light"
           >
             Invitaciones
           </a>
           <a
             href="#planes"
-            className="text-lg text-gray-800 hover:text-blue-500 transition-colors duration-300 font-serif font-light"
+            className="text-lg text-gray-800 hover:text-principal-dark transition-colors duration-300 font-serif font-light"
           >
             Planes
           </a>
           <a
             href="#contacto"
-            className="text-lg text-gray-800 hover:text-blue-500 transition-colors duration-300 font-serif font-light"
+            className="text-lg text-gray-800 hover:text-principal-dark transition-colors duration-300 font-serif font-light"
           >
             Contacto
           </a>

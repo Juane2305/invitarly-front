@@ -7,13 +7,14 @@ import { FocusCardsDemo } from "./FocusCardsDemo";
 import MusicPlayer from "./MusicPlayer";
 import InstagramWall from "./InstagramWall";
 import GoogleCalendarButton from "./GoogleCalendarButton";
-import DressCode from "./DressCode";
 import DatosBancarios from "./DatosBancarios";
 import Asistencia from "./Asistencia";
 import Footer from "./Footer";
 import TextoFinal from "./TextoFinal";
 import LugaresLineal from "./LugaresLineal";
 import DressCodeElegante from "./DressCodeElegante";
+import Loader from './Loader'
+import GalleryElegante from "./GalleryElegante";
 
 const ElegantePreview = () => {
   const [funcionalidades, setFuncionalidades] = useState([]);
@@ -23,6 +24,7 @@ const ElegantePreview = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    window.scrollTo(0, 0); 
     const fetchFuncionalidades = async () => {
       if (!nombrePlan) {
         console.error("El nombre del plan no está definido.");
@@ -44,7 +46,7 @@ const ElegantePreview = () => {
     fetchFuncionalidades();
   }, [nombrePlan]);
 
-  if (loading) return <p>Cargando plantilla elegante...</p>;
+  if (loading) return <Loader/>;
   if (error) return <p>{error}</p>;
 
   const handleSeleccionarPlantilla = () => {
@@ -126,27 +128,17 @@ const ElegantePreview = () => {
         )}
 
         {/* Lugares */}
-        <section id="lugares" className="py-10 border-y-2 border-gold bg-[#171717] text-center">
-          <h2 className="text-gold text-4xl">Itinerario</h2>
-          <LugaresLineal />
-          <div className="flex justify-center items-center">
-            <a
-              href="https://maps.app.goo.gl/4XyzMRjyujMSjckK7"
-              data-aos="fade-up"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <button className="border-2 border-[#D4AF37] py-3 px-8 rounded-full bg-[#F8F5F0] text-black  font-bold hover:bg-[#D4AF37] hover:text-white mt-5 md:mt-10 transition">
-                Cómo llegar
-              </button>
-            </a>
+          <div className="bg-[#171717]">
+            <div data-aos="fade-up">
+              <LugaresLineal />
+            </div>
           </div>
-        </section>
+        
 
         {/* Galería de Fotos */}
         {funcionalidades.includes("galeriaFotos") && (
           <div className="relative py-10 border-b-2 border-[#D4AF37] bg-white text-gold">
-            <FocusCardsDemo />
+            <GalleryElegante />
           </div>
         )}
         {funcionalidades.includes("instagramWall") && (
@@ -156,7 +148,7 @@ const ElegantePreview = () => {
         )}
         {funcionalidades.includes("calendario") && (
           <div className="bg-white text-center relative">
-            <GoogleCalendarButton imgClass="text-gold"/>
+            <GoogleCalendarButton imgClass="text-gold" buttonClass="border-gold"/>
           </div>
         )}
 

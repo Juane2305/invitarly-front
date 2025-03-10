@@ -23,7 +23,7 @@ const GoogleCalendarButton = ({imgClass, titleClass, buttonClass}) => {
         href={googleCalendarUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className={`border-2 py-3 px-6 rounded-full hover:transition  uppercase ${buttonClass}`}
+        className={`border-2 py-3 px-6 hover:transition  uppercase ${buttonClass}`}
         >
         Agregar al Calendario
       </a>

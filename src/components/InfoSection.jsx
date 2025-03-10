@@ -79,7 +79,7 @@ const InfoSection = () => {
           </p>
           <div className="flex justify-center md:justify-start">
             <a
-              href="#contacto"
+              href="#funcionalidades"
               className="inline-block border border-black py-3 px-8 rounded-full transition duration-300 ease-in-out hover:bg-black hover:text-white"
             >
               Conocer más

@@ -9,7 +9,7 @@ import { FocusCardsDemo } from "./FocusCardsDemo";
 import MusicPlayer from "./MusicPlayer";
 import InstagramWall from "./InstagramWall";
 import GoogleCalendarButton from "./GoogleCalendarButton";
-import DressCode from "./DressCode";
+import DressCodeVintage from "./DressCodeVintage";
 import DatosBancarios from "./DatosBancarios";
 import Asistencia from "../components/Asistencia";
 import Footer from "./Footer";
@@ -17,6 +17,9 @@ import TextoFinal from "./TextoFinal";
 import hojasVerdes from "../assets/hojasVerdes.svg";
 import hojasVerdes2 from "../assets/hojasVerdes2.svg";
 import hojasVerdesIzq from "../assets/hojasVerdesIzq.svg";
+import Loader from './Loader'
+import GalleryVintage from "./GalleryVintage";
+
 
 const VintagePreview = () => {
   const [funcionalidades, setFuncionalidades] = useState([]);
@@ -28,6 +31,7 @@ const VintagePreview = () => {
   const targetDate = new Date("2025-04-06T13:00:00-03:00");
 
   useEffect(() => {
+      window.scrollTo(0, 0); 
     const fetchFuncionalidades = async () => {
       if (!nombrePlan) {
         console.error("El nombre del plan no está definido.");
@@ -48,8 +52,7 @@ const VintagePreview = () => {
     fetchFuncionalidades();
   }, [nombrePlan]);
 
-  if (loading)
-    return <p className="text-center py-10">Cargando plantilla vintage...</p>;
+  if (loading) return <Loader/>;
   if (error) return <p className="text-center py-10">{error}</p>;
 
   const handleSeleccionarPlantilla = () => {
@@ -62,10 +65,7 @@ const VintagePreview = () => {
 
   return (
     <div className="w-full font-vintageText relative overflow-hidden bg-[#FAF3E0]">
-      {/* ✅ Fondo Fijo (Reemplazo de bg-fixed) */}
       <div className="fixed inset-0 -z-10 bg-[url('/img/fondo.jpg')] bg-cover bg-center"></div>
-
-      {/* Botones fijos */}
       <div className="fixed top-4 right-4 z-50">
         <button
           onClick={handleSeleccionarPlantilla}
@@ -83,21 +83,18 @@ const VintagePreview = () => {
         </button>
       </div>
 
-      {/* Música */}
       {funcionalidades.includes("musica") && (
         <div className="absolute">
           <MusicPlayer />
         </div>
       )}
 
-      {/* Sección inicial SIN bg-fixed, usando relative */}
       <div className="flex flex-col justify-center items-center h-screen w-full text-center bg-fondo-vintage bg-cover bg-no-repeat bg-center md:bg-fixed border-b-2 border-[#D4AF37] relative">
         <img
           src={nombres}
           alt="Nombres de los novios"
           className="w-[400px] md:w-[500px] lg:w-[700px] relative z-10"
         />
-        {/* Hojas decorativas - solo en desktop */}
         <img
           src={hojasVerdes}
           alt="Decoración izquierda"
@@ -110,7 +107,6 @@ const VintagePreview = () => {
         />
       </div>
 
-      {/* Contenido dinámico */}
       <div className="relative z-10">
         {funcionalidades.includes("cuentaRegresiva") && (
           <section
@@ -136,7 +132,7 @@ const VintagePreview = () => {
         </section>
         {funcionalidades.includes("galeriaFotos") && (
           <section className="relative my-10 pb-10 border-b-2 border-[#D4AF37]">
-            <FocusCardsDemo />
+            <GalleryVintage />
           </section>
         )}
         {funcionalidades.includes("instagramWall") && (
@@ -156,7 +152,7 @@ const VintagePreview = () => {
               alt="Decoración"
               className="absolute left-[-80px] lg:left-[-50px] top-1/2 transform -translate-y-1/2 w-40 lg:w-52 opacity-70"
             />
-            <DressCode />
+            <DressCodeVintage />
             <img
               src={hojasVerdes2}
               alt="Decoración"
@@ -181,7 +177,7 @@ const VintagePreview = () => {
             />
           </section>
         )}
-        <TextoFinal textClass="text-xl" />
+        <TextoFinal textClass="text-xl italic" />
         <Footer />
       </div>
     </div>

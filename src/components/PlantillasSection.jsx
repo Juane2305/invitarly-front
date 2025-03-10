@@ -1,8 +1,14 @@
 import { useParams, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 
 const PlantillasSection = () => {
-  const { nombrePlan } = useParams(); // Captura el parámetro de la URL
+
+  useEffect(() => {
+    window.scrollTo(0, 0); 
+  }, []);
+
+  const { nombrePlan } = useParams(); 
   const navigate = useNavigate();
  
 
