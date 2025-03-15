@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 
+import cancion from '../assets/song.mp3'
 import Countdown from "./Countdown";
-import { FocusCardsDemo } from "./FocusCardsDemo";
 import MusicPlayer from "./MusicPlayer";
 import InstagramWall from "./InstagramWall";
 import GoogleCalendarButton from "./GoogleCalendarButton";
@@ -22,6 +22,8 @@ const TokyoPreview = () => {
   const [error, setError] = useState(null);
   const { nombrePlan } = useParams();
   const navigate = useNavigate();
+
+  const targetDate = new Date("2025-04-06T13:00:00-03:00");
 
   useEffect(() => {
     window.scrollTo(0, 0); 
@@ -78,7 +80,7 @@ const TokyoPreview = () => {
       {/* Música */}
       {funcionalidades.includes("musica") && (
         <div className="absolute z-40">
-          <MusicPlayer />
+          <MusicPlayer cancion={cancion}/>
         </div>
       )}
 
@@ -87,31 +89,11 @@ const TokyoPreview = () => {
         <p className="text-white text-xl">
           Estás cordialmente invitado/a <br /> al casamiento de
         </p>
-        <h1 className="text-4xl md:text-8xl font-eleganteTitle text-white z-10 italic">
+        <h1 className="text-6xl md:text-8xl font-eleganteTitle text-white z-10 italic">
           Francisco & María
         </h1>
-        <div className="flex items-center justify-center py-6 px-4">
-      <div className="relative border-t-2 border-b-2 border-dotted border-gold w-full max-w-lg flex flex-col items-center">
-        {/* Línea superior */}
-        <div className="absolute top-0 left-0 right-0 border-t-2 border-dotted mb-4 border-gold"></div>
-
-        <div className="flex justify-between items-center w-full px-4 py-2 text-gold font-semibold text-lg tracking-wider relative">
-          <span className="mr-2 text-2xl">DOM</span>
-          
-          {/* Línea divisoria izquierda */}
-          <div className="border-l-4 border-dotted border-gold h-16 mt-2 mx-5"></div>
-
-          <span className="text-2xl font-light"><span className="text-5xl">06</span><br />ABR</span>
-
-          {/* Línea divisoria derecha */}
-          <div className="border-l-4 border-dotted border-gold h-16 mt-2 mx-5"></div>
-
-          <span className="ml-2 text-2xl">13 HS</span>
-        </div>
-
-        {/* Línea inferior */}
-        <div className="absolute bottom-0 left-0 right-0 border-t-2 border-dotted border-gold mt-4"></div>
-      </div>
+        <div className="flex items-center justify-center py-6 px-4 border-y-2 border-dashed border-gold">
+        <p className="text-gold italic text-2xl">Domingo, 6 de abril de 2025</p>
     </div>
       </div>
 
@@ -123,39 +105,67 @@ const TokyoPreview = () => {
             id="contador"
             className="bg-white py-10 border-4 border-gold"
           >
-            <Countdown containerClasses="w-full flex flex-col items-center justify-center gap-y-5 text-gold" />
+            <Countdown containerClasses="w-full flex flex-col items-center justify-center gap-y-5 text-gold" targetDate={targetDate}/>
           </section>
         )}
 
         {/* Lugares */}
           <div className="bg-[#171717]">
             <div data-aos="fade-up">
-              <LugaresLineal />
+              <LugaresLineal  borderColor="border-gold" buttonStyle="border-gold text-lg" iglesia="[Nombre Iglesia]" hora_iglesia="10:00hs" salon="[Nombre Salón]" hora_civil="13:00hs" hora_fiesta="15:00hs" link_ceremonia="https://maps.app.goo.gl/LoyZKNsALqYQV3iB8" link_fiesta="https://maps.app.goo.gl/LoyZKNsALqYQV3iB8"/>
             </div>
           </div>
         
 
         {/* Galería de Fotos */}
         {funcionalidades.includes("galeriaFotos") && (
-          <div className="relative py-10 border-b-2 border-[#D4AF37] bg-white text-gold">
-            <GalleryElegante />
+          <div className="relative py-10 bg-white text-black">
+            <GalleryElegante textStyle="text-[#D4AF37]" buttonStyle="bg-[#D4AF37]" images={[
+                {
+                  index: 1,
+                  img: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735527048/Imagen_de_WhatsApp_2024-12-29_a_las_22.57.33_f9f5bf2b_ifsj5l.jpg",
+                },
+                {
+                  index: 2,
+                  img: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735527113/Imagen_de_WhatsApp_2024-12-29_a_las_22.57.32_a25fd1b8_smbhnh.jpg",
+                },
+                {
+                  index: 3,
+                  img: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735526968/Imagen_de_WhatsApp_2024-12-29_a_las_22.57.33_b8874616_i2bcnm.jpg",
+                },
+                {
+                  index: 4,
+                  img: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735508433/Dise%C3%B1o_sin_t%C3%ADtulo_6_xy3ozy.png",
+                },
+                {
+                  index: 5,
+                  img: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735526902/Imagen_de_WhatsApp_2024-12-29_a_las_22.57.33_3d376287_napqll.jpg",
+                },
+                {
+                  index: 6,
+                  img: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735517155/8c881929-3182-4ac1-b38f-90aba216483f.png",
+                },
+              ]}/>
           </div>
         )}
         {funcionalidades.includes("instagramWall") && (
           <div className="bg-white border-dotted border-b-4 border-gold">
-            <InstagramWall userClass="text-gold" logoClass='text-gold'/>
+            <InstagramWall userClass="text-gold" logoClass='text-gold' user="@fran_y_mari"/>
           </div>
         )}
         {funcionalidades.includes("calendario") && (
           <div className="bg-white text-center relative">
-            <GoogleCalendarButton imgClass="text-gold" buttonClass="border-gold"/>
+            <GoogleCalendarButton imgClass="text-gold" buttonClass="border-gold" titleCalendar="Francisco y María"
+              fechaComienzo="20250406T130000"
+              fechaFin="20250407T000000"
+              salon="Nombre del Salón"/>
           </div>
         )}
 
         {/* Dress Code */}
         {funcionalidades.includes("dressCode") && (
           <div className="">
-            <DressCodeElegante />
+            <DressCodeElegante dressCodeText="Formal"/>
           </div>
         )}
 
@@ -166,6 +176,10 @@ const TokyoPreview = () => {
             claseContenedor="bg-[#F8F5F0] text-[#1E1E1E]"
             claseBoton="hover:bg-[#D4AF37] hover:text-white transform transition-transform duration-300 ease-in-out font-semibold border-gold"
             textSize="text-lg"
+            cbu="284529529245"
+            alias="francisco.mp"
+            banco="Nombre Banco"
+            nombre="Francisco Lopez"
           />
         )}
 
@@ -175,12 +189,13 @@ const TokyoPreview = () => {
             clase="py-10 bg-[#171717] bg-fixed"
             claseTitle="text-gold"
             claseButton="border-2 border-[#D4AF37] font-semibold hover:bg-[#D4AF37] text-white"
+            linkAsistencia="https://docs.google.com/forms/d/e/1FAIpQLSeK0vUpx6zegOhIcQr2rRVADqcpoDD4cDYyRSEOkyALbf-Spg/viewform?usp=dialog"
           />
         )}
 
         {/* Texto Final */}
         <div className="font-eleganteTitle text-4xl">
-          <TextoFinal />  
+          <TextoFinal textoFinal="¡Gracias por venir!"/>  
         </div>
 
         {/* Footer */}

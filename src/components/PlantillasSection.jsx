@@ -5,7 +5,7 @@ import plantillas from "../data/plantillasData";
 const categoriasDisponibles = [
   { label: "Todos", value: "todos" },
   { label: "Modernas", value: "moderna" },
-  { label: "Vintage", value: "vintage" },
+  { label: "Clásicas", value: "clasica" },
   { label: "Elegantes", value: "elegante" },
 ];
 

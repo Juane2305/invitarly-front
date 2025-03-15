@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-const Countdown = ( {containerClasses} ) => {
+const Countdown = ( {containerClasses, targetDate} ) => {
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
   useEffect(() => {
@@ -23,7 +23,6 @@ const Countdown = ( {containerClasses} ) => {
   }, [timeLeft]);
 
   function calculateTimeLeft() {
-    const targetDate = new Date("2025-04-06T13:00:00-03:00");
     const now = new Date();
     const difference = targetDate - now;
 

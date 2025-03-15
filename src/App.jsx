@@ -6,27 +6,23 @@ import PagoExitoso from "./components/PagoExitoso";
 import PagoPendiente from "./components/PagoPendiente";
 import PagoFallido from "./components/PagoFallido";
 import AdminPage from "./components/AdminPage";
-import Spinner from "./components/Spinner";
 import WhatsAppFloatingButton from "./components/WhatsappFloatingButton";
 
-// Importa tu map de componentes
 import { plantillasComponentsMap } from "./components/plantillasComponentsMap";
+import Loader from "./components/Loader";
+import InvitacionPage from "./views/InvitacionPage";
 
-// Carga diferida del MainPage
 const MainPage = React.lazy(() => import("./views/MainPage"));
 
-// (Opcional) Un componente simple para cuando no exista la plantilla en el map
 function NotFound() {
   return <div className="text-center mt-20">Plantilla no encontrada</div>;
 }
 
-// Este componente intermedio decide qué plantilla renderizar
 function PlantillaRouter() {
   const { nombrePlan, idPlantilla } = useParams();
 
   const ComponentePlantilla = plantillasComponentsMap[idPlantilla] || NotFound;
 
-  // Pasamos `nombrePlan` como prop, por si cada plantilla la necesita
   return <ComponentePlantilla nombrePlan={nombrePlan} />;
 }
 
@@ -41,12 +37,14 @@ function App() {
   }, []);
 
   if (loading) {
-    return <Spinner />;
+    return <Loader />;
   }
+
+  const hideWhatsAppButton = location.pathname.startsWith("/invitacion/");
 
   return (
     <BrowserRouter>
-      <Suspense fallback={<Spinner />}>
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<MainPage />} />
 
@@ -62,9 +60,10 @@ function App() {
           <Route path="/pago-exitoso" element={<PagoExitoso />} />
           <Route path="/pago-pendiente" element={<PagoPendiente />} />
           <Route path="/pago-fallido" element={<PagoFallido />} />
+          <Route path="/invitacion/:slug" element={<InvitacionPage />} />
           <Route path="/admin" element={<AdminPage />} />
         </Routes>
-        <WhatsAppFloatingButton />
+        {!hideWhatsAppButton && <WhatsAppFloatingButton />}
       </Suspense>
     </BrowserRouter>
   );

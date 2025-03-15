@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
+import cancion from '../assets/song.mp3'
 import nombres from "../assets/nombresInicioVintage.svg";
-import CountdownVintage from "./CountdownCircles";
+import CountdownCircles from "./CountdownCircles";
 import Lugares from "./Lugares";
 import { FocusCardsDemo } from "./FocusCardsDemo";
 import MusicPlayer from "./MusicPlayer";
@@ -17,9 +18,8 @@ import TextoFinal from "./TextoFinal";
 import hojasVerdes from "../assets/hojasVerdes.svg";
 import hojasVerdes2 from "../assets/hojasVerdes2.svg";
 import hojasVerdesIzq from "../assets/hojasVerdesIzq.svg";
-import Loader from './Loader'
+import Loader from "./Loader";
 import GalleryVintage from "./GalleryVintage";
-
 
 const BerlinPreview = () => {
   const [funcionalidades, setFuncionalidades] = useState([]);
@@ -31,7 +31,7 @@ const BerlinPreview = () => {
   const targetDate = new Date("2025-04-06T13:00:00-03:00");
 
   useEffect(() => {
-      window.scrollTo(0, 0); 
+    window.scrollTo(0, 0);
     const fetchFuncionalidades = async () => {
       if (!nombrePlan) {
         console.error("El nombre del plan no está definido.");
@@ -52,7 +52,7 @@ const BerlinPreview = () => {
     fetchFuncionalidades();
   }, [nombrePlan]);
 
-  if (loading) return <Loader/>;
+  if (loading) return <Loader />;
   if (error) return <p className="text-center py-10">{error}</p>;
 
   const handleSeleccionarPlantilla = () => {
@@ -85,26 +85,15 @@ const BerlinPreview = () => {
 
       {funcionalidades.includes("musica") && (
         <div className="absolute">
-          <MusicPlayer />
+          <MusicPlayer cancion={cancion}/>
         </div>
       )}
 
       <div className="flex flex-col justify-center items-center h-screen w-full text-center bg-fondo-vintage bg-cover bg-no-repeat bg-center md:bg-fixed border-b-2 border-[#D4AF37] relative">
-        <img
-          src={nombres}
-          alt="Nombres de los novios"
-          className="w-[400px] md:w-[500px] lg:w-[700px] relative z-10"
-        />
-        <img
-          src={hojasVerdes}
-          alt="Decoración izquierda"
-          className="hidden sm:block absolute left-[-50px] top-1/2 transform -translate-y-1/2 w-36 lg:w-48 opacity-70"
-        />
-        <img
-          src={hojasVerdes2}
-          alt="Decoración derecha"
-          className="hidden sm:block absolute right-[-50px] top-1/2 transform -translate-y-1/2 w-36 lg:w-48 opacity-70"
-        />
+      <h1 className="text-4xl md:text-8xl  text-gold z-10 italic">
+          Francisco & María
+        </h1>
+        <p className="mt-8 text-2xl text-lime-900">06 . 04 . 2025</p>
       </div>
 
       <div className="relative z-10">
@@ -113,11 +102,25 @@ const BerlinPreview = () => {
             id="contador"
             className="bg-[#A3B18A] text-white py-10 border-b-2 border-[#D4AF37]"
           >
-            <CountdownVintage targetDate={targetDate} containerClasses="my-8" />
+            <CountdownCircles
+              targetDate={targetDate}
+              containerClasses="my-8 font-thin"
+              backgroundColor="#e5e7eb" 
+              progressColor="#D4AF37" 
+              textColor="#ffffff" 
+              valueClassName="text-3xl font-bold"
+              labelClassName="text-base font-light"
+            />
           </section>
         )}
         <section id="lugares" className="py-10 border-b-2 border-[#D4AF37]">
-          <Lugares />
+          <Lugares
+          iglesia= "[Nombre Iglesia]"
+          hora_iglesia = "10:00hs"
+          salon= "[Nombre Salón]"
+          hora_civil= "13:00hs"
+          hora_fiesta= "15:00hs"
+          />
           <div className="flex justify-center items-center mt-5">
             <a
               href="https://maps.app.goo.gl/4XyzMRjyujMSjckK7"
@@ -132,17 +135,49 @@ const BerlinPreview = () => {
         </section>
         {funcionalidades.includes("galeriaFotos") && (
           <section className="relative my-10 pb-10 border-b-2 border-[#D4AF37]">
-            <GalleryVintage />
+            <GalleryVintage
+              images={[
+                {
+                  index: 1,
+                  img: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735527048/Imagen_de_WhatsApp_2024-12-29_a_las_22.57.33_f9f5bf2b_ifsj5l.jpg",
+                },
+                {
+                  index: 2,
+                  img: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735527113/Imagen_de_WhatsApp_2024-12-29_a_las_22.57.32_a25fd1b8_smbhnh.jpg",
+                },
+                {
+                  index: 3,
+                  img: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735526968/Imagen_de_WhatsApp_2024-12-29_a_las_22.57.33_b8874616_i2bcnm.jpg",
+                },
+                {
+                  index: 4,
+                  img: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735508433/Dise%C3%B1o_sin_t%C3%ADtulo_6_xy3ozy.png",
+                },
+                {
+                  index: 5,
+                  img: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735526902/Imagen_de_WhatsApp_2024-12-29_a_las_22.57.33_3d376287_napqll.jpg",
+                },
+                {
+                  index: 6,
+                  img: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735517155/8c881929-3182-4ac1-b38f-90aba216483f.png",
+                },
+              ]}
+            />
           </section>
         )}
         {funcionalidades.includes("instagramWall") && (
           <section className="py-10 text-center">
-            <InstagramWall />
+            <InstagramWall user="@fran_y_maria"/>
           </section>
         )}
         {funcionalidades.includes("calendario") && (
           <section className="bg-[#A3B18A] py-10 text-white text-center">
-            <GoogleCalendarButton />
+            <GoogleCalendarButton 
+            titleCalendar="Francisco y María"
+            salon="Nombre Salón"
+            fechaComienzo="20250407T130000"
+            fechaFin="20250406T000000"
+            />
           </section>
         )}
         {funcionalidades.includes("dressCode") && (
@@ -152,7 +187,7 @@ const BerlinPreview = () => {
               alt="Decoración"
               className="absolute left-[-80px] lg:left-[-50px] top-1/2 transform -translate-y-1/2 w-40 lg:w-52 opacity-70"
             />
-            <DressCodeVintage />
+            <DressCodeVintage dress_code="Formal"/>
             <img
               src={hojasVerdes2}
               alt="Decoración"
@@ -163,6 +198,10 @@ const BerlinPreview = () => {
         {funcionalidades.includes("datosBancarios") && (
           <section className="my-10 border-b-2 border-[#D4AF37]">
             <DatosBancarios
+              cbu="235252395902"
+              alias="francisco.mp"
+              banco="Nombre Banco"
+              nombre="Francisco Lopez"           
               claseContenedor="bg-[#FAF3E0] py-10 text-center text-black"
               claseBoton="border-principal-dark text-white bg-principal-dark hover:bg-transparent hover:text-green-900 text-xl"
               textSize="text-xl"
@@ -172,12 +211,13 @@ const BerlinPreview = () => {
         {funcionalidades.includes("confirmacionAsistencia") && (
           <section className="">
             <Asistencia
+              linkAsistencia="https://docs.google.com/forms/d/e/1FAIpQLSeK0vUpx6zegOhIcQr2rRVADqcpoDD4cDYyRSEOkyALbf-Spg/viewform?usp=dialog"
               clase="py-10 bg-[#FAF3E0]"
               claseButton="border-principal-dark text-white bg-principal-dark hover:bg-transparent hover:text-green-900 text-xl border-2 border-principal-dark"
             />
           </section>
         )}
-        <TextoFinal textClass="text-xl italic" />
+        <TextoFinal textClass="text-xl italic" textoFinal="¡Gracias por venir!"/>
         <Footer />
       </div>
     </div>

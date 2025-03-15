@@ -12,7 +12,8 @@ export default {
         'fondo-moderna': "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1740754490/White_Digitalism_Basic_Simple_Presentation_ut9ade_puh4ph_nhvice.webp')",
         'fondo-vintage' : "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1740755645/Frann_y_Mari_qmysm9_vnvkax.webp')",
         'fondo-vintage': "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1740755815/Disen%CC%83o_Elegante_gem3ut_xq0rzs.webp')",
-        'fondo-elegante': "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1740756038/dom_3024_x_1960_px_4_dtinwr_nabgfh.webp')"
+        'fondo-elegante': "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1740756038/dom_3024_x_1960_px_4_dtinwr_nabgfh.webp')",
+        'fondo-verona': "url('https://res.cloudinary.com/dfschbyq2/image/upload/v1741620131/Invitacio%CC%81n_Vertical_Boda_Casamiento_Minimalista_Verde_y_Blanco_dlihnb.jpg')"
       },
       animation: {
         fadeIn: 'fadeIn 1s ease-out forwards',
@@ -43,6 +44,7 @@ export default {
         vintageText: ['Cormorant Infant', 'serif'], 
         eleganteTitle: ['Tangerine', 'cursive'], 
         eleganteText: ['Great Vibes', 'serif'], 
+        brushNames: ["Marck Script", 'cursive']
       },
     },
   },

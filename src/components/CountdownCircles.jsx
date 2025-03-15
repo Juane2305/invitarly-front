@@ -1,7 +1,19 @@
 import React, { useState, useEffect } from "react";
 
-const CountdownVintage = ({ targetDate, containerClasses = "" }) => {
-  // Función para calcular el tiempo restante
+const CountdownCircles = ({
+  targetDate,
+  containerClasses = "",
+  // Color del círculo de fondo
+  backgroundColor = "#e5e7eb",
+  // Color del círculo de progreso
+  progressColor = "#D4AF37",
+  // Color del texto
+  textColor = "#ffffff",
+
+  // Clases de Tailwind (o CSS) para los textos
+  valueClassName = "text-2xl font-bold",
+  labelClassName = "text-sm",
+}) => {
   const calculateTimeLeft = () => {
     const now = new Date();
     const difference = targetDate - now;
@@ -18,16 +30,15 @@ const CountdownVintage = ({ targetDate, containerClasses = "" }) => {
   };
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-  // Guardamos el total de días al iniciar (para calcular el porcentaje en "Días")
   const [maxDays, setMaxDays] = useState(timeLeft ? timeLeft.days : 0);
 
   useEffect(() => {
     if (timeLeft) setMaxDays(timeLeft.days);
     const timer = setInterval(() => {
-      const newTime = calculateTimeLeft();
-      setTimeLeft(newTime);
+      setTimeLeft(calculateTimeLeft());
     }, 1000);
     return () => clearInterval(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!timeLeft) {
@@ -38,7 +49,6 @@ const CountdownVintage = ({ targetDate, containerClasses = "" }) => {
     );
   }
 
-  // Calculamos la fracción (porcentaje) de cada unidad:
   const daysFraction = maxDays > 0 ? timeLeft.days / maxDays : 0;
   const hoursFraction = timeLeft.hours / 24;
   const minutesFraction = timeLeft.minutes / 60;
@@ -46,20 +56,65 @@ const CountdownVintage = ({ targetDate, containerClasses = "" }) => {
 
   return (
     <div className={`flex flex-wrap justify-center items-center gap-8 ${containerClasses}`}>
-      <CircleCountdown label="Días" value={timeLeft.days} fraction={daysFraction} />
-      <CircleCountdown label="Horas" value={timeLeft.hours} fraction={hoursFraction} />
-      <CircleCountdown label="Minutos" value={timeLeft.minutes} fraction={minutesFraction} />
-      <CircleCountdown label="Segundos" value={timeLeft.seconds} fraction={secondsFraction} />
+      <CircleCountdown
+        label="Días"
+        value={timeLeft.days}
+        fraction={daysFraction}
+        backgroundColor={backgroundColor}
+        progressColor={progressColor}
+        textColor={textColor}
+        valueClassName={valueClassName}
+        labelClassName={labelClassName}
+      />
+      <CircleCountdown
+        label="Horas"
+        value={timeLeft.hours}
+        fraction={hoursFraction}
+        backgroundColor={backgroundColor}
+        progressColor={progressColor}
+        textColor={textColor}
+        valueClassName={valueClassName}
+        labelClassName={labelClassName}
+      />
+      <CircleCountdown
+        label="Minutos"
+        value={timeLeft.minutes}
+        fraction={minutesFraction}
+        backgroundColor={backgroundColor}
+        progressColor={progressColor}
+        textColor={textColor}
+        valueClassName={valueClassName}
+        labelClassName={labelClassName}
+      />
+      <CircleCountdown
+        label="Segundos"
+        value={timeLeft.seconds}
+        fraction={secondsFraction}
+        backgroundColor={backgroundColor}
+        progressColor={progressColor}
+        textColor={textColor}
+        valueClassName={valueClassName}
+        labelClassName={labelClassName}
+      />
     </div>
   );
 };
 
-const CircleCountdown = ({ label, value, fraction }) => {
-  const radius = 70; // Radio total del SVG
-  const strokeWidth = 4; // Grosor del trazo
+const CircleCountdown = ({
+  label,
+  value,
+  fraction,
+  backgroundColor,
+  progressColor,
+  textColor,
+  valueClassName,
+  labelClassName,
+}) => {
+  const radius = 70;
+  const strokeWidth = 4;
   const normalizedRadius = radius - strokeWidth;
   const circumference = 2 * Math.PI * normalizedRadius;
-  // Calculamos el offset del trazo según el porcentaje completado
+  // Calculamos cuánto "gira" el círculo
   const offset = circumference * (1 - fraction);
 
   return (
@@ -67,7 +122,7 @@ const CircleCountdown = ({ label, value, fraction }) => {
       <svg height={radius * 2} width={radius * 2}>
         {/* Círculo de fondo */}
         <circle
-          stroke="#e5e7eb"
+          stroke={backgroundColor}
           fill="transparent"
           strokeWidth={strokeWidth}
           r={normalizedRadius}
@@ -76,7 +131,7 @@ const CircleCountdown = ({ label, value, fraction }) => {
         />
         {/* Círculo de progreso */}
         <circle
-          stroke="#D4AF37"
+          stroke={progressColor}
           fill="transparent"
           strokeWidth={strokeWidth}
           strokeLinecap="round"
@@ -87,24 +142,25 @@ const CircleCountdown = ({ label, value, fraction }) => {
           cx={radius}
           cy={radius}
         />
-        {/* Texto dentro del círculo */}
+        {/* Texto principal (valor) */}
         <text
           x="50%"
           y="45%"
           textAnchor="middle"
           dominantBaseline="middle"
-          className="text-2xl font-bold"
-          style={{ fill: "white", fontSize: "32px"}}
+          style={{ fill: textColor }}
+          className={valueClassName}
         >
           {value}
         </text>
+        {/* Texto de la etiqueta (Días, Horas, etc.) */}
         <text
           x="50%"
           y="65%"
           textAnchor="middle"
           dominantBaseline="middle"
-          className="text-sm"
-          style={{ fill: "white", fontSize: "20px" }}
+          style={{ fill: textColor }}
+          className={labelClassName}
         >
           {label}
         </text>
@@ -113,4 +169,4 @@ const CircleCountdown = ({ label, value, fraction }) => {
   );
 };
 
-export default CountdownVintage;
+export default CountdownCircles;

@@ -4,7 +4,7 @@ import 'aos/dist/aos.css';
 
 import dressCode from '../assets/dressCodeElegante.svg';
 
-const DressCodeElegante = () => {
+const DressCodeElegante = ({dressCodeText}) => {
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -31,7 +31,7 @@ const DressCodeElegante = () => {
         className="text-white text-6xl font-light tracking-wide font-eleganteTitle"
         data-aos="fade-up"
       >
-        Formal
+        {dressCodeText}
       </p>
     </section>
   );

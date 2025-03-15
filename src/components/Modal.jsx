@@ -5,7 +5,7 @@ import 'aos/dist/aos.css';
 import { IoCopyOutline } from "react-icons/io5";
 
 
-export const Modal = ({claseBoton}) => {
+export const Modal = ({claseBoton, cbu, alias, banco, nombre}) => {
 
   useEffect(() => {
     AOS.init({
@@ -31,7 +31,7 @@ export const Modal = ({claseBoton}) => {
   return (
     <>
       <button
-        className={`py-4 px-6 border-2 mt-5 transition transform duration-300 ease-in-out hover:transition hover:scale-105 hover:shadow-lg ${claseBoton}`} data-aos= 'fade-up'
+        className={`py-4 px-6 border-2 mt-5 transition hover:transform hover:scale-105 hover:shadow-lg ${claseBoton}`} data-aos= 'fade-up'
         onClick={() => setIsOpen(true)}
       >
         Ver Datos Bancarios
@@ -45,30 +45,27 @@ export const Modal = ({claseBoton}) => {
             <div className="space-y-3">
               <p className="text-lg">
                 <span className="font-semibold">Nombre del titular:</span>{" "}
-                Francisco López
+                {nombre}
               </p>
               <p className="text-lg">
-                <span className="font-semibold">CBU:</span> 0720708482983520022
+                <span className="font-semibold">CBU:</span> {cbu}
                 <button
                   className="ml-3 "
-                  onClick={() => copiarTexto('0720708482983520022')}
+                  onClick={() => copiarTexto(cbu)}
                 >
                   <IoCopyOutline className="text-principal-light"/>
                 </button>
               </p>
               <p className="text-lg">
-                <span className="font-semibold">Alias:</span> fran.lopez
+                <span className="font-semibold">Alias:</span> {alias}
                 <button
                   className="ml-3 "
-                  onClick={() => copiarTexto('fran.lopez')}
+                  onClick={() => copiarTexto(alias)}
                 >
                   <IoCopyOutline className="text-principal-light"/>
                 </button>
               </p>
-              <p className="text-lg">
-                <span className="font-semibold">DNI:</span> 41276399
-              </p>
-              <p className="font-semibold text-lg">Banco Santander</p>
+              <p className="font-semibold text-lg">{banco}</p>
             </div>
             <button className="bg-principal-light  border-principal-light py-4 rounded-lg text-white font-bold hover:bg-transparent hover:transition hover:text-gray-900 border-4 transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg" onClick={() => setIsOpen(false)}>Cerrar</button>
           </div>

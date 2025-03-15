@@ -33,7 +33,7 @@ const ConfirmacionPago = () => {
   // Funcionalidades según el plan
   const funcionalidades = {
     gold: ["musica", "galeriaFotos", "instagramWall"],
-    silver: ["musica"],
+    silver: ["musica", "galeriaFotos"],
     basico: [""],
   };
 
@@ -120,15 +120,12 @@ const ConfirmacionPago = () => {
       }
     }
 
-    // Validación linkCeremonia (opcional, pero si se llena debe ser URL válida)
     if (datosPlantilla.linkCeremonia.trim()) {
       if (!isValidURL(datosPlantilla.linkCeremonia)) {
         errors.linkCeremonia = "El link de la ceremonia no es una URL válida.";
       }
     }
 
-    // Datos bancarios (opcional, pero si plan=gold, sugerimos que no esté vacío)
-    // Ejemplo: si plan es "gold" y datosBancarios está vacío, advertimos.
     if (nombrePlan === "gold" && !datosPlantilla.datosBancarios.trim()) {
       errors.datosBancarios =
         "En el plan Gold, te sugerimos indicar datos bancarios para tus invitados.";
@@ -136,11 +133,6 @@ const ConfirmacionPago = () => {
 
     if (!datosPlantilla.linkEvento) {
       errors.linkEvento = "El link del evento es obligatorio.";
-    }
-
-    // Ejemplo: Validar Link de Google Maps de la ceremonia
-    if (!datosPlantilla.linkCeremonia) {
-      errors.linkCeremonia = "El link de la ceremonia es obligatorio.";
     }
 
     if (!datosPlantilla.dressCode) {
@@ -233,7 +225,7 @@ const ConfirmacionPago = () => {
     <div className="w-full flex flex-col justify-center items-center px-4 sm:px-6 md:px-10 my-10">
       <button
         onClick={() => navigate(-1)}
-        className="fixed top-4 left-10 border-2 border-gray-950 px-2 py-2 rounded-md hover:text-white hover:bg-gray-950 transition"
+        className="z-40 fixed top-4 left-5 md:left-10 border-2 border-gray-950 bg-black text-white px-2 py-2 rounded-md hover:text-white hover:bg-gray-700 transition"
       >
         Volver
       </button>
@@ -317,9 +309,6 @@ const ConfirmacionPago = () => {
             onChange={handleChangePlantilla}
             className="w-full border border-gray-300 rounded px-3 py-2 mb-1"
           />
-          {fieldErrors.linkCeremonia && (
-            <p className="text-red-500 text-sm">{fieldErrors.linkCeremonia}</p>
-          )}
         </div>
 
         {/* Datos bancarios */}

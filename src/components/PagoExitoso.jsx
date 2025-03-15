@@ -1,12 +1,11 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import logo from '../assets/logo-invitarly-dark.svg'
+import logo from '../assets/logo-light.svg'
 
 const PagoExitoso = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Capturamos el payment_id desde la URL (si MP lo envía así)
   const searchParams = new URLSearchParams(location.search);
   const paymentId = searchParams.get("payment_id") || "";
 
@@ -26,7 +25,7 @@ const PagoExitoso = () => {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-b from-white to-green-50 p-4">
         <div className="text-2xl font-bold">
-          <a href="/" className="text-black"><img src={logo} alt="" className='w-36'/></a>
+          <a href="/" className="text-black"><img src={logo} alt="" className='w-48'/></a>
         </div>
       <div className="max-w-lg w-full bg-white border border-green-300 rounded p-6 text-center shadow-lg">
         <div className="flex justify-center mb-4 text-green-600">
