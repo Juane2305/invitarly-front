@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import CountdownCircles from "../components/CountdownCircles";
-import MusicPlayer from "../components/MusicPlayer";
 import InstagramWall from "../components/InstagramWall";
 import GoogleCalendarButton from "../components/GoogleCalendarButton";
 import DatosBancarios from "../components/DatosBancarios";
@@ -19,6 +18,7 @@ import hojasDecoracionDer from "../assets/verona/hojasDecoracionDer.svg";
 import decoracionBajoNombres from "../assets/verona/decoracionBajoNombres.svg";
 import decoracionImagenes from "../assets/verona/decoracionImagenes.svg";
 import decoracionDressCode from "../assets/verona/decoracionDressCode.svg";
+import MusicScreen from "../components/MusicScreen";
 
 
 const Verona = ({invitacionData}) => {
@@ -45,7 +45,7 @@ const Verona = ({invitacionData}) => {
       }
       try {
         const response = await axios.get(
-          `https://api.invitarly.com/api/planes/${nombrePlan}/funcionalidades`
+          `${import.meta.env.VITE_API_URL}/api/planes/${nombrePlan}/funcionalidades`
         );
         setFuncionalidades(response.data);
       } catch (err) {
@@ -67,7 +67,7 @@ const Verona = ({invitacionData}) => {
     <div className="w-full font-eleganteText relative overflow-hidden bg-[#f8f5f0]">
       {funcionalidades.includes("musica") && (
         <div className="absolute z-40">
-          <MusicPlayer song={invitacionData.cancion}/>
+          <MusicScreen cancion={invitacionData.cancion}/>
         </div>
       )}
 
@@ -191,7 +191,7 @@ const Verona = ({invitacionData}) => {
             <GoogleCalendarButton
               imgClass="text-[#9eba8a]"
               buttonClass="border-[#9eba8a] rounded-full"
-              titleCalendar={invitacionData.novios}
+              titleCalendar={`Casamiento de ${invitacionData.novios}`}
               salon={invitacionData.nombre_salon}
               fechaComienzo={invitacionData.fecha_comienzo_calendario}
               fechaFin={invitacionData.fecha_fin_calendario}
@@ -226,6 +226,7 @@ const Verona = ({invitacionData}) => {
 
         {funcionalidades.includes("datosBancarios") && (
           <DatosBancarios
+            texto="Si deseás hacernos un regalo te dejamos nuestros datos"
             cbu={invitacionData.cbu}
             alias={invitacionData.alias}
             banco={invitacionData.banco}
@@ -234,6 +235,10 @@ const Verona = ({invitacionData}) => {
             claseContenedor="bg-[#69795d] text-white"
             claseBoton="rounded-full hover:shadow-lg border-[#a2b891] bg-gray-100 text-gray-900"
             textSize="text-lg"
+            claseBotonModal="bg-[#9eba8a] border-[#9eba8a]"
+            claseModal="bg-[#9eba8a]"
+            borderModal="border-[#9eba8a]"
+            textColor="text-[#9eba8a]"
           />
         )}
 

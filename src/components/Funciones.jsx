@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {
-  PiPaintBrushDuotone,
+  PiCamera,
   PiSealCheckLight,
   PiShareNetworkLight,
   PiImagesLight,
@@ -18,9 +18,9 @@ import { BsCopy } from "react-icons/bs";
 
 const initialFeatures = [
   {
-    icon: <PiPaintBrushDuotone />,
-    title: "Diseña a tu estilo",
-    description: "Personaliza colores, texto y tipografía en cada invitación.",
+    icon: <PiCamera />,
+    title: "Galería con QR",
+    description: "Permite que tus invitados suban sus fotos del evento escaneando un QR, sin complicaciones.",
   },
   {
     icon: <PiSealCheckLight />,

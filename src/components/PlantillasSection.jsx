@@ -13,21 +13,43 @@ const PlantillasSection = () => {
   const { nombrePlan } = useParams();
   const navigate = useNavigate();
 
+  // Estado para la categoría seleccionada
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("todos");
 
+  // Al montar el componente, aseguramos scroll arriba
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const plantillasFiltradas = plantillas.filter((plantilla) => {
-    if (categoriaSeleccionada === "todos") return true;
-    return plantilla.categoria === categoriaSeleccionada;
-  });
+  // Determinamos el tipo de evento en base al plan
+  // gold, silver, basico => "boda"
+  // xv => "xv"
+  // bautismo => "bautismo"
+  // cumple => "cumple"
+  let tipoEvento = nombrePlan;
+  if (nombrePlan === "gold" || nombrePlan === "silver" || nombrePlan === "basico") {
+    tipoEvento = "boda";
+  }
 
+  // Filtrar primero por tipoEvento
+  let plantillasFiltradas = plantillas.filter(
+    (plantilla) => plantilla.tipoEvento === tipoEvento
+  );
+
+  // Luego filtrar por categoría
+  if (categoriaSeleccionada !== "todos") {
+    plantillasFiltradas = plantillasFiltradas.filter(
+      (plantilla) => plantilla.categoria === categoriaSeleccionada
+    );
+  }
+
+  // Navegar a la ruta de una plantilla específica
   const handleNavigateToPlantilla = (idPlantilla) => {
+    // Ejemplo de ruta: /plantilla/gold/roma (o /plantilla/xv/sweet15)
     navigate(`/plantilla/${nombrePlan}/${idPlantilla}`);
   };
 
+  // Botón para volver al home
   const handleVolver = () => {
     navigate(`/`);
   };
@@ -46,6 +68,7 @@ const PlantillasSection = () => {
           Plantillas del plan {nombrePlan}
         </h2>
 
+        {/* Botones de categorías */}
         <div className="flex flex-wrap justify-center items-center gap-4 mb-8">
           {categoriasDisponibles.map((cat) => (
             <button
@@ -66,7 +89,7 @@ const PlantillasSection = () => {
           ))}
         </div>
 
-        {/* Grid de plantillas */}
+        {/* Grid de plantillas filtradas */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
           {plantillasFiltradas.map((plantilla) => (
             <div

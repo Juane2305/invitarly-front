@@ -22,7 +22,7 @@ const ContactSection = () => {
           </p>
           <div className="flex justify-center md:justify-start space-x-6">
             <a
-              href="https://wa.me/542612404253?text=%C2%A1Hola!%20Tengo%20una%20duda%20sobre%20las%20invitaciones"
+              href="https://wa.me/542612768670?text=%C2%A1Hola!%20Tengo%20una%20duda%20sobre%20las%20invitaciones"
               target="_blank"
               rel="noopener noreferrer"
               className="text-green-500 hover:text-green-600 transition"

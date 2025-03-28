@@ -3,7 +3,6 @@ import axios from "axios";
 
 import CountdownCircles from "../components/CountdownCircles";
 import Lugares from "../components/Lugares";
-import MusicPlayer from "../components/MusicPlayer";
 import InstagramWall from "../components/InstagramWall";
 import GoogleCalendarButton from "../components/GoogleCalendarButton";
 import DressCodeVintage from "../components/DressCodeVintage";
@@ -15,6 +14,7 @@ import hojasVerdes2 from "../assets/hojasVerdes2.svg";
 import hojasVerdesIzq from "../assets/hojasVerdesIzq.svg";
 import Loader from "../components/Loader";
 import GalleryVintage from "../components/GalleryVintage";
+import MusicScreen from "../components/MusicScreen";
 
 const Berlin = ({invitacionData}) => {
   const [funcionalidades, setFuncionalidades] = useState([]);
@@ -36,7 +36,7 @@ const Berlin = ({invitacionData}) => {
       }
       try {
         const response = await axios.get(
-          `https://api.invitarly.com/api/planes/${nombrePlan}/funcionalidades`
+          `${import.meta.env.VITE_API_URL}/api/planes/${nombrePlan}/funcionalidades`
         );
         setFuncionalidades(response.data);
       } catch (err) {
@@ -59,15 +59,15 @@ const Berlin = ({invitacionData}) => {
 
       {funcionalidades.includes("musica") && (
         <div className="absolute">
-          <MusicPlayer cancion={invitacionData.cancion}/>
+          <MusicScreen cancion={invitacionData.cancion}/>
         </div>
       )}
 
       <div className="flex flex-col justify-center items-center h-screen w-full text-center bg-fondo-vintage bg-cover bg-no-repeat bg-center md:bg-fixed border-b-2 border-[#D4AF37] relative">
-        <h1 className="text-4xl md:text-8xl  text-gold z-10 italic">
+        <h1 className="text-5xl md:text-8xl  text-gold z-10 italic">
           {invitacionData.novios}
         </h1>
-        <p className="mt-16 text-xl text-lime-900">{invitacionData.fecha_evento}</p>
+        <p className="mt-8 text-2xl text-lime-900">{invitacionData.fecha_evento}</p>
       </div>
 
       <div className="relative z-10">
@@ -131,7 +131,7 @@ const Berlin = ({invitacionData}) => {
         {funcionalidades.includes("calendario") && (
           <section className="bg-[#A3B18A] py-10 text-white text-center">
             <GoogleCalendarButton 
-            titleCalendar={invitacionData.novios}
+            titleCalendar={`Casamiento de ${invitacionData.novios}`}
             salon={invitacionData.nombre_salon}
             fechaComienzo={invitacionData.fecha_comienzo_calendario}
             fechaFin={invitacionData.fecha_fin_calendario}/>
@@ -155,6 +155,7 @@ const Berlin = ({invitacionData}) => {
         {funcionalidades.includes("datosBancarios") && (
           <section className="my-10 border-b-2 border-[#D4AF37]">
             <DatosBancarios
+              texto="Si deseás hacernos un regalo te dejamos nuestros datos"
               cbu={invitacionData.cbu}
               alias={invitacionData.alias}
               banco={invitacionData.banco}
@@ -162,6 +163,10 @@ const Berlin = ({invitacionData}) => {
               claseContenedor="bg-[#FAF3E0] py-10 text-center text-black"
               claseBoton="border-principal-dark text-white bg-principal-dark hover:bg-transparent hover:text-green-900 text-xl"
               textSize="text-xl"
+              claseBotonModal="bg-gold border-gold"
+              claseModal="bg-black"
+              borderModal="border-gold"
+              textColor="text-gold"
             />
           </section>
         )}

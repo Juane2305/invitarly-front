@@ -3,11 +3,9 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 
 import cancion from '../assets/song.mp3'
-import nombres from "../assets/nombresInicio.svg";
 import Countdown from "./Countdown";
 import Lugares from "./Lugares";
 import { FocusCardsDemo } from "./FocusCardsDemo";
-import MusicPlayer from "./MusicPlayer";
 import InstagramWall from "./InstagramWall";
 import GoogleCalendarButton from "./GoogleCalendarButton";
 import DressCode from "./DressCode";
@@ -16,6 +14,7 @@ import Asistencia from "./Asistencia";
 import Footer from "./Footer";
 import TextoFinal from "./TextoFinal";
 import Loader from "./Loader";
+import MusicScreen from "./MusicScreen";
 
 const RomaPreview = () => {
   const [funcionalidades, setFuncionalidades] = useState([]);
@@ -36,7 +35,7 @@ const RomaPreview = () => {
 
       try {
         const response = await axios.get(
-          `https://api.invitarly.com/api/planes/${nombrePlan}/funcionalidades`
+          `${import.meta.env.VITE_API_URL}/api/planes/${nombrePlan}/funcionalidades`
         );
         setFuncionalidades(response.data);
       } catch (err) {
@@ -82,7 +81,7 @@ const RomaPreview = () => {
       {/* Música */}
       {funcionalidades.includes("musica") && (
         <div className="absolute">
-          <MusicPlayer cancion={cancion}/>
+          <MusicScreen cancion={cancion}/>
         </div>
       )}
 
@@ -100,7 +99,7 @@ const RomaPreview = () => {
         </div>
 
         {/* Texto superior */}
-        <p className="z-10 text-lg uppercase tracking-widest mb-2">
+        <p className="z-10 text-xl uppercase font-vintageText tracking-widest mb-20">
           ¡Nos Casamos!
         </p>
 
@@ -110,7 +109,7 @@ const RomaPreview = () => {
         </h1>
 
         {/* Fecha */}
-        <p className="z-10 mt-10 text-xl">06 . 04 . 2025</p>
+        <p className="z-10 mt-28 text-xl font-vintageText">0 6 . 0 4 . 2 0 2 5</p>
         </div>
   
       {/* Plantilla dinámica */}
@@ -142,41 +141,44 @@ const RomaPreview = () => {
             </button>
           </a>
         </section>
-        {funcionalidades.includes("galeriaFotos") && (
-          <FocusCardsDemo
-            images={[
-              {
-                index: 1,
-                img: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735527048/Imagen_de_WhatsApp_2024-12-29_a_las_22.57.33_f9f5bf2b_ifsj5l.jpg",
-              },
-              {
-                index: 2,
-                img: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735527113/Imagen_de_WhatsApp_2024-12-29_a_las_22.57.32_a25fd1b8_smbhnh.jpg",
-              },
-              {
-                index: 3,
-                img: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735526968/Imagen_de_WhatsApp_2024-12-29_a_las_22.57.33_b8874616_i2bcnm.jpg",
-              },
-              {
-                index: 4,
-                img: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735508433/Dise%C3%B1o_sin_t%C3%ADtulo_6_xy3ozy.png",
-              },
-              {
-                index: 5,
-                img: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735526902/Imagen_de_WhatsApp_2024-12-29_a_las_22.57.33_3d376287_napqll.jpg",
-              },
-              {
-                index: 6,
-                img: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735517155/8c881929-3182-4ac1-b38f-90aba216483f.png",
-              },
-            ]}
-          />
-        )}
+        <section className="mb-16">
+          {funcionalidades.includes("galeriaFotos") && (
+            <FocusCardsDemo
+            texto="Nosotros"
+              images={[
+                {
+                  index: 1,
+                  img: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735527048/Imagen_de_WhatsApp_2024-12-29_a_las_22.57.33_f9f5bf2b_ifsj5l.jpg",
+                },
+                {
+                  index: 2,
+                  img: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735527113/Imagen_de_WhatsApp_2024-12-29_a_las_22.57.32_a25fd1b8_smbhnh.jpg",
+                },
+                {
+                  index: 3,
+                  img: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735526968/Imagen_de_WhatsApp_2024-12-29_a_las_22.57.33_b8874616_i2bcnm.jpg",
+                },
+                {
+                  index: 4,
+                  img: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735508433/Dise%C3%B1o_sin_t%C3%ADtulo_6_xy3ozy.png",
+                },
+                {
+                  index: 5,
+                  img: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735526902/Imagen_de_WhatsApp_2024-12-29_a_las_22.57.33_3d376287_napqll.jpg",
+                },
+                {
+                  index: 6,
+                  img: "https://res.cloudinary.com/dfschbyq2/image/upload/v1735517155/8c881929-3182-4ac1-b38f-90aba216483f.png",
+                },
+              ]}
+            />
+          )}
+        </section>
         {funcionalidades.includes("instagramWall") && <InstagramWall user="@fran_y_mari"/>}
         {funcionalidades.includes("calendario") && (
           <div className="bg-principal-light text-center text-white relative">
             <GoogleCalendarButton
-              titleCalendar="Francisco y María"
+              titleCalendar="Casamiento de Francisco y María"
               fechaComienzo="20250406T130000"
               fechaFin="20250407T000000"
               salon="Nombre del Salón"
@@ -192,6 +194,7 @@ const RomaPreview = () => {
         )}
         {funcionalidades.includes("datosBancarios") && (
           <DatosBancarios
+            texto="Si deseás hacernos un regalo te dejamos nuestros datos"
             claseContenedor="bg-principal-light text-white"
             claseBoton="border-2 py-3 px-6 rounded-full hover:bg-white hover:text-gray-800 transform transition-transform duration-300 ease-in-out font-semibold"
             textSize="text-lg"
@@ -199,6 +202,10 @@ const RomaPreview = () => {
             alias="francisco.mp"
             banco="Nombre Banco"
             nombre="Francisco Lopez"
+            claseBotonModal="bg-principal-light border-principal-light"
+            claseModal="bg-principal-light"
+            borderModal="border-principal-light"
+            textColor="text-principal-light"
           />
         )}
         {funcionalidades.includes("confirmacionAsistencia") && (

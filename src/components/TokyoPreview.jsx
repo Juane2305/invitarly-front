@@ -4,7 +4,6 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import cancion from '../assets/song.mp3'
 import Countdown from "./Countdown";
-import MusicPlayer from "./MusicPlayer";
 import InstagramWall from "./InstagramWall";
 import GoogleCalendarButton from "./GoogleCalendarButton";
 import DatosBancarios from "./DatosBancarios";
@@ -15,6 +14,7 @@ import LugaresLineal from "./LugaresLineal";
 import DressCodeElegante from "./DressCodeElegante";
 import Loader from './Loader'
 import GalleryElegante from "./GalleryElegante";
+import MusicScreen from "./MusicScreen";
 
 const TokyoPreview = () => {
   const [funcionalidades, setFuncionalidades] = useState([]);
@@ -34,7 +34,7 @@ const TokyoPreview = () => {
       }
       try {
         const response = await axios.get(
-          `https://api.invitarly.com/api/planes/${nombrePlan}/funcionalidades`
+          `${import.meta.env.VITE_API_URL}/api/planes/${nombrePlan}/funcionalidades`
         );
         setFuncionalidades(response.data);
       } catch (err) {
@@ -61,7 +61,6 @@ const TokyoPreview = () => {
 
   return (
     <div className="w-full font-eleganteText relative overflow-hidden bg-[#f8f5f0]">
-      {/* Botón para seleccionar plantilla */}
       <button
         onClick={handleSeleccionarPlantilla}
         className="fixed top-4 right-4 bg-[#D4AF37] text-white px-4 py-2 rounded shadow-lg hover:bg-[#B8860B] transition z-50"
@@ -69,7 +68,6 @@ const TokyoPreview = () => {
         Seleccionar esta plantilla
       </button>
 
-      {/* Botón para volver */}
       <button
         onClick={handleVolver}
         className="fixed top-4 left-4 bg-[#505050] text-white px-4 py-2 rounded shadow-lg hover:bg-[#404040] transition z-50"
@@ -77,14 +75,12 @@ const TokyoPreview = () => {
         Volver
       </button>
 
-      {/* Música */}
       {funcionalidades.includes("musica") && (
         <div className="absolute z-40">
-          <MusicPlayer cancion={cancion}/>
+          <MusicScreen cancion={cancion}/>
         </div>
       )}
 
-      {/* Sección inicial */}
       <div className="flex flex-col justify-center items-center h-screen w-full text-center bg-fondo-elegante bg-center bg-cover font-eleganteText relative space-y-5">
         <p className="text-white text-xl">
           Estás cordialmente invitado/a <br /> al casamiento de
@@ -97,9 +93,7 @@ const TokyoPreview = () => {
     </div>
       </div>
 
-      {/* Plantilla dinámica */}
       <div>
-        {/* Contador */}
         {funcionalidades.includes("cuentaRegresiva") && (
           <section
             id="contador"
@@ -109,7 +103,6 @@ const TokyoPreview = () => {
           </section>
         )}
 
-        {/* Lugares */}
           <div className="bg-[#171717]">
             <div data-aos="fade-up">
               <LugaresLineal  borderColor="border-gold" buttonStyle="border-gold text-lg" iglesia="[Nombre Iglesia]" hora_iglesia="10:00hs" salon="[Nombre Salón]" hora_civil="13:00hs" hora_fiesta="15:00hs" link_ceremonia="https://maps.app.goo.gl/LoyZKNsALqYQV3iB8" link_fiesta="https://maps.app.goo.gl/LoyZKNsALqYQV3iB8"/>
@@ -117,7 +110,6 @@ const TokyoPreview = () => {
           </div>
         
 
-        {/* Galería de Fotos */}
         {funcionalidades.includes("galeriaFotos") && (
           <div className="relative py-10 bg-white text-black">
             <GalleryElegante textStyle="text-[#D4AF37]" buttonStyle="bg-[#D4AF37]" images={[
@@ -155,23 +147,22 @@ const TokyoPreview = () => {
         )}
         {funcionalidades.includes("calendario") && (
           <div className="bg-white text-center relative">
-            <GoogleCalendarButton imgClass="text-gold" buttonClass="border-gold" titleCalendar="Francisco y María"
+            <GoogleCalendarButton imgClass="text-gold" buttonClass="border-gold" titleCalendar="Casamiento de Francisco y María"
               fechaComienzo="20250406T130000"
               fechaFin="20250407T000000"
               salon="Nombre del Salón"/>
           </div>
         )}
 
-        {/* Dress Code */}
         {funcionalidades.includes("dressCode") && (
           <div className="">
             <DressCodeElegante dressCodeText="Formal"/>
           </div>
         )}
 
-        {/* Datos Bancarios */}
         {funcionalidades.includes("datosBancarios") && (
           <DatosBancarios
+            texto="Si deseás hacernos un regalo te dejamos nuestros datos"
             claseIcon="text-gold"
             claseContenedor="bg-[#F8F5F0] text-[#1E1E1E]"
             claseBoton="hover:bg-[#D4AF37] hover:text-white transform transition-transform duration-300 ease-in-out font-semibold border-gold"
@@ -180,6 +171,10 @@ const TokyoPreview = () => {
             alias="francisco.mp"
             banco="Nombre Banco"
             nombre="Francisco Lopez"
+            claseBotonModal="bg-gold border-gold"
+            claseModal="bg-black"
+            borderModal="border-gold"
+            textColor="text-gold"
           />
         )}
 

@@ -4,7 +4,6 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import cancion from '../assets/song.mp3'
 import CountdownCircles from "./CountdownCircles";
-import MusicPlayer from "./MusicPlayer";
 import InstagramWall from "./InstagramWall";
 import GoogleCalendarButton from "./GoogleCalendarButton";
 import DatosBancarios from "./DatosBancarios";
@@ -22,6 +21,7 @@ import decoracionImagenes from "../assets/verona/decoracionImagenes.svg";
 import decoracionDressCode from "../assets/verona/decoracionDressCode.svg";
 
 import DressCodeVerona from "./dressCodeVerona";
+import MusicScreen from "./MusicScreen";
 
 const VeronaPreview = () => {
   const [funcionalidades, setFuncionalidades] = useState([]);
@@ -41,7 +41,7 @@ const VeronaPreview = () => {
       }
       try {
         const response = await axios.get(
-          `https://api.invitarly.com/api/planes/${nombrePlan}/funcionalidades`
+          `${import.meta.env.VITE_API_URL}/api/planes/${nombrePlan}/funcionalidades`
         );
         setFuncionalidades(response.data);
       } catch (err) {
@@ -84,7 +84,7 @@ const VeronaPreview = () => {
 
       {funcionalidades.includes("musica") && (
         <div className="absolute z-40">
-          <MusicPlayer cancion={cancion}/>
+          <MusicScreen cancion={cancion}/>
         </div>
       )}
 
@@ -239,7 +239,7 @@ const VeronaPreview = () => {
             <GoogleCalendarButton
               imgClass="text-[#9eba8a]"
               buttonClass="border-[#9eba8a] rounded-full"
-              titleCalendar= "Fran y Mari"
+              titleCalendar= "Casamiento de Fran y Mari"
               salon="Nombre Salón"
               fechaComienzo= "20250406T130000"
               fechaFin="20250407T000000"
@@ -274,6 +274,7 @@ const VeronaPreview = () => {
 
         {funcionalidades.includes("datosBancarios") && (
           <DatosBancarios
+            texto="Si deseás hacernos un regalo te dejamos nuestros datos"
             claseIcon="text-white"
             claseContenedor="bg-[#69795d] text-white"
             claseBoton="rounded-full hover:shadow-lg border-[#a2b891] bg-gray-100 text-gray-900"
@@ -282,6 +283,10 @@ const VeronaPreview = () => {
             alias="francisco.mp"
             banco="Nombre Banco"
             nombre="Francisco Lopez"
+            claseBotonModal="bg-[#9eba8a] border-[#9eba8a]"
+            claseModal="bg-[#9eba8a]"
+            borderModal="border-[#9eba8a]"
+            textColor="text-[#9eba8a]"
           />
         )}
 

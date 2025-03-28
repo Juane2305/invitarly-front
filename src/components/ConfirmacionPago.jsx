@@ -8,7 +8,6 @@ import logoMP from "../assets/logoMP.svg";
 
 // Función auxiliar para validar emails
 const isValidEmail = (email) => {
-  // Patrón simple de validación de correo (puedes mejorarlo si lo deseas)
   return /^\S+@\S+\.\S+$/.test(email);
 };
 
@@ -30,16 +29,28 @@ const ConfirmacionPago = () => {
   const { nombrePlan, nombrePlantilla } = useParams();
   const navigate = useNavigate();
 
+  // Determinamos el tipo de evento
+  // gold, silver, basico => "boda"
+  // xv => "xv"
+  // bautismo => "bautismo"
+  let tipoEvento = nombrePlan;
+  if (["gold", "silver", "basico"].includes(nombrePlan)) {
+    tipoEvento = "boda";
+  }
+
   // Funcionalidades según el plan
+  // (Si no vas a usar "cumple", puedes quitarlo de aquí)
   const funcionalidades = {
-    gold: ["musica", "galeriaFotos", "instagramWall"],
-    silver: ["musica", "galeriaFotos"],
-    basico: [""],
+    gold: ["dressCode", "musica", "galeriaFotos", "instagramWall"],
+    silver: ["dressCode", "musica", "galeriaFotos"],
+    basico: [],
+    xv: ["dressCode", "musica", "galeriaFotos", "instagramWall"],
+    bautismo: ["musica", "galeriaFotos"],
   };
 
   const funcionalidadesPlan = funcionalidades[nombrePlan] || [];
 
-  // Estados para los datos del cliente
+  // Estados para datos del comprador
   const [cliente, setCliente] = useState({
     nombre: "",
     apellido: "",
@@ -47,8 +58,10 @@ const ConfirmacionPago = () => {
     telefono: "",
   });
 
-  // Estados para los datos personalizados de la plantilla
+  // Estados para los datos de la invitación
+  // (Quitamos todo lo de "cumple")
   const [datosPlantilla, setDatosPlantilla] = useState({
+    // Boda
     novios: "",
     fechaHora: null,
     datosBancarios: "",
@@ -59,6 +72,17 @@ const ConfirmacionPago = () => {
     linkEvento: "",
     linkCeremonia: "",
     comentariosAdicionales: "",
+
+    // XV
+    nombreQuinceanera: "",
+    tematicaXV: "",
+
+    // Bautismo
+    nombreBebe: "",
+    nombrePadres: "",
+    padrinos: "",
+    linkCeremoniaBautismo: "", 
+    linkFestejoBautismo: "",  
   });
 
   const [loading, setLoading] = useState(false);
@@ -67,7 +91,7 @@ const ConfirmacionPago = () => {
   // Errores específicos de cada campo
   const [fieldErrors, setFieldErrors] = useState({});
 
-  // Manejar cambios en el formulario del cliente
+  // Manejo de cambios en datos del comprador
   const handleChangeCliente = (e) => {
     const { name, value } = e.target;
     setCliente((prev) => ({ ...prev, [name]: value }));
@@ -81,11 +105,11 @@ const ConfirmacionPago = () => {
     });
   };
 
-  // Manejar cambios en los datos personalizados de la plantilla
+  // Manejo de cambios en datos de la invitación
   const handleChangePlantilla = (e) => {
     const { name, value } = e.target;
     setDatosPlantilla((prev) => ({ ...prev, [name]: value }));
-  
+
     setFieldErrors((prevErrors) => {
       const newErrors = { ...prevErrors };
       if (newErrors[name]) {
@@ -99,52 +123,98 @@ const ConfirmacionPago = () => {
     setDatosPlantilla((prev) => ({ ...prev, fechaHora: date }));
   };
 
-  // Función para validar campos antes de enviar
+  // Validaciones
   const validateFields = () => {
     const errors = {};
 
-    // Validación novios (requerido)
-    if (!datosPlantilla.novios.trim()) {
-      errors.novios = "Debes ingresar los nombres de los novios.";
-    }
-
-    // Validación fechaHora (requerido)
-    if (!datosPlantilla.fechaHora) {
-      errors.fechaHora = "Debes seleccionar la fecha y hora de la boda.";
-    }
-
-    // Validación linkEvento (opcional, pero si se llena debe ser URL válida)
-    if (datosPlantilla.linkEvento.trim()) {
-      if (!isValidURL(datosPlantilla.linkEvento)) {
+    // =========== BODA ===========
+    if (tipoEvento === "boda") {
+      if (!datosPlantilla.novios.trim()) {
+        errors.novios = "Debes ingresar los nombres de los novios.";
+      }
+      if (!datosPlantilla.fechaHora) {
+        errors.fechaHora = "Debes seleccionar la fecha y hora de la boda.";
+      }
+      if (!datosPlantilla.linkEvento) {
+        errors.linkEvento = "El link del evento es obligatorio.";
+      }
+      if (funcionalidadesPlan.includes("dressCode") && !datosPlantilla.dressCode) {
+        errors.dressCode = "El Dress Code es obligatorio.";
+      }
+      if (nombrePlan === "gold" && !datosPlantilla.datosBancarios.trim()) {
+        errors.datosBancarios =
+          "En el plan Gold, te sugerimos indicar datos bancarios para tus invitados.";
+      }
+      if (funcionalidadesPlan.includes("musica") && !datosPlantilla.cancion) {
+        errors.cancion = "La canción es obligatoria para este plan.";
+      }
+      // Validar URLs si se llenan
+      if (datosPlantilla.linkEvento.trim() && !isValidURL(datosPlantilla.linkEvento)) {
         errors.linkEvento = "El link del evento no es una URL válida.";
       }
-    }
-
-    if (datosPlantilla.linkCeremonia.trim()) {
-      if (!isValidURL(datosPlantilla.linkCeremonia)) {
+      if (datosPlantilla.linkCeremonia.trim() && !isValidURL(datosPlantilla.linkCeremonia)) {
         errors.linkCeremonia = "El link de la ceremonia no es una URL válida.";
       }
     }
 
-    if (nombrePlan === "gold" && !datosPlantilla.datosBancarios.trim()) {
-      errors.datosBancarios =
-        "En el plan Gold, te sugerimos indicar datos bancarios para tus invitados.";
+    // =========== XV ===========
+    if (tipoEvento === "xv") {
+      if (!datosPlantilla.nombreQuinceanera.trim()) {
+        errors.nombreQuinceanera = "Ingresa el nombre de la quinceañera.";
+      }
+      if (!datosPlantilla.fechaHora) {
+        errors.fechaHora = "Selecciona la fecha y hora del evento.";
+      }
+      if (!datosPlantilla.linkEvento) {
+        errors.linkEvento = "El link del evento es obligatorio.";
+      }
+      // Si el plan xv incluye dressCode, podrías validarlo también
+      if (funcionalidadesPlan.includes("dressCode") && !datosPlantilla.dressCode) {
+        errors.dressCode = "El Dress Code es obligatorio.";
+      }
+      // Si querés datos bancarios en XV
+      if (!datosPlantilla.datosBancarios.trim()) {
+        errors.datosBancarios = "Indica datos bancarios si deseas recibir regalos de ese modo.";
+      }
+      // Canción si "musica" está
+      if (funcionalidadesPlan.includes("musica") && !datosPlantilla.cancion) {
+        errors.cancion = "La canción es obligatoria para este plan.";
+      }
+      // Validar linkEvento si se llenó y no es URL
+      if (datosPlantilla.linkEvento.trim() && !isValidURL(datosPlantilla.linkEvento)) {
+        errors.linkEvento = "El link del evento no es una URL válida.";
+      }
     }
 
-    if (!datosPlantilla.linkEvento) {
-      errors.linkEvento = "El link del evento es obligatorio.";
+    // =========== BAUTISMO ===========
+    if (tipoEvento === "bautismo") {
+      if (!datosPlantilla.nombreBebe.trim()) {
+        errors.nombreBebe = "Ingresa el nombre del bebé.";
+      }
+      if (!datosPlantilla.nombrePadres.trim()) {
+        errors.nombrePadres = "Ingresa el nombre de los padres.";
+      }
+      if (!datosPlantilla.fechaHora) {
+        errors.fechaHora = "Selecciona la fecha y hora del bautismo.";
+      }
+      if (!datosPlantilla.padrinos.trim()) {
+        errors.padrinos = "Ingresa el nombre de los padrinos.";
+      }
+      // linkCeremoniaBautismo es obligatorio?
+      if (!datosPlantilla.linkCeremoniaBautismo.trim()) {
+        errors.linkCeremoniaBautismo = "Ingresa el link de la ceremonia.";
+      } else if (!isValidURL(datosPlantilla.linkCeremoniaBautismo)) {
+        errors.linkCeremoniaBautismo = "El link de la ceremonia no es una URL válida.";
+      }
+      // linkFestejoBautismo es opcional, si se llena validamos
+      if (datosPlantilla.linkFestejoBautismo.trim() && !isValidURL(datosPlantilla.linkFestejoBautismo)) {
+        errors.linkFestejoBautismo = "El link de festejo no es una URL válida.";
+      }
+      // Canción opcional => no validamos a menos que quieras
+      // Galería de fotos si "galeriaFotos" está
     }
 
-    if (!datosPlantilla.dressCode) {
-      errors.dressCode = "El Dress Code es obligatorio.";
-    }
-
-    // Ejemplo: Canción obligatoria solo si el plan incluye música
-    if (funcionalidadesPlan.includes("musica") && !datosPlantilla.cancion) {
-      errors.cancion = "La canción es obligatoria para este plan.";
-    }
-
-    // Validación de datos del comprador
+    // =========== DATOS DEL COMPRADOR ===========
     if (!cliente.nombre.trim()) {
       errors.nombre = "Debes ingresar tu nombre.";
     }
@@ -163,27 +233,34 @@ const ConfirmacionPago = () => {
     setFieldErrors(errors);
     return Object.keys(errors).length === 0;
   };
+  
 
-  // Enviar datos al servidor
   const handlePagar = async () => {
     setLoading(true);
     setError(null);
 
-    // Primero validamos los campos
     const isValid = validateFields();
     if (!isValid) {
       setLoading(false);
       return;
     }
+    const localString = datosPlantilla.fechaHora
+    ? datosPlantilla.fechaHora.toLocaleString("es-AR", {
+        timeZone: "America/Argentina/Buenos_Aires",
+      })
+    : "";
 
+    // Armamos el payload
     const payload = {
       nombre: cliente.nombre,
       apellido: cliente.apellido,
       email: cliente.email,
       telefono: cliente.telefono,
       descripcion: `Invitación Digital Plan: ${nombrePlan}, Plantilla: ${nombrePlantilla}`,
+
+      // Boda
       novios: datosPlantilla.novios,
-      fechaHora: datosPlantilla.fechaHora,
+      fechaHora: localString,
       datosBancarios: datosPlantilla.datosBancarios,
       dressCode: datosPlantilla.dressCode,
       mensaje: datosPlantilla.mensaje,
@@ -192,18 +269,24 @@ const ConfirmacionPago = () => {
       linkEvento: datosPlantilla.linkEvento,
       linkCeremonia: datosPlantilla.linkCeremonia,
       comentariosAdicionales: datosPlantilla.comentariosAdicionales,
+
+      // XV
+      nombreQuinceanera: datosPlantilla.nombreQuinceanera,
+      tematicaXV: datosPlantilla.tematicaXV,
+
+      // Bautismo
+      nombreBebe: datosPlantilla.nombreBebe,
+      nombrePadres: datosPlantilla.nombrePadres,
+      padrinos: datosPlantilla.padrinos,
+      linkCeremoniaBautismo: datosPlantilla.linkCeremoniaBautismo,
+      linkFestejoBautismo: datosPlantilla.linkFestejoBautismo,
     };
 
     try {
-      console.log("Payload a enviar:", payload);
       const response = await axios.post(
-        `https://api.invitarly.com/api/pagos/crear-preferencia?plan=${nombrePlan}&plantilla=${nombrePlantilla}`,
+        `${import.meta.env.VITE_API_URL}/api/pagos/crear-preferencia?plan=${nombrePlan}&plantilla=${nombrePlantilla}`,
         payload,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        { headers: { "Content-Type": "application/json" } }
       );
 
       // Redirige al init_point de Mercado Pago
@@ -229,126 +312,330 @@ const ConfirmacionPago = () => {
       >
         Volver
       </button>
+
       <h2 className="text-2xl font-bold my-6 text-center sm:text-left">
         ¡Gracias por elegir Invitarly!
       </h2>
 
-      {/* Formulario para datos de la plantilla */}
+      {/* FORM DATOS PLANTILLA */}
       <form className="w-full max-w-lg mb-6 flex flex-col">
         <h2 className="text-lg font-semibold mb-4 text-center sm:text-left">
           Personaliza tu invitación
         </h2>
 
-        {/* Nombres de los novios */}
-        <div className="mb-2">
-          <label htmlFor="novios" className="block text-gray-700">
-            Nombres de los novios:
-          </label>
-          <input
-            type="text"
-            id="novios"
-            name="novios"
-            value={datosPlantilla.novios}
-            onChange={handleChangePlantilla}
-            className="w-full border border-gray-300 rounded px-3 py-2 mb-1"
-          />
-          {fieldErrors.novios && (
-            <p className="text-red-500 text-sm">{fieldErrors.novios}</p>
-          )}
-        </div>
+        {/* ========== BODA ========== */}
+        {tipoEvento === "boda" && (
+          <>
+            {/* Novios */}
+            <div className="mb-2">
+              <label htmlFor="novios" className="block text-gray-700">
+                Nombres de los novios:
+              </label>
+              <input
+                type="text"
+                id="novios"
+                name="novios"
+                value={datosPlantilla.novios}
+                onChange={handleChangePlantilla}
+                className="w-full border border-gray-300 rounded px-3 py-2 mb-1"
+              />
+              {fieldErrors.novios && (
+                <p className="text-red-500 text-sm">{fieldErrors.novios}</p>
+              )}
+            </div>
 
-        {/* Fecha y hora de la boda */}
-        <div className="mb-2">
-          <label htmlFor="fechaHora" className="block text-gray-700">
-            Fecha y hora de la boda:
-          </label>
-          <DatePicker
-            selected={datosPlantilla.fechaHora}
-            onChange={handleDateChange}
-            showTimeSelect
-            timeFormat="HH:mm"
-            timeIntervals={15}
-            dateFormat="dd/MM/yyyy h:mm aa"
-            placeholderText="Fecha y Hora"
-            className="w-full border border-gray-300 rounded px-4 py-2 mb-1"
-            id="fechaHora"
-          />
-          {fieldErrors.fechaHora && (
-            <p className="text-red-500 text-sm">{fieldErrors.fechaHora}</p>
-          )}
-        </div>
+            {/* Fecha y hora */}
+            <div className="mb-2">
+              <label htmlFor="fechaHora" className="block text-gray-700">
+                Fecha y hora de la boda:
+              </label>
+              <DatePicker
+                selected={datosPlantilla.fechaHora}
+                onChange={handleDateChange}
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={15}
+                dateFormat="dd/MM/yyyy h:mm aa"
+                placeholderText="Fecha y Hora"
+                className="w-full border border-gray-300 rounded px-4 py-2 mb-1"
+                id="fechaHora"
+              />
+              {fieldErrors.fechaHora && (
+                <p className="text-red-500 text-sm">{fieldErrors.fechaHora}</p>
+              )}
+            </div>
 
-        {/* Link al evento */}
-        <div className="mb-2">
-          <label htmlFor="linkEvento" className="block text-gray-700">
-            Link de Google Maps del evento:
-          </label>
-          <input
-            type="text"
-            id="linkEvento"
-            name="linkEvento"
-            value={datosPlantilla.linkEvento}
-            onChange={handleChangePlantilla}
-            className="w-full border border-gray-300 rounded px-3 py-2 mb-1"
-          />
-          {fieldErrors.linkEvento && (
-            <p className="text-red-500 text-sm">{fieldErrors.linkEvento}</p>
-          )}
-        </div>
+            {/* Link evento */}
+            <div className="mb-2">
+              <label htmlFor="linkEvento" className="block text-gray-700">
+                Link de Google Maps del evento:
+              </label>
+              <input
+                type="text"
+                id="linkEvento"
+                name="linkEvento"
+                value={datosPlantilla.linkEvento}
+                onChange={handleChangePlantilla}
+                className="w-full border border-gray-300 rounded px-3 py-2 mb-1"
+              />
+              {fieldErrors.linkEvento && (
+                <p className="text-red-500 text-sm">{fieldErrors.linkEvento}</p>
+              )}
+            </div>
 
-        {/* Link a la ceremonia */}
-        <div className="mb-2">
-          <label htmlFor="linkCeremonia" className="block text-gray-700">
-            Link de Google Maps de la ceremonia:
-          </label>
-          <input
-            type="text"
-            id="linkCeremonia"
-            name="linkCeremonia"
-            value={datosPlantilla.linkCeremonia}
-            onChange={handleChangePlantilla}
-            className="w-full border border-gray-300 rounded px-3 py-2 mb-1"
-          />
-        </div>
+            {/* Link ceremonia */}
+            <div className="mb-2">
+              <label htmlFor="linkCeremonia" className="block text-gray-700">
+                Link de Google Maps de la ceremonia:
+              </label>
+              <input
+                type="text"
+                id="linkCeremonia"
+                name="linkCeremonia"
+                value={datosPlantilla.linkCeremonia}
+                onChange={handleChangePlantilla}
+                className="w-full border border-gray-300 rounded px-3 py-2 mb-1"
+              />
+              {fieldErrors.linkCeremonia && (
+                <p className="text-red-500 text-sm">{fieldErrors.linkCeremonia}</p>
+              )}
+            </div>
 
-        {/* Datos bancarios */}
-        <div className="mb-2">
-          <label htmlFor="datosBancarios" className="block text-gray-700">
-            Datos bancarios:
-          </label>
-          <textarea
-            id="datosBancarios"
-            name="datosBancarios"
-            value={datosPlantilla.datosBancarios}
-            onChange={handleChangePlantilla}
-            placeholder="CBU - Alias - Banco"
-            className="w-full border border-gray-300 rounded px-3 py-2 mb-1"
-          />
-          {fieldErrors.datosBancarios && (
-            <p className="text-red-500 text-sm">{fieldErrors.datosBancarios}</p>
-          )}
-        </div>
+            {/* Datos bancarios */}
+            <div className="mb-2">
+              <label htmlFor="datosBancarios" className="block text-gray-700">
+                Datos bancarios:
+              </label>
+              <textarea
+                id="datosBancarios"
+                name="datosBancarios"
+                value={datosPlantilla.datosBancarios}
+                onChange={handleChangePlantilla}
+                placeholder="CBU - Alias - Banco"
+                className="w-full border border-gray-300 rounded px-3 py-2 mb-1"
+              />
+              {fieldErrors.datosBancarios && (
+                <p className="text-red-500 text-sm">{fieldErrors.datosBancarios}</p>
+              )}
+            </div>
+          </>
+        )}
 
-        {/* Dress Code */}
-        <div className="mb-2">
-          <label htmlFor="dressCode" className="block text-gray-700">
-            Código de Vestimenta:
-          </label>
-          <input
-            type="text"
-            id="dressCode"
-            name="dressCode"
-            value={datosPlantilla.dressCode}
-            onChange={handleChangePlantilla}
-            placeholder="Formal / Informal / Casual"
-            className="w-full border border-gray-300 rounded px-3 py-2 mb-1"
-          />
-          {fieldErrors.dressCode && (
-            <p className="text-red-500 text-sm">{fieldErrors.dressCode}</p>
-          )}
-        </div>
+        {/* Dress Code si el plan lo incluye (boda o xv) */}
+        {funcionalidadesPlan.includes("dressCode") && (
+          <div className="mb-2">
+            <label htmlFor="dressCode" className="block text-gray-700">
+              Código de Vestimenta:
+            </label>
+            <input
+              type="text"
+              id="dressCode"
+              name="dressCode"
+              value={datosPlantilla.dressCode}
+              onChange={handleChangePlantilla}
+              placeholder="Formal / Informal / Casual"
+              className="w-full border border-gray-300 rounded px-3 py-2 mb-1"
+            />
+            {fieldErrors.dressCode && (
+              <p className="text-red-500 text-sm">{fieldErrors.dressCode}</p>
+            )}
+          </div>
+        )}
 
-        {/* Mensaje personalizado */}
+        {/* ========== XV ========== */}
+        {tipoEvento === "xv" && (
+          <>
+            <div className="mb-2">
+              <label className="block text-gray-700">
+                Nombre de la quinceañera:
+              </label>
+              <input
+                type="text"
+                name="nombreQuinceanera"
+                value={datosPlantilla.nombreQuinceanera}
+                onChange={handleChangePlantilla}
+                className="w-full border border-gray-300 rounded px-3 py-2 mb-1"
+              />
+              {fieldErrors.nombreQuinceanera && (
+                <p className="text-red-500 text-sm">{fieldErrors.nombreQuinceanera}</p>
+              )}
+            </div>
+
+            <div className="mb-2">
+              <label className="block text-gray-700">
+                Fecha y hora del evento:
+              </label>
+              <DatePicker
+                selected={datosPlantilla.fechaHora}
+                onChange={handleDateChange}
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={15}
+                dateFormat="dd/MM/yyyy h:mm aa"
+                placeholderText="Fecha y Hora"
+                className="w-full border border-gray-300 rounded px-4 py-2 mb-1"
+              />
+              {fieldErrors.fechaHora && (
+                <p className="text-red-500 text-sm">{fieldErrors.fechaHora}</p>
+              )}
+            </div>
+
+            <div className="mb-2">
+              <label className="block text-gray-700">
+                Link de Google Maps del evento:
+              </label>
+              <input
+                type="text"
+                name="linkEvento"
+                value={datosPlantilla.linkEvento}
+                onChange={handleChangePlantilla}
+                className="w-full border border-gray-300 rounded px-3 py-2 mb-1"
+              />
+              {fieldErrors.linkEvento && (
+                <p className="text-red-500 text-sm">{fieldErrors.linkEvento}</p>
+              )}
+            </div>
+
+            <div className="mb-2">
+              <label className="block text-gray-700">
+                Temática de la fiesta (opcional):
+              </label>
+              <input
+                type="text"
+                name="tematicaXV"
+                value={datosPlantilla.tematicaXV}
+                onChange={handleChangePlantilla}
+                className="w-full border border-gray-300 rounded px-3 py-2 mb-1"
+              />
+            </div>
+
+            {/* Datos bancarios también en XV */}
+            <div className="mb-2">
+              <label htmlFor="datosBancarios" className="block text-gray-700">
+                Datos bancarios (opcional):
+              </label>
+              <textarea
+                id="datosBancarios"
+                name="datosBancarios"
+                value={datosPlantilla.datosBancarios}
+                onChange={handleChangePlantilla}
+                placeholder="CBU - Alias - Banco"
+                className="w-full border border-gray-300 rounded px-3 py-2 mb-1"
+              />
+              {fieldErrors.datosBancarios && (
+                <p className="text-red-500 text-sm">{fieldErrors.datosBancarios}</p>
+              )}
+            </div>
+          </>
+        )}
+
+        {/* ========== BAUTISMO ========== */}
+        {tipoEvento === "bautismo" && (
+          <>
+            <div className="mb-2">
+              <label className="block text-gray-700">
+                Nombre del bebé:
+              </label>
+              <input
+                type="text"
+                name="nombreBebe"
+                value={datosPlantilla.nombreBebe}
+                onChange={handleChangePlantilla}
+                className="w-full border border-gray-300 rounded px-3 py-2 mb-1"
+              />
+              {fieldErrors.nombreBebe && (
+                <p className="text-red-500 text-sm">{fieldErrors.nombreBebe}</p>
+              )}
+            </div>
+
+            <div className="mb-2">
+              <label className="block text-gray-700">
+                Nombre de los padres:
+              </label>
+              <input
+                type="text"
+                name="nombrePadres"
+                value={datosPlantilla.nombrePadres}
+                onChange={handleChangePlantilla}
+                className="w-full border border-gray-300 rounded px-3 py-2 mb-1"
+              />
+              {fieldErrors.nombrePadres && (
+                <p className="text-red-500 text-sm">{fieldErrors.nombrePadres}</p>
+              )}
+            </div>
+
+            <div className="mb-2">
+              <label className="block text-gray-700">
+                Fecha y hora del bautismo:
+              </label>
+              <DatePicker
+                selected={datosPlantilla.fechaHora}
+                onChange={handleDateChange}
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={15}
+                dateFormat="dd/MM/yyyy h:mm aa"
+                placeholderText="Fecha y Hora"
+                className="w-full border border-gray-300 rounded px-4 py-2 mb-1"
+              />
+              {fieldErrors.fechaHora && (
+                <p className="text-red-500 text-sm">{fieldErrors.fechaHora}</p>
+              )}
+            </div>
+
+            <div className="mb-2">
+              <label className="block text-gray-700">
+                Nombres de padrinos:
+              </label>
+              <input
+                type="text"
+                name="padrinos"
+                value={datosPlantilla.padrinos}
+                onChange={handleChangePlantilla}
+                className="w-full border border-gray-300 rounded px-3 py-2 mb-1"
+              />
+              {fieldErrors.padrinos && (
+                <p className="text-red-500 text-sm">{fieldErrors.padrinos}</p>
+              )}
+            </div>
+
+            {/* Link de la ceremonia del bautismo */}
+            <div className="mb-2">
+              <label className="block text-gray-700">
+                Link de Google Maps de la ceremonia:
+              </label>
+              <input
+                type="text"
+                name="linkCeremoniaBautismo"
+                value={datosPlantilla.linkCeremoniaBautismo}
+                onChange={handleChangePlantilla}
+                className="w-full border border-gray-300 rounded px-3 py-2 mb-1"
+              />
+              {fieldErrors.linkCeremoniaBautismo && (
+                <p className="text-red-500 text-sm">{fieldErrors.linkCeremoniaBautismo}</p>
+              )}
+            </div>
+
+            {/* Link del festejo (opcional) */}
+            <div className="mb-2">
+              <label className="block text-gray-700">
+                Link de Google Maps del festejo (opcional):
+              </label>
+              <input
+                type="text"
+                name="linkFestejoBautismo"
+                value={datosPlantilla.linkFestejoBautismo}
+                onChange={handleChangePlantilla}
+                className="w-full border border-gray-300 rounded px-3 py-2 mb-1"
+              />
+              {fieldErrors.linkFestejoBautismo && (
+                <p className="text-red-500 text-sm">{fieldErrors.linkFestejoBautismo}</p>
+              )}
+            </div>
+          </>
+        )}
+
+        {/* Mensaje personalizado (común a todos) */}
         <div className="mb-2">
           <label htmlFor="mensaje" className="block text-gray-700">
             Mensaje en la invitación (opcional):
@@ -363,7 +650,7 @@ const ConfirmacionPago = () => {
           />
         </div>
 
-        {/* Campos condicionales según el plan */}
+        {/* Canción e Instagram (si el plan lo incluye) */}
         {funcionalidadesPlan.includes("musica") && (
           <div className="mb-2">
             <label htmlFor="cancion" className="block text-gray-700">
@@ -397,7 +684,7 @@ const ConfirmacionPago = () => {
           </div>
         )}
 
-        {/* Comentarios adicionales */}
+        {/* Comentarios adicionales (común a todos) */}
         <div className="mb-2">
           <label
             htmlFor="comentariosAdicionales"
@@ -415,7 +702,7 @@ const ConfirmacionPago = () => {
           />
         </div>
 
-        {/* Galería de fotos (solo si plan = gold) */}
+        {/* Galería de fotos si el plan lo incluye */}
         {funcionalidadesPlan.includes("galeriaFotos") && (
           <div className="my-2">
             <label className="block text-gray-700 font-bold">
@@ -445,7 +732,7 @@ const ConfirmacionPago = () => {
         )}
       </form>
 
-      {/* Formulario para datos del cliente */}
+      {/* FORM DATOS COMPRADOR */}
       <form className="w-full max-w-lg mb-6 flex flex-col ">
         <h2 className="text-lg font-semibold mb-4 text-center sm:text-left">
           Tus datos
@@ -467,6 +754,7 @@ const ConfirmacionPago = () => {
             <p className="text-red-500 text-sm">{fieldErrors.nombre}</p>
           )}
         </div>
+
         <div className="mb-2">
           <label htmlFor="apellido" className="block text-gray-700">
             Apellido:
@@ -484,6 +772,7 @@ const ConfirmacionPago = () => {
             <p className="text-red-500 text-sm">{fieldErrors.apellido}</p>
           )}
         </div>
+
         <div className="mb-2">
           <label htmlFor="email" className="block text-gray-700">
             Email:
@@ -501,6 +790,7 @@ const ConfirmacionPago = () => {
             <p className="text-red-500 text-sm">{fieldErrors.email}</p>
           )}
         </div>
+
         <div className="mb-1">
           <label htmlFor="telefono" className="block text-gray-700">
             Teléfono:
@@ -526,7 +816,7 @@ const ConfirmacionPago = () => {
       <button
         type="button"
         onClick={handlePagar}
-        disabled={loading} 
+        disabled={loading}
         className="w-full sm:w-auto 
              bg-[#009ee3] 
              text-white 

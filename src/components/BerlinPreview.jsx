@@ -3,11 +3,8 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
 import cancion from '../assets/song.mp3'
-import nombres from "../assets/nombresInicioVintage.svg";
 import CountdownCircles from "./CountdownCircles";
 import Lugares from "./Lugares";
-import { FocusCardsDemo } from "./FocusCardsDemo";
-import MusicPlayer from "./MusicPlayer";
 import InstagramWall from "./InstagramWall";
 import GoogleCalendarButton from "./GoogleCalendarButton";
 import DressCodeVintage from "./DressCodeVintage";
@@ -15,11 +12,11 @@ import DatosBancarios from "./DatosBancarios";
 import Asistencia from "../components/Asistencia";
 import Footer from "./Footer";
 import TextoFinal from "./TextoFinal";
-import hojasVerdes from "../assets/hojasVerdes.svg";
 import hojasVerdes2 from "../assets/hojasVerdes2.svg";
 import hojasVerdesIzq from "../assets/hojasVerdesIzq.svg";
 import Loader from "./Loader";
 import GalleryVintage from "./GalleryVintage";
+import MusicScreen from "./MusicScreen";
 
 const BerlinPreview = () => {
   const [funcionalidades, setFuncionalidades] = useState([]);
@@ -39,7 +36,7 @@ const BerlinPreview = () => {
       }
       try {
         const response = await axios.get(
-          `https://api.invitarly.com/api/planes/${nombrePlan}/funcionalidades`
+          `${import.meta.env.VITE_API_URL}/api/planes/${nombrePlan}/funcionalidades`
         );
         setFuncionalidades(response.data);
       } catch (err) {
@@ -85,7 +82,7 @@ const BerlinPreview = () => {
 
       {funcionalidades.includes("musica") && (
         <div className="absolute">
-          <MusicPlayer cancion={cancion}/>
+          <MusicScreen cancion={cancion}/>
         </div>
       )}
 
@@ -173,7 +170,7 @@ const BerlinPreview = () => {
         {funcionalidades.includes("calendario") && (
           <section className="bg-[#A3B18A] py-10 text-white text-center">
             <GoogleCalendarButton 
-            titleCalendar="Francisco y María"
+            titleCalendar="Casamiento de Francisco y María"
             salon="Nombre Salón"
             fechaComienzo="20250407T130000"
             fechaFin="20250406T000000"
@@ -198,6 +195,7 @@ const BerlinPreview = () => {
         {funcionalidades.includes("datosBancarios") && (
           <section className="my-10 border-b-2 border-[#D4AF37]">
             <DatosBancarios
+              texto="Si deseás hacernos un regalo te dejamos nuestros datos"
               cbu="235252395902"
               alias="francisco.mp"
               banco="Nombre Banco"
@@ -205,6 +203,10 @@ const BerlinPreview = () => {
               claseContenedor="bg-[#FAF3E0] py-10 text-center text-black"
               claseBoton="border-principal-dark text-white bg-principal-dark hover:bg-transparent hover:text-green-900 text-xl"
               textSize="text-xl"
+              claseBotonModal="bg-gold border-gold"
+              claseModal="bg-black"
+              borderModal="border-gold"
+              textColor="text-gold"
             />
           </section>
         )}

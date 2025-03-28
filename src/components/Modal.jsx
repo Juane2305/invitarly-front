@@ -5,7 +5,7 @@ import 'aos/dist/aos.css';
 import { IoCopyOutline } from "react-icons/io5";
 
 
-export const Modal = ({claseBoton, cbu, alias, banco, nombre}) => {
+export const Modal = ({claseBoton, claseBotonModal, claseModal, borderModal, textColor, cbu, alias, banco, nombre}) => {
 
   useEffect(() => {
     AOS.init({
@@ -38,8 +38,8 @@ export const Modal = ({claseBoton, cbu, alias, banco, nombre}) => {
       </button>
 
       {isOpen && (
-        <div className="fixed inset-0 bg-principal-light bg-opacity-30 backdrop-blur-md flex justify-center items-center z-50">
-        <div className="bg-white p-10 rounded-lg flex flex-col justify-center items-center border-8 border-principal-light">
+        <div className={`fixed inset-0 ${claseModal} bg-opacity-30 backdrop-blur-md flex justify-center items-center z-50`}>
+        <div className={`bg-white p-10 rounded-lg flex flex-col justify-center items-center border-8 ${borderModal}`}>
           <div className="flex flex-col justify-center text-center space-y-7 text-gray-900">
             <h2 className="text-center font-bold text-2xl">Datos Bancarios</h2>
             <div className="space-y-3">
@@ -53,7 +53,7 @@ export const Modal = ({claseBoton, cbu, alias, banco, nombre}) => {
                   className="ml-3 "
                   onClick={() => copiarTexto(cbu)}
                 >
-                  <IoCopyOutline className="text-principal-light"/>
+                  <IoCopyOutline className={`${textColor}`}/>
                 </button>
               </p>
               <p className="text-lg">
@@ -62,12 +62,12 @@ export const Modal = ({claseBoton, cbu, alias, banco, nombre}) => {
                   className="ml-3 "
                   onClick={() => copiarTexto(alias)}
                 >
-                  <IoCopyOutline className="text-principal-light"/>
+                  <IoCopyOutline className={`${textColor}`}/>
                 </button>
               </p>
               <p className="font-semibold text-lg">{banco}</p>
             </div>
-            <button className="bg-principal-light  border-principal-light py-4 rounded-lg text-white font-bold hover:bg-transparent hover:transition hover:text-gray-900 border-4 transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg" onClick={() => setIsOpen(false)}>Cerrar</button>
+            <button className={` py-4 rounded-lg text-white font-bold hover:bg-transparent hover:transition hover:text-gray-900 border-4 transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg ${claseBotonModal}`} onClick={() => setIsOpen(false)}>Cerrar</button>
           </div>
         </div>
       </div>

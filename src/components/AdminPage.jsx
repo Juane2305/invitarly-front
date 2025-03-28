@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import LoginModal from "./LoginModal";
-import adminAxios from '../adminAxios'
-
+import adminAxios from "../adminAxios";
 
 function AdminPage() {
-
-  
   // ======================================
   // TOKEN / LOGIN
   // ======================================
@@ -30,7 +27,18 @@ function AdminPage() {
   // ESTADOS PARA "INVITACIONES"
   // ======================================
   const [invitaciones, setInvitaciones] = useState([]);
+
+  // AÑADIMOS los nuevos campos a `nuevaInvitacion`:
   const [nuevaInvitacion, setNuevaInvitacion] = useState({
+    // Campos específicos de la entidad
+    tipoEvento: "",           // "boda", "xv", "bautismo"
+    nombreQuinceanera: "",
+    tematicaXV: "",
+    nombreBebe: "",
+    nombrePadres: "",
+    padrinos: "",
+
+    // Campos ya existentes
     novios: "",
     fecha_evento: "",
     fecha_comienzo_calendario: "",
@@ -40,6 +48,7 @@ function AdminPage() {
     hora_ceremonia_religiosa: "",
     hora_civil: "",
     hora_evento: "",
+    hora_fin_evento:"",
     fecha_cuenta_regresiva: "",
     cbu: "",
     alias: "",
@@ -59,6 +68,8 @@ function AdminPage() {
     mensaje_personalizado: "",
     link_asistencia: "",
     fecha_tokyo: "",
+    fondo: "",
+    fondoMobile: ""
   });
 
   // Para editar invitaciones
@@ -92,7 +103,7 @@ function AdminPage() {
   const cargarVentas = async () => {
     try {
       const response = await adminAxios.get(
-        "https://api.invitarly.com/api/ventas",
+        `${import.meta.env.VITE_API_URL}/api/ventas`,
         getAxiosConfig()
       );
       setVentas(response.data);
@@ -106,7 +117,7 @@ function AdminPage() {
   const crearVenta = async () => {
     try {
       await adminAxios.post(
-        "https://api.invitarly.com/api/ventas",
+        `${import.meta.env.VITE_API_URL}/api/ventas`,
         { clienteNombre: nuevoCliente, estado: nuevoEstado },
         getAxiosConfig()
       );
@@ -123,7 +134,7 @@ function AdminPage() {
   const cambiarEstado = async (ventaId, estado) => {
     try {
       await adminAxios.put(
-        `https://api.invitarly.com/api/ventas/${ventaId}/estado`,
+        `${import.meta.env.VITE_API_URL}/api/ventas/${ventaId}/estado`,
         { estado },
         getAxiosConfig()
       );
@@ -137,7 +148,7 @@ function AdminPage() {
   const eliminarVenta = async (ventaId) => {
     try {
       await adminAxios.delete(
-        `https://api.invitarly.com/api/ventas/${ventaId}`,
+        `${import.meta.env.VITE_API_URL}/api/ventas/${ventaId}`,
         getAxiosConfig()
       );
       cargarVentas();
@@ -153,7 +164,7 @@ function AdminPage() {
   const cargarInvitaciones = async () => {
     try {
       const response = await adminAxios.get(
-        "https://api.invitarly.com/api/invitaciones",
+        `${import.meta.env.VITE_API_URL}/api/invitaciones`,
         getAxiosConfig()
       );
       setInvitaciones(response.data);
@@ -167,13 +178,20 @@ function AdminPage() {
   const crearInvitacion = async () => {
     try {
       await adminAxios.post(
-        "https://api.invitarly.com/api/invitaciones",
+        `${import.meta.env.VITE_API_URL}/api/invitaciones`,
         nuevaInvitacion,
         getAxiosConfig()
       );
       cargarInvitaciones();
-      // Limpiamos el formulario
+      // Reset de campos
       setNuevaInvitacion({
+        tipoEvento: "",
+        nombreQuinceanera: "",
+        tematicaXV: "",
+        nombreBebe: "",
+        nombrePadres: "",
+        padrinos: "",
+
         novios: "",
         fecha_evento: "",
         fecha_comienzo_calendario: "",
@@ -183,6 +201,7 @@ function AdminPage() {
         hora_ceremonia_religiosa: "",
         hora_civil: "",
         hora_evento: "",
+        hora_fin_evento:"",
         fecha_cuenta_regresiva: "",
         cbu: "",
         alias: "",
@@ -202,6 +221,8 @@ function AdminPage() {
         mensaje_personalizado: "",
         link_asistencia: "",
         fecha_tokyo: "",
+        fondo: "",
+        fondoMobile: ""
       });
       setError(null);
     } catch (err) {
@@ -213,7 +234,7 @@ function AdminPage() {
   const eliminarInvitacion = async (invitacionId) => {
     try {
       await adminAxios.delete(
-        `https://api.invitarly.com/api/invitaciones/${invitacionId}`,
+        `${import.meta.env.VITE_API_URL}/api/invitaciones/${invitacionId}`,
         getAxiosConfig()
       );
       cargarInvitaciones();
@@ -237,7 +258,7 @@ function AdminPage() {
     if (!editingInvitation) return;
     try {
       await adminAxios.put(
-        `https://api.invitarly.com/api/invitaciones/${editingInvitation.id}`,
+        `${import.meta.env.VITE_API_URL}/api/invitaciones/${editingInvitation.id}`,
         editingInvitation,
         getAxiosConfig()
       );
@@ -249,7 +270,6 @@ function AdminPage() {
       setError("Error al actualizar la invitación");
     }
   };
-  
 
   // ======================================
   // LOGIN: si no hay token, mostramos modal
@@ -266,6 +286,8 @@ function AdminPage() {
     );
   }
 
+  // ======================================
+  // RENDER
   // ======================================
   return (
     <div className="p-4">
@@ -361,8 +383,105 @@ function AdminPage() {
       <div className="mb-6 border p-4 rounded">
         <h2 className="text-lg font-semibold mb-2">Crear nueva invitación</h2>
 
-        {/* Un campo por cada propiedad que quieras setear */}
         <div className="grid grid-cols-2 gap-4">
+
+          {/* Nuevo: tipoEvento */}
+          <div>
+            <label>Tipo de Evento:</label>
+            <input
+              className="border w-full"
+              type="text"
+              name="tipoEvento"
+              value={nuevaInvitacion.tipoEvento}
+              onChange={(e) =>
+                setNuevaInvitacion((prev) => ({
+                  ...prev,
+                  [e.target.name]: e.target.value,
+                }))
+              }
+            />
+          </div>
+
+          {/* Campos para XV */}
+          <div>
+            <label>Nombre Quinceañera:</label>
+            <input
+              className="border w-full"
+              type="text"
+              name="nombreQuinceanera"
+              value={nuevaInvitacion.nombreQuinceanera}
+              onChange={(e) =>
+                setNuevaInvitacion((prev) => ({
+                  ...prev,
+                  [e.target.name]: e.target.value,
+                }))
+              }
+            />
+          </div>
+          <div>
+            <label>Temática XV:</label>
+            <input
+              className="border w-full"
+              type="text"
+              name="tematicaXV"
+              value={nuevaInvitacion.tematicaXV}
+              onChange={(e) =>
+                setNuevaInvitacion((prev) => ({
+                  ...prev,
+                  [e.target.name]: e.target.value,
+                }))
+              }
+            />
+          </div>
+
+          {/* Campos para Bautismo */}
+          <div>
+            <label>Nombre Bebé:</label>
+            <input
+              className="border w-full"
+              type="text"
+              name="nombreBebe"
+              value={nuevaInvitacion.nombreBebe}
+              onChange={(e) =>
+                setNuevaInvitacion((prev) => ({
+                  ...prev,
+                  [e.target.name]: e.target.value,
+                }))
+              }
+            />
+          </div>
+          <div>
+            <label>Nombre Padres:</label>
+            <input
+              className="border w-full"
+              type="text"
+              name="nombrePadres"
+              value={nuevaInvitacion.nombrePadres}
+              onChange={(e) =>
+                setNuevaInvitacion((prev) => ({
+                  ...prev,
+                  [e.target.name]: e.target.value,
+                }))
+              }
+            />
+          </div>
+          <div>
+            <label>Padrinos:</label>
+            <input
+              className="border w-full"
+              type="text"
+              name="padrinos"
+              value={nuevaInvitacion.padrinos}
+              onChange={(e) =>
+                setNuevaInvitacion((prev) => ({
+                  ...prev,
+                  [e.target.name]: e.target.value,
+                }))
+              }
+            />
+          </div>
+
+          {/* Resto de campos existentes */}
           <div>
             <label>Novios:</label>
             <input
@@ -393,8 +512,6 @@ function AdminPage() {
               }
             />
           </div>
-
-          {/* Repite para cada campo, o podrías mapearlos si prefieres */}
           <div>
             <label>Fecha Comienzo Calendario:</label>
             <input
@@ -425,7 +542,6 @@ function AdminPage() {
               }
             />
           </div>
-
           <div>
             <label>Nombre Iglesia:</label>
             <input
@@ -493,6 +609,21 @@ function AdminPage() {
               type="text"
               name="hora_evento"
               value={nuevaInvitacion.hora_evento}
+              onChange={(e) =>
+                setNuevaInvitacion((prev) => ({
+                  ...prev,
+                  [e.target.name]: e.target.value,
+                }))
+              }
+            />
+          </div>
+          <div>
+            <label>Hora Fin Evento</label>
+            <input
+              className="border w-full"
+              type="text"
+              name="hora_fin_evento"
+              value={nuevaInvitacion.hora_fin_evento}
               onChange={(e) =>
                 setNuevaInvitacion((prev) => ({
                   ...prev,
@@ -786,6 +917,36 @@ function AdminPage() {
               }
             />
           </div>
+          <div>
+            <label>Fondo</label>
+            <input
+              className="border w-full"
+              type="text"
+              name="fondo"
+              value={nuevaInvitacion.fondo}
+              onChange={(e) =>
+                setNuevaInvitacion((prev) => ({
+                  ...prev,
+                  [e.target.name]: e.target.value,
+                }))
+              }
+            />
+          </div>
+          <div>
+            <label>Fondo Mobile</label>
+            <input
+              className="border w-full"
+              type="text"
+              name="fondoMobile"
+              value={nuevaInvitacion.fondoMobile}
+              onChange={(e) =>
+                setNuevaInvitacion((prev) => ({
+                  ...prev,
+                  [e.target.name]: e.target.value,
+                }))
+              }
+            />
+          </div>
         </div>
 
         <button
@@ -844,13 +1005,81 @@ function AdminPage() {
             Editar Invitación (ID: {editingInvitation.id})
           </h2>
           <div className="grid grid-cols-2 gap-4">
+
+            {/* Nuevo: tipoEvento */}
+            <div>
+              <label>Tipo de Evento:</label>
+              <input
+                className="border w-full"
+                type="text"
+                name="tipoEvento"
+                value={editingInvitation.tipoEvento || ""}
+                onChange={handleEditChange}
+              />
+            </div>
+
+            {/* Campos para XV */}
+            <div>
+              <label>Nombre Quinceañera:</label>
+              <input
+                className="border w-full"
+                type="text"
+                name="nombreQuinceanera"
+                value={editingInvitation.nombreQuinceanera || ""}
+                onChange={handleEditChange}
+              />
+            </div>
+            <div>
+              <label>Temática XV:</label>
+              <input
+                className="border w-full"
+                type="text"
+                name="tematicaXV"
+                value={editingInvitation.tematicaXV || ""}
+                onChange={handleEditChange}
+              />
+            </div>
+
+            {/* Campos para Bautismo */}
+            <div>
+              <label>Nombre Bebé:</label>
+              <input
+                className="border w-full"
+                type="text"
+                name="nombreBebe"
+                value={editingInvitation.nombreBebe || ""}
+                onChange={handleEditChange}
+              />
+            </div>
+            <div>
+              <label>Nombre Padres:</label>
+              <input
+                className="border w-full"
+                type="text"
+                name="nombrePadres"
+                value={editingInvitation.nombrePadres || ""}
+                onChange={handleEditChange}
+              />
+            </div>
+            <div>
+              <label>Padrinos:</label>
+              <input
+                className="border w-full"
+                type="text"
+                name="padrinos"
+                value={editingInvitation.padrinos || ""}
+                onChange={handleEditChange}
+              />
+            </div>
+
+            {/* Campos ya existentes */}
             <div>
               <label>Novios:</label>
               <input
                 className="border w-full"
                 type="text"
                 name="novios"
-                value={editingInvitation.novios}
+                value={editingInvitation.novios || ""}
                 onChange={handleEditChange}
               />
             </div>
@@ -860,7 +1089,7 @@ function AdminPage() {
                 className="border w-full"
                 type="text"
                 name="fecha_evento"
-                value={editingInvitation.fecha_evento}
+                value={editingInvitation.fecha_evento || ""}
                 onChange={handleEditChange}
               />
             </div>
@@ -870,7 +1099,7 @@ function AdminPage() {
                 className="border w-full"
                 type="text"
                 name="fecha_comienzo_calendario"
-                value={editingInvitation.fecha_comienzo_calendario}
+                value={editingInvitation.fecha_comienzo_calendario || ""}
                 onChange={handleEditChange}
               />
             </div>
@@ -880,7 +1109,7 @@ function AdminPage() {
                 className="border w-full"
                 type="text"
                 name="fecha_fin_calendario"
-                value={editingInvitation.fecha_fin_calendario}
+                value={editingInvitation.fecha_fin_calendario || ""}
                 onChange={handleEditChange}
               />
             </div>
@@ -890,7 +1119,7 @@ function AdminPage() {
                 className="border w-full"
                 type="text"
                 name="nombre_iglesia"
-                value={editingInvitation.nombre_iglesia}
+                value={editingInvitation.nombre_iglesia || ""}
                 onChange={handleEditChange}
               />
             </div>
@@ -900,7 +1129,7 @@ function AdminPage() {
                 className="border w-full"
                 type="text"
                 name="nombre_salon"
-                value={editingInvitation.nombre_salon}
+                value={editingInvitation.nombre_salon || ""}
                 onChange={handleEditChange}
               />
             </div>
@@ -910,7 +1139,7 @@ function AdminPage() {
                 className="border w-full"
                 type="text"
                 name="hora_ceremonia_religiosa"
-                value={editingInvitation.hora_ceremonia_religiosa}
+                value={editingInvitation.hora_ceremonia_religiosa || ""}
                 onChange={handleEditChange}
               />
             </div>
@@ -920,7 +1149,7 @@ function AdminPage() {
                 className="border w-full"
                 type="text"
                 name="hora_civil"
-                value={editingInvitation.hora_civil}
+                value={editingInvitation.hora_civil || ""}
                 onChange={handleEditChange}
               />
             </div>
@@ -930,7 +1159,17 @@ function AdminPage() {
                 className="border w-full"
                 type="text"
                 name="hora_evento"
-                value={editingInvitation.hora_evento}
+                value={editingInvitation.hora_evento || ""}
+                onChange={handleEditChange}
+              />
+            </div>
+            <div>
+              <label>Hora Fin Evento:</label>
+              <input
+                className="border w-full"
+                type="text"
+                name="hora_fin_evento"
+                value={editingInvitation.hora_fin_evento || ""}
                 onChange={handleEditChange}
               />
             </div>
@@ -940,7 +1179,7 @@ function AdminPage() {
                 className="border w-full"
                 type="text"
                 name="fecha_cuenta_regresiva"
-                value={editingInvitation.fecha_cuenta_regresiva}
+                value={editingInvitation.fecha_cuenta_regresiva || ""}
                 onChange={handleEditChange}
               />
             </div>
@@ -950,7 +1189,7 @@ function AdminPage() {
                 className="border w-full"
                 type="text"
                 name="cbu"
-                value={editingInvitation.cbu}
+                value={editingInvitation.cbu || ""}
                 onChange={handleEditChange}
               />
             </div>
@@ -960,7 +1199,7 @@ function AdminPage() {
                 className="border w-full"
                 type="text"
                 name="alias"
-                value={editingInvitation.alias}
+                value={editingInvitation.alias || ""}
                 onChange={handleEditChange}
               />
             </div>
@@ -970,7 +1209,7 @@ function AdminPage() {
                 className="border w-full"
                 type="text"
                 name="banco"
-                value={editingInvitation.banco}
+                value={editingInvitation.banco || ""}
                 onChange={handleEditChange}
               />
             </div>
@@ -980,7 +1219,7 @@ function AdminPage() {
                 className="border w-full"
                 type="text"
                 name="cancion"
-                value={editingInvitation.cancion}
+                value={editingInvitation.cancion || ""}
                 onChange={handleEditChange}
               />
             </div>
@@ -990,11 +1229,10 @@ function AdminPage() {
                 className="border w-full"
                 type="text"
                 name="plantilla_elegida"
-                value={editingInvitation.plantilla_elegida}
+                value={editingInvitation.plantilla_elegida || ""}
                 onChange={handleEditChange}
               />
             </div>
-            {/* Repite los demás campos de editingInvitation */}
             <div>
               <label>URL Personalizada:</label>
               <input
@@ -1010,7 +1248,7 @@ function AdminPage() {
               <textarea
                 className="border w-full"
                 name="imagenes"
-                value={editingInvitation.imagenes}
+                value={editingInvitation.imagenes || ""}
                 onChange={handleEditChange}
               />
             </div>
@@ -1114,8 +1352,28 @@ function AdminPage() {
                 onChange={handleEditChange}
               />
             </div>
-
+            <div>
+              <label>Fondo:</label>
+              <input
+                className="border w-full"
+                type="text"
+                name="fondo"
+                value={editingInvitation.fondo || ""}
+                onChange={handleEditChange}
+              />
+            </div>
+            <div>
+              <label>Fondo Mobile:</label>
+              <input
+                className="border w-full"
+                type="text"
+                name="fondoMobile"
+                value={editingInvitation.fondoMobile || ""}
+                onChange={handleEditChange}
+              />
+            </div>
           </div>
+
           <div className="mt-4">
             <button
               className="bg-green-500 text-white px-4 py-2 rounded mr-2"

@@ -1,12 +1,11 @@
 import { Modal } from './Modal'
-import gift from '../assets/gift.svg'
 import { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { CiGift } from "react-icons/ci";
+import MiIconoGift from './DatosBancariosIcon';
 
 
-const DatosBancarios = ({claseContenedor, claseBoton, textSize, claseIcon, cbu, alias, banco, nombre}) => {
+const DatosBancarios = ({texto, claseContenedor, claseBoton, borderModal, textColor, textSize, claseIcon, cbu, alias, banco, nombre, claseBotonModal, claseModal}) => {
 
   useEffect(() => {
     AOS.init({
@@ -17,11 +16,13 @@ const DatosBancarios = ({claseContenedor, claseBoton, textSize, claseIcon, cbu, 
   }, []);
 
   return (
-    <div className={`pt-20 flex flex-col justify-center items-center py-20 gap-y-5 ${claseContenedor}`}>
-        <CiGift className={`size-32 ${claseIcon}`}/>
+    <div className={`pt-20 flex flex-col justify-center items-center py-20 gap-y-5 ${claseContenedor}`} >
+      <div data-aos= 'fade-up'>
+        <MiIconoGift/>
+      </div>
         <div className={`flex flex-col items-center justify-center`}>
-          <p className={`text-center px-5 md:px-0 ${textSize}`} data-aos= 'fade-up'>Si deseás hacernos un regalo te dejamos nuestros datos</p>
-          <Modal claseBoton={claseBoton} cbu={cbu} alias={alias} banco={banco} nombre={nombre}/>
+          <p className={`text-center px-5 md:px-0 ${textSize}`} data-aos= 'fade-up'>{texto}</p>
+          <Modal claseBoton={claseBoton} claseBotonModal={claseBotonModal} claseModal={claseModal} borderModal={borderModal} textColor={textColor} cbu={cbu} alias={alias} banco={banco} nombre={nombre}/>
         </div>
     </div>
   )

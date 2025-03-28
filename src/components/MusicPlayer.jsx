@@ -1,26 +1,38 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import icon from "../assets/icon-music.svg";
 import pause from "../assets/icon-pause.svg";
 
-const MusicPlayer = ({ cancion }) => {
+
+const MusicPlayer = ({ cancion, initialPlay = false }) => {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
+
+
+  useEffect(() => {
+    if (initialPlay && audioRef.current) {
+      audioRef.current.play().then(() => {
+        setIsPlaying(true);
+      }).catch((err) => {
+      });
+    }
+  }, [initialPlay]);
 
   const togglePlayPause = () => {
     if (!audioRef.current) return;
 
     if (isPlaying) {
       audioRef.current.pause();
+      setIsPlaying(false);
     } else {
       audioRef.current.play();
+      setIsPlaying(true);
     }
-    setIsPlaying(!isPlaying);
   };
 
   return (
     <div className="w-full">
       <audio ref={audioRef} src={cancion} preload="auto" />
-      
+
       <button onClick={togglePlayPause} type="button">
         {isPlaying ? (
           <img

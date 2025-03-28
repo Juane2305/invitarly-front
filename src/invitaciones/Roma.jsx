@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
 
-import nombres from "../assets/nombresInicio.svg";
 import Countdown from "../components/Countdown";
 import Lugares from "../components/Lugares";
 import { FocusCardsDemo } from "../components/FocusCardsDemo";
-import MusicPlayer from "../components/MusicPlayer";
 import InstagramWall from "../components/InstagramWall";
 import GoogleCalendarButton from "../components/GoogleCalendarButton";
 import DressCode from "../components/DressCode";
@@ -15,6 +12,7 @@ import Asistencia from "../components/Asistencia";
 import Footer from "../components/Footer";
 import TextoFinal from "../components/TextoFinal";
 import Loader from "../components/Loader";
+import MusicScreen from "../components/MusicScreen";
 
 const Roma = ({ invitacionData }) => {
   const [funcionalidades, setFuncionalidades] = useState([]);
@@ -37,7 +35,7 @@ const Roma = ({ invitacionData }) => {
 
       try {
         const response = await axios.get(
-          `https://api.invitarly.com/api/planes/${nombrePlan}/funcionalidades`
+          `${import.meta.env.VITE_API_URL}/api/planes/${nombrePlan}/funcionalidades`
         );
         setFuncionalidades(response.data);
       } catch (err) {
@@ -55,12 +53,11 @@ const Roma = ({ invitacionData }) => {
   if (error) return <p>{error}</p>;
 
   const nombres = invitacionData.novios
-    .replace("&", "y") // reemplaza '&' por 'y', si quieres unificar
-    .split("y") // separa por 'y'
-    .map((s) => s.trim()); // quita espacios extra
+    .replace("&", "y") 
+    .split("y")
+    .map((s) => s.trim()); 
 
-  // Ejemplo: ["Francisco", "María"]
-  // Tomamos la primera letra en mayúscula
+
   const iniciales = nombres
     .map((nombre) => nombre[0]?.toUpperCase() || "")
     .join(" ");
@@ -69,12 +66,11 @@ const Roma = ({ invitacionData }) => {
     <div className="w-full relative font-modernaText overflow-hidden">
       {funcionalidades.includes("musica") && (
         <div className="absolute">
-          <MusicPlayer cancion={invitacionData.cancion} />
+          <MusicScreen cancion={invitacionData.cancion} />
         </div>
       )}
 
       <div className="relative flex flex-col items-center justify-center h-screen w-full text-center bg-fondo-moderna bg-cover bg-no-repeat ">
-        {/* Texto gigante de fondo (iniciales) */}
         <div
           className="absolute text-gray-500 font-eleganteTitle text-[10rem] md:text-[17rem]"
           style={{
@@ -86,23 +82,18 @@ const Roma = ({ invitacionData }) => {
           {iniciales}
         </div>
 
-        {/* Texto superior */}
-        <p className="z-10 text-lg uppercase tracking-widest mb-2">
+        <p className="z-10 text-lg uppercase font-vintageText tracking-widest mb-20">
           ¡Nos Casamos!
         </p>
 
-        {/* Nombres completos */}
         <h1 className="z-10 text-5xl md:text-7xl font-vintageText text-gray-800 italic">
           {invitacionData.novios}
         </h1>
 
-        {/* Fecha */}
-        <p className="z-10 mt-10 text-xl">{invitacionData.fecha_evento}</p>
+        <p className="z-10 mt-28 font-vintageText text-xl">{invitacionData.fecha_evento}</p>
       </div>
 
-      {/* Plantilla dinámica */}
       <div>
-        {/* Contador */}
         {funcionalidades.includes("cuentaRegresiva") && (
           <section
             id="contador"
@@ -148,7 +139,7 @@ const Roma = ({ invitacionData }) => {
           </div>
         </section>
         {funcionalidades.includes("galeriaFotos") && (
-          <FocusCardsDemo images={images} />
+          <FocusCardsDemo images={images} texto="Nosotros"/>
         )}
         {funcionalidades.includes("instagramWall") && (
           <InstagramWall user={invitacionData.ig_user} />
@@ -158,7 +149,7 @@ const Roma = ({ invitacionData }) => {
             <GoogleCalendarButton
               imgClass="text-white"
               buttonClass="hover:bg-white hover:text-gray-800"
-              titleCalendar={invitacionData.novios}
+              titleCalendar={`Casamiento de ${invitacionData.novios}`}
               salon={invitacionData.nombre_salon}
               fechaComienzo={invitacionData.fecha_comienzo_calendario}
               fechaFin={invitacionData.fecha_fin_calendario}
@@ -172,6 +163,7 @@ const Roma = ({ invitacionData }) => {
         )}
         {funcionalidades.includes("datosBancarios") && (
           <DatosBancarios
+            texto="Si deseás hacernos un regalo te dejamos nuestros datos"
             cbu={invitacionData.cbu}
             alias={invitacionData.alias}
             banco={invitacionData.banco}
@@ -179,6 +171,10 @@ const Roma = ({ invitacionData }) => {
             claseContenedor="bg-principal-light text-white"
             claseBoton="border-2 py-3 px-6 rounded-full hover:bg-white hover:text-gray-800 transform transition-transform duration-300 ease-in-out font-semibold"
             textSize="text-lg"
+            claseBotonModal="bg-principal-light border-principal-light"
+            claseModal="bg-principal-light"
+            borderModal="border-principal-light"
+            textColor="text-principal-light"
           />
         )}
         {funcionalidades.includes("confirmacionAsistencia") && (
