@@ -105,7 +105,7 @@ const Tokyo = ({invitacionData}) => {
           </div>
         )}
         {funcionalidades.includes("calendario") && (
-          <div className="bg-white text-center relative">
+          <div className="bg-[#171717] text-center relative text-white">
             <GoogleCalendarButton imgClass="text-gold" buttonClass="border-gold"
             titleCalendar={`Casamiento de ${invitacionData.novios}`}
             salon={invitacionData.nombre_salon}

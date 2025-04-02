@@ -187,7 +187,7 @@ const Verona = ({invitacionData}) => {
         )}
 
         {funcionalidades.includes("calendario") && (
-          <div className="bg-white text-center relative text-[#4b5147]">
+          <div className="bg-[#69795d] text-center relative text-white">
             <GoogleCalendarButton
               imgClass="text-[#9eba8a]"
               buttonClass="border-[#9eba8a] rounded-full"

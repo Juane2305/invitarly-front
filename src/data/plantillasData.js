@@ -3,7 +3,7 @@ const plantillas = [
     id: "praga",
     nombre: "Praga",
     categoria: "moderna",
-    descripcion: "Romance y estilo en cada detalle de tu gran día",
+    descripcion: "Un diseño moderno con toques románticos",
     imagen: "https://res.cloudinary.com/dfschbyq2/image/upload/v1743203557/image_27_fheszg.jpg",
     tipoEvento: "boda"
   },

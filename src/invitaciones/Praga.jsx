@@ -14,7 +14,7 @@ import MusicScreen from "../components/MusicScreen";
 import { GalleryPraga } from "../components/GalleryPraga";
 import LugaresPraga from "../components/LugaresPraga";
 
-const Praga = ({invitacionData}) => {
+const Praga = ({ invitacionData }) => {
   const [funcionalidades, setFuncionalidades] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -61,7 +61,17 @@ const Praga = ({invitacionData}) => {
           <MusicScreen cancion={invitacionData.cancion} />
         </div>
       )}
-      <div className={`relative flex flex-col items-center justify-center h-screen w-full text-center ${invitacionData.fondo_mobile} md:${invitacionData.fondo} bg-cover bg-no-repeat`}>
+      <div
+        className="relative flex flex-col items-center justify-center h-screen w-full text-center bg-cover bg-no-repeat"
+        style={{
+          backgroundImage: `url(${
+            window.innerWidth < 768
+              ? invitacionData.fondoMobile
+              : invitacionData.fondo
+          })`,
+        }}
+      >
+        {" "}
         <div className="absolute inset-0 bg-black bg-opacity-50" />
         <div
           data-aos="fade-in"
@@ -73,7 +83,9 @@ const Praga = ({invitacionData}) => {
           <h1 className="text-5xl md:text-8xl font-bold text-white mb-2 font-eleganteTitle">
             {invitacionData.novios}
           </h1>
-          <p className="text-base md:text-xl text-white">{invitacionData.fecha_evento}</p>
+          <p className="text-base md:text-xl text-white">
+            {invitacionData.fecha_evento}
+          </p>
         </div>
       </div>
       <div>
@@ -90,16 +102,16 @@ const Praga = ({invitacionData}) => {
             />
           </section>
         )}
-        
+
         <LugaresPraga
-            linkCeremonia={invitacionData.linkCeremonia}
-            nombreIglesia={invitacionData.nombre_iglesia}
-            horaIglesia={invitacionData.hora_ceremonia_religiosa}
-            linkFiesta={invitacionData.linkFiesta}
-            nombreSalon={invitacionData.nombre_salon}
-            horaFiesta={invitacionData.hora_evento}
-            claseContainer="flex flex-col md:flex-row items-center justify-center gap-8 my-8"
-            claseTexto="text-gray-900"
+          linkCeremonia={invitacionData.linkCeremonia}
+          nombreIglesia={invitacionData.nombre_iglesia}
+          horaIglesia={invitacionData.hora_ceremonia_religiosa}
+          linkFiesta={invitacionData.linkFiesta}
+          nombreSalon={invitacionData.nombre_salon}
+          horaFiesta={invitacionData.hora_evento}
+          claseContainer="flex flex-col md:flex-row items-center justify-center gap-8 my-8"
+          claseTexto="text-gray-900"
         />
         <section className="mb-16">
           {funcionalidades.includes("galeriaFotos") && (

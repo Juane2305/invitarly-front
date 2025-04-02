@@ -146,8 +146,8 @@ const TokyoPreview = () => {
           </div>
         )}
         {funcionalidades.includes("calendario") && (
-          <div className="bg-white text-center relative">
-            <GoogleCalendarButton imgClass="text-gold" buttonClass="border-gold" titleCalendar="Casamiento de Francisco y María"
+          <div className="bg-[#171717] text-center relative text-white">
+            <GoogleCalendarButton buttonClass="border-gold" titleCalendar="Casamiento de Francisco y María"
               fechaComienzo="20250406T130000"
               fechaFin="20250407T000000"
               salon="Nombre del Salón"/>

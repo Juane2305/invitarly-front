@@ -73,7 +73,15 @@ const Aurora = ({invitacionData}) => {
         </div>
       )}
 
-      <div className={`relative flex flex-col justify-center items-center min-h-screen w-full text-center ${invitacionData.fondo_mobile} md:${invitacionData.fondo} bg-center bg-cover font-eleganteText space-y-5 overflow-hidden`}>
+      <div className={`relative flex flex-col justify-center items-center min-h-screen w-full text-center bg-center bg-cover font-eleganteText space-y-5 overflow-hidden`}
+        style={{
+          backgroundImage: `url(${
+            window.innerWidth < 768
+              ? invitacionData.fondoMobile
+              : invitacionData.fondo
+          })`,
+        }}
+      >
         <div data-aos="fade-in">
           <div className="relative z-10 flex flex-col items-center text-center text-white pt-96">
             <div className="flex items-center justify-center mb-2">

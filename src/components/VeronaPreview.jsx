@@ -70,14 +70,14 @@ const VeronaPreview = () => {
     <div className="w-full font-eleganteText relative overflow-hidden bg-[#f8f5f0]">
       <button
         onClick={handleSeleccionarPlantilla}
-        className="fixed top-4 right-4 bg-[#69795d] text-white px-4 py-2 rounded shadow-lg hover:bg-[#B8860B] transition z-50"
+        className="fixed top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded shadow-lg hover:bg-blue-700 transition z-50"
       >
         Seleccionar esta plantilla
       </button>
 
       <button
         onClick={handleVolver}
-        className="fixed top-4 left-4 bg-[#69795d] text-white px-4 py-2 rounded shadow-lg hover:bg-[#404040] transition z-50"
+        className="fixed top-4 left-4 bg-blue-500 text-white px-4 py-2 rounded shadow-lg hover:bg-blue-700 transition z-50"
       >
         Volver
       </button>
@@ -235,10 +235,9 @@ const VeronaPreview = () => {
         )}
 
         {funcionalidades.includes("calendario") && (
-          <div className="bg-white text-center relative text-[#4b5147]">
+          <div className="bg-[#69795d] text-center relative text-white">
             <GoogleCalendarButton
-              imgClass="text-[#9eba8a]"
-              buttonClass="border-[#9eba8a] rounded-full"
+              buttonClass="border-white rounded-full"
               titleCalendar= "Casamiento de Fran y Mari"
               salon="Nombre Salón"
               fechaComienzo= "20250406T130000"
