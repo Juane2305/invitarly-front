@@ -4,17 +4,17 @@ import TestimonialSlider from '../components/TestimonialSlider'
 import Funciones from '../components/Funciones'
 import Banner from '../components/Banner'
 import PlanesSection from '../components/PlanesSection'
-import InfoSection from '../components/InfoSection'
 import FAQSection from '../components/FAQSection'
 import Footer from '../components/Footer'
 import ContactSection from '../components/ContactSection'
+import ScrollEfecto from '../components/ScrollEfecto'
 
 const MainPage = () => {
   return (
     <div>
         <Header/>
         <ImagenPrincipal/>
-        <InfoSection/>
+        <ScrollEfecto/>
         <Funciones/>
         <Banner/>
         <PlanesSection/>
