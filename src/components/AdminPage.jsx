@@ -53,6 +53,11 @@ function AdminPage() {
     cbu: "",
     alias: "",
     banco: "",
+    moneda_extranjera: "",
+    tipo_cuenta: "",
+    numero_cuenta: "",
+    titular_extranjera: "",
+    banco_extranjera: "",
     cancion: "",
     plantilla_elegida: "",
     urlPersonalizada: "",
@@ -206,6 +211,11 @@ function AdminPage() {
         cbu: "",
         alias: "",
         banco: "",
+        moneda_extranjera: "",
+        tipo_cuenta: "",
+        numero_cuenta: "",
+        titular_extranjera: "",
+        banco_extranjera: "",
         cancion: "",
         plantilla_elegida: "",
         urlPersonalizada: "",
@@ -684,6 +694,81 @@ function AdminPage() {
               type="text"
               name="banco"
               value={nuevaInvitacion.banco}
+              onChange={(e) =>
+                setNuevaInvitacion((prev) => ({
+                  ...prev,
+                  [e.target.name]: e.target.value,
+                }))
+              }
+            />
+          </div>
+          <div>
+            <label>Moneda Extranjera</label>
+            <input
+              className="border w-full"
+              type="text"
+              name="moneda_extranjera"
+              value={nuevaInvitacion.moneda_extranjera}
+              onChange={(e) =>
+                setNuevaInvitacion((prev) => ({
+                  ...prev,
+                  [e.target.name]: e.target.value,
+                }))
+              }
+            />
+          </div>
+          <div>
+            <label>Tipo Cuenta Extranjera</label>
+            <input
+              className="border w-full"
+              type="text"
+              name="tipo_cuenta"
+              value={nuevaInvitacion.tipo_cuenta}
+              onChange={(e) =>
+                setNuevaInvitacion((prev) => ({
+                  ...prev,
+                  [e.target.name]: e.target.value,
+                }))
+              }
+            />
+          </div>
+          <div>
+            <label>Número Cuenta Extranjera</label>
+            <input
+              className="border w-full"
+              type="text"
+              name="numero_cuenta"
+              value={nuevaInvitacion.numero_cuenta}
+              onChange={(e) =>
+                setNuevaInvitacion((prev) => ({
+                  ...prev,
+                  [e.target.name]: e.target.value,
+                }))
+              }
+            />
+          </div>
+          <div>
+            <label>Titular Cuenta Extranjera</label>
+            <input
+              className="border w-full"
+              type="text"
+              name="titular_extranjera"
+              value={nuevaInvitacion.titular_extranjera}
+              onChange={(e) =>
+                setNuevaInvitacion((prev) => ({
+                  ...prev,
+                  [e.target.name]: e.target.value,
+                }))
+              }
+            />
+          </div>
+          <div>
+            <label>Banco Cuenta Extranjera</label>
+            <input
+              className="border w-full"
+              type="text"
+              name="banco_extranjera"
+              value={nuevaInvitacion.banco_extranjera}
               onChange={(e) =>
                 setNuevaInvitacion((prev) => ({
                   ...prev,
@@ -1210,6 +1295,56 @@ function AdminPage() {
                 type="text"
                 name="banco"
                 value={editingInvitation.banco || ""}
+                onChange={handleEditChange}
+              />
+            </div>
+            <div>
+              <label>Moneda Extranjera:</label>
+              <input
+                className="border w-full"
+                type="text"
+                name="moneda_extranjera"
+                value={editingInvitation.moneda_extranjera || ""}
+                onChange={handleEditChange}
+              />
+            </div>
+            <div>
+              <label>Tipo Cuenta Extranjera:</label>
+              <input
+                className="border w-full"
+                type="text"
+                name="tipo_cuenta"
+                value={editingInvitation.tipo_cuenta || ""}
+                onChange={handleEditChange}
+              />
+            </div>
+            <div>
+              <label>Número Cuenta Extranjera:</label>
+              <input
+                className="border w-full"
+                type="text"
+                name="numero_cuenta"
+                value={editingInvitation.numero_cuenta || ""}
+                onChange={handleEditChange}
+              />
+            </div>
+            <div>
+              <label>Titular Cuenta Extranjera:</label>
+              <input
+                className="border w-full"
+                type="text"
+                name="titular_extranjera"
+                value={editingInvitation.titular_extranjera || ""}
+                onChange={handleEditChange}
+              />
+            </div>
+            <div>
+              <label>Banco Cuenta Extranjera:</label>
+              <input
+                className="border w-full"
+                type="text"
+                name="banco_extranjera"
+                value={editingInvitation.banco_extranjera || ""}
                 onChange={handleEditChange}
               />
             </div>

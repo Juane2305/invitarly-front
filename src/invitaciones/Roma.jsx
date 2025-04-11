@@ -136,7 +136,7 @@ const Roma = ({ invitacionData }) => {
               rel="noopener noreferrer"
             >
               <button className="border-2 border-gray-600 py-3 px-8 rounded-full bg-white text-gray-700 font-bold hover:bg-transparent  transition">
-                Ubicación Civil
+                Ubicación Civil y Fiesta
               </button>
             </a>
           </div>
@@ -178,6 +178,11 @@ const Roma = ({ invitacionData }) => {
             claseModal="bg-principal-light"
             borderModal="border-principal-light"
             textColor="text-principal-light"
+            moneda_extranjera={invitacionData.moneda_extranjera}
+            tipo_cuenta={invitacionData.tipo_cuenta}
+            numero_cuenta={invitacionData.numero_cuenta}
+            titular_extranjera={invitacionData.titular_extranjera}
+            banco_extranjera={invitacionData.banco_extranjera}
           />
         )}
         {funcionalidades.includes("confirmacionAsistencia") && (

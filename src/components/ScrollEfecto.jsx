@@ -64,7 +64,6 @@ export default function ScrollEfecto() {
         ))}
       </div>
 
-      {/* Imagen fija a la derecha (solo desktop) */}
       <div className="hidden md:flex w-1/2 h-screen sticky top-0 items-center justify-center">
         <div className="relative w-4/5 aspect-square">
           <AnimatePresence mode="wait">
