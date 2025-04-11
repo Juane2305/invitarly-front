@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
+
 
 import CountdownCircles from "../components/CountdownCircles";
 import InstagramWall from "../components/InstagramWall";
@@ -260,5 +262,34 @@ const Verona = ({invitacionData}) => {
     </div>
   );
 };
+
+Verona.propTypes = {
+  invitacionData: PropTypes.shape({
+    plan: PropTypes.string.isRequired,
+    fecha_cuenta_regresiva: PropTypes.string.isRequired,
+    imagenes: PropTypes.string.isRequired,
+    cancion: PropTypes.string,
+    novios: PropTypes.string.isRequired,
+    fecha_evento: PropTypes.string.isRequired,
+    nombre_iglesia: PropTypes.string,
+    hora_ceremonia_religiosa: PropTypes.string,
+    nombre_salon: PropTypes.string,
+    hora_civil: PropTypes.string,
+    hora_evento: PropTypes.string,
+    linkCeremonia: PropTypes.string,
+    linkFiesta: PropTypes.string,
+    ig_user: PropTypes.string,
+    fecha_comienzo_calendario: PropTypes.string,
+    fecha_fin_calendario: PropTypes.string,
+    dressCode: PropTypes.string,
+    cbu: PropTypes.string,
+    alias: PropTypes.string,
+    banco: PropTypes.string,
+    nombre_completo: PropTypes.string,
+    link_asistencia: PropTypes.string,
+    mensaje_personalizado: PropTypes.string,
+  }).isRequired,
+};
+
 
 export default Verona;

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+import PropTypes from "prop-types";
+
 import Countdown from "../components/Countdown";
 import Lugares from "../components/Lugares";
-import { FocusCardsDemo } from "../components/FocusCardsDemo";
 import InstagramWall from "../components/InstagramWall";
 import GoogleCalendarButton from "../components/GoogleCalendarButton";
 import DressCode from "../components/DressCode";
@@ -13,6 +14,8 @@ import Footer from "../components/Footer";
 import TextoFinal from "../components/TextoFinal";
 import Loader from "../components/Loader";
 import MusicScreen from "../components/MusicScreen";
+import { GalleryPraga } from "../components/GalleryPraga";
+
 
 const Roma = ({ invitacionData }) => {
   const [funcionalidades, setFuncionalidades] = useState([]);
@@ -139,7 +142,7 @@ const Roma = ({ invitacionData }) => {
           </div>
         </section>
         {funcionalidades.includes("galeriaFotos") && (
-          <FocusCardsDemo images={images} texto="Nosotros"/>
+          <GalleryPraga images={images} texto="Nosotros"/>
         )}
         {funcionalidades.includes("instagramWall") && (
           <InstagramWall user={invitacionData.ig_user} />
@@ -163,7 +166,7 @@ const Roma = ({ invitacionData }) => {
         )}
         {funcionalidades.includes("datosBancarios") && (
           <DatosBancarios
-            texto="Si deseás hacernos un regalo te dejamos nuestros datos"
+            texto="¡El mejor regalo es que nos acompañen en este día! Pero si nos quieren ayudar con nuestra luna de miel pueden hacerlo acá"
             cbu={invitacionData.cbu}
             alias={invitacionData.alias}
             banco={invitacionData.banco}
@@ -189,6 +192,44 @@ const Roma = ({ invitacionData }) => {
       </div>
     </div>
   );
+};
+
+Roma.propTypes = {
+  invitacionData: PropTypes.shape({
+    plan:                      PropTypes.string.isRequired,
+    fecha_cuenta_regresiva:    PropTypes.string.isRequired,
+    imagenes:                  PropTypes.string.isRequired,
+    novios:                    PropTypes.string.isRequired,
+    fecha_evento:              PropTypes.string.isRequired,
+
+    nombre_iglesia:            PropTypes.string,
+    hora_ceremonia_religiosa:  PropTypes.string,
+    nombre_salon:              PropTypes.string,
+    hora_civil:                PropTypes.string,
+    hora_evento:               PropTypes.string,
+    linkCeremonia:             PropTypes.string,
+    linkFiesta:                PropTypes.string,
+
+    ig_user:                   PropTypes.string,
+
+ 
+    fecha_comienzo_calendario: PropTypes.string,
+    fecha_fin_calendario:      PropTypes.string,
+
+  
+    dressCode:                 PropTypes.string,
+
+    cbu:                       PropTypes.string,
+    alias:                     PropTypes.string,
+    banco:                     PropTypes.string,
+    nombre_completo:           PropTypes.string,
+
+    link_asistencia:           PropTypes.string,
+
+    cancion:                   PropTypes.string,
+
+    mensaje_personalizado:     PropTypes.string,
+  }).isRequired,
 };
 
 export default Roma;

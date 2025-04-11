@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import PropTypes from "prop-types";
+
 
 import dress from '../assets/esmeralda/dressCodeIcon.svg'
 import CountdownCircles from "../components/CountdownCircles";
@@ -219,5 +221,31 @@ const Esmeralda = ({invitacionData}) => {
     </div>
   );
 };
+
+Esmeralda.propTypes = {
+  invitacionData: PropTypes.shape({
+    plan: PropTypes.string.isRequired,
+    fecha_cuenta_regresiva: PropTypes.string.isRequired,
+    imagenes: PropTypes.string.isRequired,
+    cancion: PropTypes.string,
+    nombreQuinceanera: PropTypes.string.isRequired,
+    fecha_evento: PropTypes.string.isRequired,
+    nombre_salon: PropTypes.string,
+    hora_evento: PropTypes.string,
+    hora_fin_evento: PropTypes.string,
+    linkFiesta: PropTypes.string,
+    ig_user: PropTypes.string,
+    fecha_comienzo_calendario: PropTypes.string,
+    fecha_fin_calendario: PropTypes.string,
+    dressCode: PropTypes.string,
+    cbu: PropTypes.string,
+    alias: PropTypes.string,
+    banco: PropTypes.string,
+    nombre_completo: PropTypes.string,
+    link_asistencia: PropTypes.string,
+    mensaje_personalizado: PropTypes.string,
+  }).isRequired,
+};
+
 
 export default Esmeralda;

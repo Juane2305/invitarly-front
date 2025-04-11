@@ -9,6 +9,7 @@ const InstagramWall = ({userClass, textClass, logoClass, user}) => {
 
   return (
     <div className='py-24'>
+    {instagramUser && instagramUser.trim() !== "" && (
         <a href={`https://www.instagram.com/${instagramUser}/`} target='_blank' className='flex flex-col items-center justify-center'>
             <div style={{ width: 120, height: 120 }}>
               <Lottie
@@ -23,6 +24,7 @@ const InstagramWall = ({userClass, textClass, logoClass, user}) => {
                     <p className={`mx-10 font-thin text-lg ${textClass}`}>Seguinos en nuestra cuenta de instagram para ver las novedades y etiquetarnos en tus fotos</p>
             </div>
         </a>
+  )}
     </div>
   )
 }

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import PropTypes from "prop-types";
+
 
 import decoracion from '../assets/rayitodeluz/decoracionCostados.svg'
 import imagenesDeco from "../assets/rayitodeluz/decoracionImagenes.svg";
@@ -233,5 +235,26 @@ const RayitoDeLuz = ({invitacionData}) => {
     </div>
   );
 };
+
+RayitoDeLuz.propTypes = {
+  invitacionData: PropTypes.shape({
+    plan: PropTypes.string.isRequired,
+    fecha_cuenta_regresiva: PropTypes.string.isRequired,
+    imagenes: PropTypes.string.isRequired,
+    cancion: PropTypes.string,
+    nombreBebe: PropTypes.string.isRequired,
+    fecha_evento: PropTypes.string.isRequired,
+    nombrePadres: PropTypes.string,
+    padrinos: PropTypes.string,
+    nombre_iglesia: PropTypes.string,
+    hora_iglesia: PropTypes.string,
+    linkCeremonia: PropTypes.string,
+    fecha_comienzo_calendario: PropTypes.string,
+    fecha_fin_calendario: PropTypes.string,
+    link_asistencia: PropTypes.string,
+    mensaje_personalizado: PropTypes.string,
+  }).isRequired,
+};
+
 
 export default RayitoDeLuz;
