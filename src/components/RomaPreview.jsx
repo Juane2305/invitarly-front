@@ -25,6 +25,9 @@ const RomaPreview = () => {
 
   const targetDate = new Date("2025-04-06T13:00:00-03:00");
 
+  const colorPrincipal =  "#d0bcab"
+  const colorSecundario =  "#d0bcab"
+
   useEffect(() => {
     window.scrollTo(0, 0);
     const fetchFuncionalidades = async () => {
@@ -198,11 +201,16 @@ const RomaPreview = () => {
             claseContenedor="bg-principal-light text-white"
             claseBoton="border-2 py-3 px-6 rounded-full hover:bg-white hover:text-gray-800 transform transition-transform duration-300 ease-in-out font-semibold"
             textSize="text-lg"
+            background={{backgroundColor: colorPrincipal}}
+            styleBotonModal={{ backgroundColor: colorSecundario,  borderColor: 'white'}}
+            claseBotonModal={{backgroundColor: colorSecundario, borderColor: colorSecundario}}
+            styleModal={{ backgroundColor: colorSecundario }}
+            styleBorderModal={{ borderColor: colorPrincipal }}
+            styleTextColor={{ color: colorPrincipal }}
             cbu="284529529245"
             alias="francisco.mp"
             banco="Nombre Banco"
             nombre="Francisco Lopez"
-            claseBotonModal="bg-principal-light border-principal-light"
             claseModal="bg-principal-light"
             borderModal="border-principal-light"
             textColor="text-principal-light"

@@ -32,6 +32,10 @@ const Esmeralda = ({invitacionData}) => {
 
   const targetDate = new Date(invitacionData.fecha_cuenta_regresiva);
 
+
+  const colorPrincipal = "#69795d";
+  const colorSecundario = "#69795d";
+
   useEffect(() => {
     AOS.init({
         duration: 3000, 
@@ -195,11 +199,22 @@ const Esmeralda = ({invitacionData}) => {
             claseContenedor="bg-[#4b5147] text-white"
             claseBoton="rounded-full hover:shadow-lg border-white bg-gray-100 text-gray-900"
             textSize="text-lg"
+            background={{ backgroundColor: colorPrincipal }}
+            styleBotonModal={{
+              backgroundColor: "white",
+              borderColor: "#9eba8a",
+            }}
+            claseBotonModal={{
+              backgroundColor: "#4b5147",
+              borderColor: "#4b5147",
+            }}
+            styleModal={{ backgroundColor: colorSecundario }}
+            styleBorderModal={{ borderColor: colorPrincipal }}
+            styleTextColor={{ color: colorPrincipal }}
             cbu={invitacionData.cbu}
             alias={invitacionData.alias}
             banco={invitacionData.banco}
             nombre={invitacionData.nombre_completo}
-            claseBotonModal="bg-[#4b5147] border-[#4b5147]"
             claseModal="bg-[#4b5147]"
             borderModal="border-[#4b5147]"
             textColor="text-[#4b5147]"

@@ -30,6 +30,9 @@ const EsmeraldaPreview = () => {
 
   const targetDate = new Date("2025-04-06T13:00:00-03:00");
 
+  const colorPrincipal = "#69795d";
+  const colorSecundario = "#69795d";
+
   useEffect(() => {
     AOS.init({
         duration: 3000, 
@@ -252,11 +255,22 @@ const EsmeraldaPreview = () => {
             claseContenedor="bg-[#4b5147] text-white"
             claseBoton="rounded-full hover:shadow-lg border-white bg-gray-100 text-gray-900"
             textSize="text-lg"
+            background={{ backgroundColor: colorPrincipal }}
+            styleBotonModal={{
+              backgroundColor: "white",
+              borderColor: "#9eba8a",
+            }}
+            claseBotonModal={{
+              backgroundColor: "#4b5147",
+              borderColor: "#4b5147",
+            }}
+            styleModal={{ backgroundColor: colorSecundario }}
+            styleBorderModal={{ borderColor: colorPrincipal }}
+            styleTextColor={{ color: colorPrincipal }}
             cbu="284529529245"
             alias="francisco.mp"
             banco="Nombre Banco"
             nombre="Francisco Lopez"
-            claseBotonModal="bg-[#4b5147] border-[#4b5147]"
             claseModal="bg-[#4b5147]"
             borderModal="border-[#4b5147]"
             textColor="text-[#4b5147]"

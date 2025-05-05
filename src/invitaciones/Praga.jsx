@@ -25,6 +25,9 @@ const Praga = ({ invitacionData }) => {
 
   const targetDate = new Date(invitacionData.fecha_cuenta_regresiva);
 
+  const colorPrincipal = invitacionData.color_principal
+  const colorSecundario = invitacionData.color_secundario
+
   useEffect(() => {
     window.scrollTo(0, 0);
     const parsedImages = JSON.parse(invitacionData.imagenes);
@@ -34,7 +37,8 @@ const Praga = ({ invitacionData }) => {
         console.error("El nombre del plan no está definido.");
         return;
       }
-
+      console.log(colorPrincipal);
+      
       try {
         const response = await axios.get(
           `${
@@ -55,6 +59,8 @@ const Praga = ({ invitacionData }) => {
 
   if (loading) return <Loader />;
   if (error) return <p>{error}</p>;
+
+ 
 
   return (
     <div className="w-full relative font-modernaText overflow-hidden">
@@ -112,6 +118,7 @@ const Praga = ({ invitacionData }) => {
           linkFiesta={invitacionData.linkFiesta}
           nombreSalon={invitacionData.nombre_salon}
           horaFiesta={invitacionData.hora_evento}
+          horaCivil={invitacionData.hora_civil}
           claseContainer="flex flex-col md:flex-row items-center justify-center gap-8 my-8"
           claseTexto="text-gray-900"
         />
@@ -128,7 +135,7 @@ const Praga = ({ invitacionData }) => {
           <InstagramWall user={invitacionData.ig_user} />
         )}
         {funcionalidades.includes("calendario") && (
-          <div className="bg-orange-300 text-center text-white relative">
+          <div style={{ borderColor: colorPrincipal, backgroundColor: colorPrincipal }} className={`text-center text-white relative`}>
             <GoogleCalendarButton
               titleCalendar={`Casamiento de ${invitacionData.novios}`}
               salon={invitacionData.nombre_salon}
@@ -147,17 +154,19 @@ const Praga = ({ invitacionData }) => {
         {funcionalidades.includes("datosBancarios") && (
           <DatosBancarios
             texto="Si deseás hacernos un regalo te dejamos nuestros datos"
-            claseContenedor="bg-orange-300 text-white"
-            claseBoton="border-2 border-orange-500 bg-white py-3 px-6 text-gray-800 rounded-full hover:bg-gray-100 hover:text-gray-800 transform transition-transform duration-300 ease-in-out font-semibold"
+            claseContenedor={`text-white`}
+            background={{backgroundColor: colorPrincipal}}
+            claseBoton="py-3 px-6 rounded-full"
+            styleBotonModal={{ backgroundColor: colorSecundario,  borderColor: colorPrincipal }}
+            claseBotonModal={{backgroundColor: colorSecundario, borderColor: colorSecundario}}
+            styleModal={{ backgroundColor: colorSecundario }}
+            styleBorderModal={{ borderColor: colorPrincipal }}
+            styleTextColor={{ color: colorPrincipal }}
             textSize="text-lg"
             cbu={invitacionData.cbu}
             alias={invitacionData.alias}
             banco={invitacionData.banco}
             nombre={invitacionData.nombre_completo}
-            claseBotonModal="bg-orange-300 border-orange-300"
-            claseModal="bg-orange-300"
-            borderModal="border-orange-300"
-            textColor="text-orange-300"
           />
         )}
         {funcionalidades.includes("confirmacionAsistencia") && (
@@ -178,7 +187,7 @@ Praga.propTypes = {
   invitacionData: PropTypes.shape({
     plan: PropTypes.string.isRequired,
     fecha_cuenta_regresiva: PropTypes.string.isRequired,
-    imagenes: PropTypes.string.isRequired,
+    imagenes: PropTypes.string,
     cancion: PropTypes.string,
     fondoMobile: PropTypes.string,
     fondo: PropTypes.string,
@@ -189,6 +198,7 @@ Praga.propTypes = {
     linkCeremonia: PropTypes.string,
     nombre_salon: PropTypes.string,
     hora_evento: PropTypes.string,
+    hora_civil: PropTypes.string,
     linkFiesta: PropTypes.string,
     ig_user: PropTypes.string,
     fecha_comienzo_calendario: PropTypes.string,
@@ -200,6 +210,8 @@ Praga.propTypes = {
     nombre_completo: PropTypes.string,
     link_asistencia: PropTypes.string,
     mensaje_personalizado: PropTypes.string,
+    color_principal: PropTypes.string,
+    color_secundario: PropTypes.string
   }).isRequired,
 };
 

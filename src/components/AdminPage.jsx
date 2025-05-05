@@ -74,7 +74,9 @@ function AdminPage() {
     link_asistencia: "",
     fecha_tokyo: "",
     fondo: "",
-    fondoMobile: ""
+    fondoMobile: "",
+    color_principal: "",
+    color_secundario: ""
   });
 
   // Para editar invitaciones
@@ -232,7 +234,9 @@ function AdminPage() {
         link_asistencia: "",
         fecha_tokyo: "",
         fondo: "",
-        fondoMobile: ""
+        fondoMobile: "",
+        color_principal: "",
+        color_secundario: "",
       });
       setError(null);
     } catch (err) {
@@ -1032,6 +1036,36 @@ function AdminPage() {
               }
             />
           </div>
+          <div>
+            <label>Color Principal</label>
+            <input
+              className="border w-full"
+              type="text"
+              name="color_principal"
+              value={nuevaInvitacion.color_principal}
+              onChange={(e) =>
+                setNuevaInvitacion((prev) => ({
+                  ...prev,
+                  [e.target.name]: e.target.value,
+                }))
+              }
+            />
+          </div>
+          <div>
+            <label>Color Secundario</label>
+            <input
+              className="border w-full"
+              type="text"
+              name="color_secundario"
+              value={nuevaInvitacion.color_secundario}
+              onChange={(e) =>
+                setNuevaInvitacion((prev) => ({
+                  ...prev,
+                  [e.target.name]: e.target.value,
+                }))
+              }
+            />
+          </div>
         </div>
 
         <button
@@ -1504,6 +1538,26 @@ function AdminPage() {
                 type="text"
                 name="fondoMobile"
                 value={editingInvitation.fondoMobile || ""}
+                onChange={handleEditChange}
+              />
+            </div>
+            <div>
+              <label>Color Principal:</label>
+              <input
+                className="border w-full"
+                type="text"
+                name="color_principal"
+                value={editingInvitation.color_principal || ""}
+                onChange={handleEditChange}
+              />
+            </div>
+            <div>
+              <label>Color Secundario:</label>
+              <input
+                className="border w-full"
+                type="text"
+                name="color_secundario"
+                value={editingInvitation.color_secundario || ""}
                 onChange={handleEditChange}
               />
             </div>

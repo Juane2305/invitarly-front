@@ -32,6 +32,9 @@ const VeronaPreview = () => {
 
   const targetDate = new Date("2025-04-06T13:00:00-03:00");
 
+  const colorPrincipal = "#69795d";
+  const colorSecundario = "#69795d";
+
   useEffect(() => {
     window.scrollTo(0, 0);
     const fetchFuncionalidades = async () => {
@@ -278,11 +281,22 @@ const VeronaPreview = () => {
             claseContenedor="bg-[#69795d] text-white"
             claseBoton="rounded-full hover:shadow-lg border-[#a2b891] bg-gray-100 text-gray-900"
             textSize="text-lg"
+            background={{ backgroundColor: colorPrincipal }}
+            styleBotonModal={{
+              backgroundColor: "white",
+              borderColor: "#9eba8a",
+            }}
+            claseBotonModal={{
+              backgroundColor: "#9eba8a",
+              borderColor: "#9eba8a",
+            }}
+            styleModal={{ backgroundColor: colorSecundario }}
+            styleBorderModal={{ borderColor: colorPrincipal }}
+            styleTextColor={{ color: colorPrincipal }}
             cbu="284529529245"
             alias="francisco.mp"
             banco="Nombre Banco"
             nombre="Francisco Lopez"
-            claseBotonModal="bg-[#9eba8a] border-[#9eba8a]"
             claseModal="bg-[#9eba8a]"
             borderModal="border-[#9eba8a]"
             textColor="text-[#9eba8a]"

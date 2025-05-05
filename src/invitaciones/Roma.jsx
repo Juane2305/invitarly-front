@@ -26,6 +26,9 @@ const Roma = ({ invitacionData }) => {
 
   const targetDate = new Date(invitacionData.fecha_cuenta_regresiva);
 
+  const colorPrincipal =  "#d0bcab"
+  const colorSecundario =  "#d0bcab"
+
   useEffect(() => {
     window.scrollTo(0, 0);
     const parsedImages = JSON.parse(invitacionData.imagenes);
@@ -174,7 +177,12 @@ const Roma = ({ invitacionData }) => {
             claseContenedor="bg-principal-light text-white"
             claseBoton="border-2 py-3 px-6 rounded-full hover:bg-white hover:text-gray-800 transform transition-transform duration-300 ease-in-out font-semibold"
             textSize="text-lg"
-            claseBotonModal="bg-principal-light border-principal-light"
+            background={{backgroundColor: colorPrincipal}}
+            styleBotonModal={{ backgroundColor: colorSecundario,  borderColor: 'white'}}
+            claseBotonModal={{backgroundColor: colorSecundario, borderColor: colorSecundario}}
+            styleModal={{ backgroundColor: colorSecundario }}
+            styleBorderModal={{ borderColor: colorPrincipal }}
+            styleTextColor={{ color: colorPrincipal }}
             claseModal="bg-principal-light"
             borderModal="border-principal-light"
             textColor="text-principal-light"
@@ -234,6 +242,11 @@ Roma.propTypes = {
     cancion:                   PropTypes.string,
 
     mensaje_personalizado:     PropTypes.string,
+    moneda_extranjera: PropTypes.string,
+    tipo_cuenta: PropTypes.string,
+    numero_cuenta: PropTypes.string,
+    titular_extranjera: PropTypes.string,
+    banco_extranjera: PropTypes.string
   }).isRequired,
 };
 

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 
-
 import Countdown from "../components/Countdown";
 import InstagramWall from "../components/InstagramWall";
 import GoogleCalendarButton from "../components/GoogleCalendarButton";
@@ -12,22 +11,25 @@ import Footer from "../components/Footer";
 import TextoFinal from "../components/TextoFinal";
 import LugaresLineal from "../components/LugaresLineal";
 import DressCodeElegante from "../components/DressCodeElegante";
-import Loader from '../components/Loader'
+import Loader from "../components/Loader";
 import GalleryElegante from "../components/GalleryElegante";
 import MusicScreen from "../components/MusicScreen";
 
-const Tokyo = ({invitacionData}) => {
+const Tokyo = ({ invitacionData }) => {
   const [funcionalidades, setFuncionalidades] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const nombrePlan  = invitacionData.plan;
+  const nombrePlan = invitacionData.plan;
   const [images, setImages] = useState([]);
 
   const targetDate = new Date(invitacionData.fecha_cuenta_regresiva);
 
+  const colorPrincipal = "white";
+  const colorSecundario = "black";
+
   useEffect(() => {
-    window.scrollTo(0, 0); 
-    const parsedImages = JSON.parse(invitacionData.imagenes); 
+    window.scrollTo(0, 0);
+    const parsedImages = JSON.parse(invitacionData.imagenes);
     setImages(parsedImages);
     const fetchFuncionalidades = async () => {
       if (!nombrePlan) {
@@ -36,7 +38,9 @@ const Tokyo = ({invitacionData}) => {
       }
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/planes/${nombrePlan}/funcionalidades`
+          `${
+            import.meta.env.VITE_API_URL
+          }/api/planes/${nombrePlan}/funcionalidades`
         );
         setFuncionalidades(response.data);
       } catch (err) {
@@ -50,14 +54,14 @@ const Tokyo = ({invitacionData}) => {
     fetchFuncionalidades();
   }, [nombrePlan]);
 
-  if (loading) return <Loader/>;
+  if (loading) return <Loader />;
   if (error) return <p>{error}</p>;
 
   return (
     <div className="w-full font-eleganteText relative overflow-hidden bg-[#f8f5f0]">
       {funcionalidades.includes("musica") && (
         <div className="absolute z-40">
-          <MusicScreen cancion={invitacionData.cancion}/>
+          <MusicScreen cancion={invitacionData.cancion} />
         </div>
       )}
 
@@ -69,7 +73,9 @@ const Tokyo = ({invitacionData}) => {
           {invitacionData.novios}
         </h1>
         <div className="flex items-center justify-center py-6 px-4 border-y-2 border-dashed border-gold">
-            <p className="text-gold italic md:text-xl">{invitacionData.fecha_tokyo}</p>
+          <p className="text-gold italic md:text-xl">
+            {invitacionData.fecha_tokyo}
+          </p>
         </div>
       </div>
 
@@ -79,47 +85,63 @@ const Tokyo = ({invitacionData}) => {
             id="contador"
             className="bg-white py-10 border-y-4 border-gold"
           >
-            <Countdown containerClasses="w-full flex flex-col items-center justify-center gap-y-5 text-gold" targetDate={targetDate}/>
+            <Countdown
+              containerClasses="w-full flex flex-col items-center justify-center gap-y-5 text-gold"
+              targetDate={targetDate}
+            />
           </section>
         )}
 
-          <div className="bg-[#171717]">
-            <div data-aos="fade-up">
-              <LugaresLineal  borderColor="border-gold" buttonStyle="border-gold text-lg" iglesia= {invitacionData.nombre_iglesia}
-              hora_iglesia = {invitacionData.hora_ceremonia_religiosa}
-              salon= {invitacionData.nombre_salon}
-              hora_civil= {invitacionData.hora_civil}
-              hora_fiesta= {invitacionData.hora_evento}
-              link_ceremonia = {invitacionData.linkCeremonia}
-              link_fiesta = {invitacionData.linkFiesta}/>
-            </div>
+        <div className="bg-[#171717]">
+          <div data-aos="fade-up">
+            <LugaresLineal
+              borderColor="border-gold"
+              buttonStyle="border-gold text-lg"
+              iglesia={invitacionData.nombre_iglesia}
+              hora_iglesia={invitacionData.hora_ceremonia_religiosa}
+              salon={invitacionData.nombre_salon}
+              hora_civil={invitacionData.hora_civil}
+              hora_fiesta={invitacionData.hora_evento}
+              link_ceremonia={invitacionData.linkCeremonia}
+              link_fiesta={invitacionData.linkFiesta}
+            />
           </div>
-        
+        </div>
 
         {funcionalidades.includes("galeriaFotos") && (
           <div className="relative py-10 bg-white text-black">
-            <GalleryElegante textStyle="text-[#D4AF37]" buttonStyle="bg-[#D4AF37]" images= {images}/>
+            <GalleryElegante
+              textStyle="text-[#D4AF37]"
+              buttonStyle="bg-[#D4AF37]"
+              images={images}
+            />
           </div>
         )}
         {funcionalidades.includes("instagramWall") && (
           <div className="bg-white border-dotted border-b-4 border-gold">
-            <InstagramWall userClass="text-gold" logoClass='text-gold' user={invitacionData.ig_user}/>
+            <InstagramWall
+              userClass="text-gold"
+              logoClass="text-gold"
+              user={invitacionData.ig_user}
+            />
           </div>
         )}
         {funcionalidades.includes("calendario") && (
           <div className="bg-[#171717] text-center relative text-white">
-            <GoogleCalendarButton imgClass="text-gold" buttonClass="border-gold"
-            titleCalendar={`Casamiento de ${invitacionData.novios}`}
-            salon={invitacionData.nombre_salon}
-            fechaComienzo={invitacionData.fecha_comienzo_calendario}
-            fechaFin={invitacionData.fecha_fin_calendario}
+            <GoogleCalendarButton
+              imgClass="text-gold"
+              buttonClass="border-gold"
+              titleCalendar={`Casamiento de ${invitacionData.novios}`}
+              salon={invitacionData.nombre_salon}
+              fechaComienzo={invitacionData.fecha_comienzo_calendario}
+              fechaFin={invitacionData.fecha_fin_calendario}
             />
           </div>
         )}
 
         {funcionalidades.includes("dressCode") && (
           <div className="">
-            <DressCodeElegante dressCodeText={invitacionData.dressCode}/>
+            <DressCodeElegante dressCodeText={invitacionData.dressCode} />
           </div>
         )}
 
@@ -134,7 +156,18 @@ const Tokyo = ({invitacionData}) => {
             claseContenedor="bg-[#F8F5F0] text-[#1E1E1E]"
             claseBoton="hover:bg-[#D4AF37] hover:text-white transform transition-transform duration-300 ease-in-out font-semibold border-gold"
             textSize="text-lg"
-            claseBotonModal="bg-gold border-gold"
+            background={{ backgroundColor: colorPrincipal }}
+            styleBotonModal={{
+              backgroundColor: "white",
+              borderColor: "#d4af37",
+            }}
+            claseBotonModal={{
+              backgroundColor: "#d4af37",
+              borderColor: "#d4af37",
+            }}
+            styleModal={{ backgroundColor: colorSecundario }}
+            styleBorderModal={{ borderColor: colorPrincipal }}
+            styleTextColor={{ color: colorPrincipal }}
             claseModal="bg-black"
             borderModal="border-gold"
             textColor="text-gold"
@@ -151,7 +184,7 @@ const Tokyo = ({invitacionData}) => {
         )}
 
         <div className="font-eleganteTitle text-4xl">
-          <TextoFinal textoFinal={invitacionData.mensaje_personalizado}/>  
+          <TextoFinal textoFinal={invitacionData.mensaje_personalizado} />
         </div>
 
         <Footer />
@@ -187,6 +220,5 @@ Tokyo.propTypes = {
     mensaje_personalizado: PropTypes.string,
   }).isRequired,
 };
-
 
 export default Tokyo;

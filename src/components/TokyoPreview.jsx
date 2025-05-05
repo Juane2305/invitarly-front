@@ -25,6 +25,9 @@ const TokyoPreview = () => {
 
   const targetDate = new Date("2025-04-06T13:00:00-03:00");
 
+  const colorPrincipal =  "white"
+  const colorSecundario =  "black"
+
   useEffect(() => {
     window.scrollTo(0, 0); 
     const fetchFuncionalidades = async () => {
@@ -165,13 +168,18 @@ const TokyoPreview = () => {
             texto="Si deseás hacernos un regalo te dejamos nuestros datos"
             claseIcon="text-gold"
             claseContenedor="bg-[#F8F5F0] text-[#1E1E1E]"
-            claseBoton="hover:bg-[#D4AF37] hover:text-white transform transition-transform duration-300 ease-in-out font-semibold border-gold"
+            claseBoton="hover:bg-[#D4AF37] transform transition-transform duration-300 ease-in-out font-semibold border-gold"
             textSize="text-lg"
+            background={{backgroundColor: colorPrincipal}}
+              styleBotonModal={{ backgroundColor: 'white',  borderColor: '#d4af37'}}
+              claseBotonModal={{backgroundColor: "#d4af37", borderColor: "#d4af37"}}
+              styleModal={{ backgroundColor: colorSecundario }}
+              styleBorderModal={{ borderColor: colorPrincipal }}
+              styleTextColor={{ color: colorPrincipal }}
             cbu="284529529245"
             alias="francisco.mp"
             banco="Nombre Banco"
             nombre="Francisco Lopez"
-            claseBotonModal="bg-gold border-gold"
             claseModal="bg-black"
             borderModal="border-gold"
             textColor="text-gold"

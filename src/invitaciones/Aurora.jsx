@@ -31,6 +31,9 @@ const Aurora = ({invitacionData}) => {
 
   const targetDate = new Date(invitacionData.fecha_cuenta_regresiva);
 
+  const colorPrincipal = "#fbcfe8";
+  const colorSecundario = "#fbcfe8";
+
   useEffect(() => {
     AOS.init({
       duration: 3000,
@@ -65,6 +68,7 @@ const Aurora = ({invitacionData}) => {
 
   if (loading) return <Loader />;
   if (error) return <p>{error}</p>;
+
 
 
   return (
@@ -190,11 +194,22 @@ const Aurora = ({invitacionData}) => {
           claseContenedor="bg-pink-100 text-gray-600"
           claseBoton="rounded-full hover:shadow-lg border-pink-300 bg-gray-100 text-gray-900"
           textSize="text-lg"
+          background={{ backgroundColor: colorPrincipal }}
+          styleBotonModal={{
+            backgroundColor: "white",
+            borderColor: "#f9a8d4",
+          }}
+          claseBotonModal={{
+            backgroundColor: colorPrincipal,
+            borderColor: "#f9a8d4",
+          }}
+          styleModal={{ backgroundColor: colorSecundario }}
+          styleBorderModal={{ borderColor: colorPrincipal }}
+          styleTextColor={{ color: colorPrincipal }}
           cbu={invitacionData.cbu}
           alias={invitacionData.alias}
           banco={invitacionData.banco}
           nombre={invitacionData.nombre_completo}
-          claseBotonModal="bg-[#4b5147] border-[#4b5147]"
           claseModal="bg-[#4b5147]"
           borderModal="border-[#4b5147]"
           textColor="text-[#4b5147]"

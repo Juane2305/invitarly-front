@@ -17,7 +17,11 @@ export const Modal = ({
   tipo_cuenta,
   numero_cuenta,
   titular_extranjera,
-  banco_extranjera
+  banco_extranjera,
+  styleBotonModal,
+  styleModal,
+  styleBorderModal,
+  styleTextColor,
 }) => {
   useEffect(() => {
     AOS.init({
@@ -43,6 +47,7 @@ export const Modal = ({
     <>
       <button
         className={`py-4 px-6 border-2 mt-5 transition hover:transform hover:scale-105 hover:shadow-lg ${claseBoton}`}
+        style={styleBotonModal}
         data-aos='fade-up'
         onClick={() => setIsOpen(true)}
       >
@@ -50,11 +55,13 @@ export const Modal = ({
       </button>
 
       {isOpen && (
-        <div className={`fixed inset-0 ${claseModal} bg-opacity-30 backdrop-blur-md flex justify-center items-center z-50`}>
-          <div className={`bg-white p-10 rounded-lg flex flex-col justify-center items-center border-8 ${borderModal}`}>
-            <div className="flex flex-col justify-center text-center space-y-7 text-gray-900 w-full max-w-md">
+        <div className={`fixed inset-0 ${claseModal} bg-opacity-30 backdrop-blur-md flex justify-center items-center z-50`} style={styleModal}>
+          <div className={`bg-white p-10 rounded-lg flex flex-col justify-center items-center border-2 ${borderModal}`} style={styleBorderModal}>
+            <div className="flex flex-col justify-center text-center space-y-7 text-gray-900 w-full max-w-md ">
               <h2 className="font-bold text-2xl">Datos Bancarios</h2>
-
+              {moneda_extranjera && moneda_extranjera.trim() !== "" && (
+              <h3 className="text-xl font-semibold mb-4">Datos en Pesos</h3>
+              )}
               <div className="w-full space-y-4 text-left text-gray-800">
                 <p className="text-lg flex justify-between items-center">
                   <span><span className="font-semibold">Nombre del titular:</span> {nombre}</span>
@@ -63,14 +70,14 @@ export const Modal = ({
                 <p className="text-lg flex justify-between items-center">
                   <span><span className="font-semibold">CBU:</span> {cbu}</span>
                   <button onClick={() => copiarTexto(cbu)}>
-                    <IoCopyOutline className={`${textColor} ml-2`} />
+                    <IoCopyOutline style={styleTextColor} className="ml-2" />
                   </button>
                 </p>
 
                 <p className="text-lg flex justify-between items-center">
                   <span><span className="font-semibold">Alias:</span> {alias}</span>
                   <button onClick={() => copiarTexto(alias)}>
-                    <IoCopyOutline className={`${textColor} ml-2`} />
+                    <IoCopyOutline style={styleTextColor} className="ml-2" />
                   </button>
                 </p>
 
@@ -86,7 +93,7 @@ export const Modal = ({
                     <p className="text-lg flex justify-between items-center">
                       <span><span className="font-semibold">{tipo_cuenta}: </span>{numero_cuenta}</span>
                       <button onClick={() => copiarTexto(numero_cuenta)}>
-                        <IoCopyOutline className={`${textColor} ml-2`} />
+                        <IoCopyOutline style={styleTextColor} className="ml-2" />
                       </button>
                     </p>
 
@@ -102,7 +109,7 @@ export const Modal = ({
               )}
 
               <button
-                className={`py-4 rounded-lg text-white font-bold hover:bg-transparent hover:transition hover:text-gray-900 border-4 transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg ${claseBotonModal}`}
+                className={`py-4 rounded-lg text-white font-bold hover:bg-transparent hover:transition hover:text-gray-900 border-4 transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg`} style={claseBotonModal}
                 onClick={() => setIsOpen(false)}
               >
                 Cerrar

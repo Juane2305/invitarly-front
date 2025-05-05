@@ -27,6 +27,9 @@ const Berlin = ({invitacionData}) => {
 
   const targetDate = new Date(invitacionData.fecha_cuenta_regresiva);
 
+  const colorPrincipal =  "#faf3e0"
+  const colorSecundario =  "#faf3e0"
+
   useEffect(() => {
     window.scrollTo(0, 0);
     const parsedImages = JSON.parse(invitacionData.imagenes); 
@@ -165,7 +168,12 @@ const Berlin = ({invitacionData}) => {
               claseContenedor="bg-[#FAF3E0] py-10 text-center text-black"
               claseBoton="border-principal-dark text-white bg-principal-dark hover:bg-transparent hover:text-green-900 text-xl"
               textSize="text-xl"
-              claseBotonModal="bg-gold border-gold"
+              background={{backgroundColor: colorPrincipal}}
+              styleBotonModal={{ backgroundColor: '#A3B18A',  borderColor: '#A3B18A'}}
+              claseBotonModal={{backgroundColor: "#d4af37", borderColor: "#d4af37"}}
+              styleModal={{ backgroundColor: colorSecundario }}
+              styleBorderModal={{ borderColor: colorPrincipal }}
+              styleTextColor={{ color: colorPrincipal }}
               claseModal="bg-black"
               borderModal="border-gold"
               textColor="text-gold"

@@ -36,6 +36,9 @@ const Verona = ({invitacionData}) => {
 
   const targetDate = new Date(invitacionData.fecha_cuenta_regresiva);
 
+  const colorPrincipal = "#69795d";
+  const colorSecundario = "#69795d";
+
   useEffect(() => {
     window.scrollTo(0, 0);
     const parsedImages = JSON.parse(invitacionData.imagenes); 
@@ -237,7 +240,18 @@ const Verona = ({invitacionData}) => {
             claseContenedor="bg-[#69795d] text-white"
             claseBoton="rounded-full hover:shadow-lg border-[#a2b891] bg-gray-100 text-gray-900"
             textSize="text-lg"
-            claseBotonModal="bg-[#9eba8a] border-[#9eba8a]"
+            background={{ backgroundColor: colorPrincipal }}
+            styleBotonModal={{
+              backgroundColor: "white",
+              borderColor: "#9eba8a",
+            }}
+            claseBotonModal={{
+              backgroundColor: "#9eba8a",
+              borderColor: "#9eba8a",
+            }}
+            styleModal={{ backgroundColor: colorSecundario }}
+            styleBorderModal={{ borderColor: colorPrincipal }}
+            styleTextColor={{ color: colorPrincipal }}
             claseModal="bg-[#9eba8a]"
             borderModal="border-[#9eba8a]"
             textColor="text-[#9eba8a]"

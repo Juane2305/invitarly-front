@@ -4,8 +4,6 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import cancion from "../assets/song.mp3";
 import Countdown from "./Countdown";
-import Lugares from "./Lugares";
-import { FocusCardsDemo } from "./FocusCardsDemo";
 import InstagramWall from "./InstagramWall";
 import GoogleCalendarButton from "./GoogleCalendarButton";
 import DressCode from "./DressCode";
@@ -26,6 +24,9 @@ const PragaPreview = () => {
   const navigate = useNavigate();
 
   const targetDate = new Date("2025-04-06T13:00:00-03:00");
+
+  const colorPrincipal =  "#fdba74"
+  const colorSecundario =  "#fdba74"
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -183,11 +184,16 @@ const PragaPreview = () => {
             claseContenedor="bg-orange-300 text-white"
             claseBoton="border-2 border-orange-500 bg-white py-3 px-6 text-gray-800 rounded-full hover:bg-gray-100 hover:text-gray-800 transform transition-transform duration-300 ease-in-out font-semibold"
             textSize="text-lg"
+            background={{backgroundColor: colorPrincipal}}
+            styleBotonModal={{ backgroundColor: 'white',  borderColor: 'white'}}
+            claseBotonModal={{backgroundColor: colorSecundario, borderColor: colorSecundario}}
+            styleModal={{ backgroundColor: colorSecundario }}
+            styleBorderModal={{ borderColor: colorPrincipal }}
+            styleTextColor={{ color: colorPrincipal }}
             cbu="284529529245"
             alias="francisco.mp"
             banco="Nombre Banco"
             nombre="Francisco Lopez"
-            claseBotonModal="bg-orange-300 border-orange-300"
             claseModal="bg-orange-300"
             borderModal="border-orange-300"
             textColor="text-orange-300"
