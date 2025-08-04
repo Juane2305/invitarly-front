@@ -23,7 +23,7 @@ const PragaPreview = () => {
   const { nombrePlan } = useParams();
   const navigate = useNavigate();
 
-  const targetDate = new Date("2025-04-06T13:00:00-03:00");
+  const targetDate = new Date("2025-12-06T13:00:00-03:00");
 
   const colorPrincipal =  "#fdba74"
   const colorSecundario =  "#fdba74"
@@ -57,9 +57,6 @@ const PragaPreview = () => {
   if (loading) return <Loader />;
   if (error) return <p>{error}</p>;
 
-  const handleSeleccionarPlantilla = () => {
-    navigate(`/confirmacion-pago/${nombrePlan}/praga`);
-  };
 
   const handleVolver = () => {
     navigate(`/plantillas/${nombrePlan}`);
@@ -67,12 +64,6 @@ const PragaPreview = () => {
 
   return (
     <div className="w-full relative font-modernaText overflow-hidden">
-      <button
-        onClick={handleSeleccionarPlantilla}
-        className="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow-lg hover:bg-green-600 transition z-50"
-      >
-        Seleccionar esta plantilla
-      </button>
       <button
         onClick={handleVolver}
         className="fixed top-4 left-4 bg-blue-500 text-white px-4 py-2 rounded shadow-lg hover:bg-blue-600 transition z-50"
@@ -96,7 +87,7 @@ const PragaPreview = () => {
           <h1 className="text-5xl md:text-8xl font-bold text-white mb-2 font-eleganteTitle">
             Camila &amp; Nicolás
           </h1>
-          <p className="text-base md:text-xl text-white">06 / 04 / 2025</p>
+          <p className="text-base md:text-xl text-white">06 / 09 / 2025</p>
         </div>
       </div>
       <div>
@@ -121,6 +112,7 @@ const PragaPreview = () => {
             linkFiesta="https://maps.app.goo.gl/LoyZKNsALqYQV3iB8"
             nombreSalon="Nombre Salón"
             horaFiesta="13:00hs"
+            horaCivil="13:00hs"
             claseContainer="flex flex-col md:flex-row items-center justify-center gap-8 my-8"
             claseTexto="text-gray-900"
         />
@@ -159,12 +151,12 @@ const PragaPreview = () => {
           )}
         </section>
         {funcionalidades.includes("instagramWall") && (
-          <InstagramWall user="@fran_y_mari" />
+          <InstagramWall user="@cami_y_nico" />
         )}
         {funcionalidades.includes("calendario") && (
           <div className="bg-orange-300 text-center text-white relative">
             <GoogleCalendarButton
-              titleCalendar="Casamiento de Francisco y María"
+              titleCalendar="Casamiento de Camila y Nicolás"
               fechaComienzo="20250406T130000"
               fechaFin="20250407T000000"
               salon="Nombre del Salón"
@@ -191,9 +183,9 @@ const PragaPreview = () => {
             styleBorderModal={{ borderColor: colorPrincipal }}
             styleTextColor={{ color: colorPrincipal }}
             cbu="284529529245"
-            alias="francisco.mp"
+            alias="nico.mp"
             banco="Nombre Banco"
-            nombre="Francisco Lopez"
+            nombre="Nicolas López"
             claseModal="bg-orange-300"
             borderModal="border-orange-300"
             textColor="text-orange-300"

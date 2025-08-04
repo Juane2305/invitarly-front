@@ -4,7 +4,7 @@ const faqs = [
   {
     question: "¿Cómo puedo personalizar mi invitación?",
     answer:
-      "Durante el proceso de compra, recopilamos tus datos, nos encargamos de personalizar tu invitación y te enviamos el resultado final. En ese momento, podrás solicitar pequeños ajustes, ya sea en los colores o en la tipografía.",
+      "Una vez que elijas tu plantilla, nos enviás por WhatsApp los datos del evento (nombres, fecha, lugar, frases especiales) y los colores que querés usar. Nuestro equipo diseña la invitación y te enviamos una vista previa para que puedas solicitar pequeños ajustes (en los textos, colores o tipografía).",
   },
   {
     question: "¿Puedo integrar mapas a mi invitación?",
@@ -14,7 +14,7 @@ const faqs = [
   {
     question: "¿Es posible cambiar la plantilla después de elegirla?",
     answer:
-      "Una vez confirmada la compra, no es posible cambiar la plantilla, pero ofrecemos ajustes menores según tus necesidades.",
+      "Podés cambiarla antes de que comencemos el diseño. Una vez iniciada la personalización, el cambio de plantilla tendrá un costo adicional.",
   },
   {
     question: "¿Cómo gestiono la lista de invitados?",

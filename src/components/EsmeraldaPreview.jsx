@@ -66,9 +66,6 @@ const EsmeraldaPreview = () => {
   if (loading) return <Loader />;
   if (error) return <p>{error}</p>;
 
-  const handleSeleccionarPlantilla = () => {
-    navigate(`/confirmacion-pago/${nombrePlan}/esmeralda`);
-  };
 
   const handleVolver = () => {
     navigate(`/plantillas/${nombrePlan}`);
@@ -76,13 +73,6 @@ const EsmeraldaPreview = () => {
 
   return (
     <div className="w-full font-eleganteText relative overflow-hidden bg-[#f8f5f0]">
-      <button
-        onClick={handleSeleccionarPlantilla}
-        className="fixed top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded shadow-lg hover:bg-blue-700 transition z-50"
-      >
-        Seleccionar esta plantilla
-      </button>
-
       <button
         onClick={handleVolver}
         className="fixed top-4 left-4 bg-blue-500 text-white px-4 py-2 rounded shadow-lg hover:bg-blue-700 transition z-50"

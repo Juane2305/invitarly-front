@@ -25,7 +25,7 @@ const BerlinPreview = () => {
   const { nombrePlan } = useParams();
   const navigate = useNavigate();
 
-  const targetDate = new Date("2025-04-06T13:00:00-03:00");
+  const targetDate = new Date("2025-12-06T13:00:00-03:00");
 
   const colorPrincipal =  "#faf3e0"
   const colorSecundario =  "#faf3e0"
@@ -55,9 +55,6 @@ const BerlinPreview = () => {
   if (loading) return <Loader />;
   if (error) return <p className="text-center py-10">{error}</p>;
 
-  const handleSeleccionarPlantilla = () => {
-    navigate(`/confirmacion-pago/${nombrePlan}/berlin`);
-  };
 
   const handleVolver = () => {
     navigate(`/plantillas/${nombrePlan}`);
@@ -67,12 +64,6 @@ const BerlinPreview = () => {
     <div className="w-full font-vintageText relative overflow-hidden bg-[#FAF3E0]">
       <div className="fixed inset-0 -z-10 bg-[url('/img/fondo.jpg')] bg-cover bg-center"></div>
       <div className="fixed top-4 right-4 z-50">
-        <button
-          onClick={handleSeleccionarPlantilla}
-          className="bg-[#D4AF37] text-white px-4 py-2 rounded shadow-lg hover:bg-[#C19A35] transition"
-        >
-          Seleccionar esta plantilla
-        </button>
       </div>
       <div className="fixed top-4 left-4 z-50">
         <button
@@ -93,7 +84,7 @@ const BerlinPreview = () => {
       <h1 className="text-4xl md:text-8xl  text-gold z-10 italic">
           Francisco & María
         </h1>
-        <p className="mt-8 text-2xl text-lime-900">06 . 04 . 2025</p>
+        <p className="mt-8 text-2xl text-lime-900">06 . 12 . 2025</p>
       </div>
 
       <div className="relative z-10">

@@ -23,7 +23,7 @@ const RomaPreview = () => {
   const { nombrePlan } = useParams();
   const navigate = useNavigate();
 
-  const targetDate = new Date("2025-04-06T13:00:00-03:00");
+  const targetDate = new Date("2025-12-06T13:00:00-03:00");
 
   const colorPrincipal =  "#d0bcab"
   const colorSecundario =  "#d0bcab"
@@ -55,9 +55,6 @@ const RomaPreview = () => {
   if (loading) return <Loader />;
   if (error) return <p>{error}</p>;
 
-  const handleSeleccionarPlantilla = () => {
-    navigate(`/confirmacion-pago/${nombrePlan}/roma`);
-  };
 
   const handleVolver = () => {
     navigate(`/plantillas/${nombrePlan}`);
@@ -65,14 +62,6 @@ const RomaPreview = () => {
 
   return (
     <div className="w-full relative font-modernaText overflow-hidden">
-      {/* Botón para seleccionar plantilla */}
-      <button
-        onClick={handleSeleccionarPlantilla}
-        className="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow-lg hover:bg-green-600 transition z-50"
-      >
-        Seleccionar esta plantilla
-      </button>
-
       {/* Botón para volver */}
       <button
         onClick={handleVolver}

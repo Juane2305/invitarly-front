@@ -30,7 +30,7 @@ const VeronaPreview = () => {
   const { nombrePlan } = useParams();
   const navigate = useNavigate();
 
-  const targetDate = new Date("2025-04-06T13:00:00-03:00");
+  const targetDate = new Date("2025-12-06T13:00:00-03:00");
 
   const colorPrincipal = "#69795d";
   const colorSecundario = "#69795d";
@@ -61,9 +61,6 @@ const VeronaPreview = () => {
   if (loading) return <Loader />;
   if (error) return <p>{error}</p>;
 
-  const handleSeleccionarPlantilla = () => {
-    navigate(`/confirmacion-pago/${nombrePlan}/verona`);
-  };
 
   const handleVolver = () => {
     navigate(`/plantillas/${nombrePlan}`);
@@ -71,13 +68,6 @@ const VeronaPreview = () => {
 
   return (
     <div className="w-full font-eleganteText relative overflow-hidden bg-[#f8f5f0]">
-      <button
-        onClick={handleSeleccionarPlantilla}
-        className="fixed top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded shadow-lg hover:bg-blue-700 transition z-50"
-      >
-        Seleccionar esta plantilla
-      </button>
-
       <button
         onClick={handleVolver}
         className="fixed top-4 left-4 bg-blue-500 text-white px-4 py-2 rounded shadow-lg hover:bg-blue-700 transition z-50"
@@ -138,7 +128,7 @@ const VeronaPreview = () => {
 
         <div className="flex items-center justify-center py-2 px-4 bg-[#c8d4c1] mt-2">
           <p className="font-bold text-[#4b5147] text-lg">
-            0 6 . 0 4 . 2 0 2 5
+            0 6 . 1 2 . 2 0 2 5
           </p>
         </div>
       </div>

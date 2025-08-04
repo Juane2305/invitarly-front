@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {
-  PiCamera,
+  PiBuilding,
   PiSealCheckLight,
   PiShareNetworkLight,
   PiImagesLight,
@@ -18,9 +18,9 @@ import { BsCopy } from "react-icons/bs";
 
 const initialFeatures = [
   {
-    icon: <PiCamera />,
-    title: "Galería con QR",
-    description: "Permite que tus invitados suban sus fotos del evento escaneando un QR, sin complicaciones.",
+    icon: <PiMusicNoteLight />,
+    title: "Música",
+    description: "Agrega tu canción favorita de fondo.",
   },
   {
     icon: <PiSealCheckLight />,
@@ -53,7 +53,6 @@ const additionalFeatures = [
     description: "Comparte imágenes de momentos especiales.",
   },
   {
-    // Se mantiene el icono original de Instagram (imagen)
     icon: <PiInstagramLogoLight />,
     title: "Instagram Wall",
     description: "Agregamos tu perfil de Instagram a la invitación.",
@@ -76,9 +75,9 @@ const additionalFeatures = [
       "Crea invitaciones en varios idiomas para tus invitados internacionales.",
   },
   {
-    icon: <PiMusicNoteLight />,
-    title: "Música",
-    description: "Agrega tu canción favorita de fondo.",
+    icon: <PiBuilding />,
+    title: "Sugerencia de alojamientos",
+    description: "Ofrecé a tus invitados extranjeros una lista de opciones para hospedarse cerca del evento.",
   },
   {
     icon: <PiDressLight />,

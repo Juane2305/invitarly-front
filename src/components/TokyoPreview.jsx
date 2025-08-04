@@ -23,7 +23,7 @@ const TokyoPreview = () => {
   const { nombrePlan } = useParams();
   const navigate = useNavigate();
 
-  const targetDate = new Date("2025-04-06T13:00:00-03:00");
+  const targetDate = new Date("2025-12-06T13:00:00-03:00");
 
   const colorPrincipal =  "white"
   const colorSecundario =  "black"
@@ -54,23 +54,12 @@ const TokyoPreview = () => {
   if (loading) return <Loader/>;
   if (error) return <p>{error}</p>;
 
-  const handleSeleccionarPlantilla = () => {
-    navigate(`/confirmacion-pago/${nombrePlan}/tokyo`);
-  };
-
   const handleVolver = () => {
     navigate(`/plantillas/${nombrePlan}`);
   };
 
   return (
     <div className="w-full font-eleganteText relative overflow-hidden bg-[#f8f5f0]">
-      <button
-        onClick={handleSeleccionarPlantilla}
-        className="fixed top-4 right-4 bg-[#D4AF37] text-white px-4 py-2 rounded shadow-lg hover:bg-[#B8860B] transition z-50"
-      >
-        Seleccionar esta plantilla
-      </button>
-
       <button
         onClick={handleVolver}
         className="fixed top-4 left-4 bg-[#505050] text-white px-4 py-2 rounded shadow-lg hover:bg-[#404040] transition z-50"
@@ -92,7 +81,7 @@ const TokyoPreview = () => {
           Francisco & María
         </h1>
         <div className="flex items-center justify-center py-6 px-4 border-y-2 border-dashed border-gold">
-        <p className="text-gold italic text-2xl">Domingo, 6 de abril de 2025</p>
+        <p className="text-gold italic text-2xl">Domingo, 6 de diciembre de 2025</p>
     </div>
       </div>
 

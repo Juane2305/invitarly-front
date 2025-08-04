@@ -63,23 +63,12 @@ const RayitoDeLuzPreview = () => {
   if (loading) return <Loader />;
   if (error) return <p>{error}</p>;
 
-  const handleSeleccionarPlantilla = () => {
-    navigate(`/confirmacion-pago/${nombrePlan}/rayitodeluz`);
-  };
-
   const handleVolver = () => {
     navigate(`/plantillas/${nombrePlan}`);
   };
 
   return (
     <div className="w-full font-eleganteText relative overflow-hidden bg-[#f8f5f0]">
-      <button
-        onClick={handleSeleccionarPlantilla}
-        className="fixed top-4 right-4 bg-[#69795d] text-white px-4 py-2 rounded shadow-lg hover:bg-[#B8860B] transition z-40"
-      >
-        Seleccionar esta plantilla
-      </button>
-
       <button
         onClick={handleVolver}
         className="fixed top-4 left-4 bg-[#69795d] text-white px-4 py-2 rounded shadow-lg hover:bg-[#404040] transition z-40"

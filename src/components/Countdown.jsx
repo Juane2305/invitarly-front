@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -9,7 +9,7 @@ const Countdown = ( {containerClasses, targetDate} ) => {
     AOS.init({
       duration: 1000,
       easing: 'ease-in-out',
-      once: true, // Animar solo una vez
+      once: true, 
     });
   }, []);
 
@@ -18,7 +18,7 @@ const Countdown = ( {containerClasses, targetDate} ) => {
       setTimeLeft(calculateTimeLeft());
     }, 1000);
 
-    AOS.refresh(); // Refrescar AOS después de cada actualización
+    AOS.refresh(); 
     return () => clearInterval(timer);
   }, [timeLeft]);
 
