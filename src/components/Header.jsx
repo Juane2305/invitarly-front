@@ -34,10 +34,10 @@ const Header = () => {
             Invitaciones
           </a>
           <a
-            href="#planes"
+            href="#faq"
             className="text-lg text-gray-800 hover:text-principal-dark transition-colors duration-300 font-serif font-light"
           >
-            Planes
+            Preguntas frecuentes
           </a>
           <a
             href="#contacto"

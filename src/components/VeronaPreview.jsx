@@ -30,7 +30,7 @@ const VeronaPreview = () => {
   const { nombrePlan } = useParams();
   const navigate = useNavigate();
 
-  const targetDate = new Date("2025-12-06T13:00:00-03:00");
+  const targetDate = new Date("2027-12-06T13:00:00-03:00");
 
   const colorPrincipal = "#69795d";
   const colorSecundario = "#69795d";

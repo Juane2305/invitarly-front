@@ -27,7 +27,7 @@ const RayitoDeLuzPreview = () => {
   const { nombrePlan } = useParams();
   const navigate = useNavigate();
 
-  const targetDate = new Date("2025-12-10T13:00:00-03:00");
+  const targetDate = new Date("2027-12-10T13:00:00-03:00");
 
   useEffect(() => {
     AOS.init({
@@ -238,10 +238,10 @@ const RayitoDeLuzPreview = () => {
           )}
         </section>
       </div>
-      <div className="bg-white text-center relative text-gray-900">
+      <div className="bg-pink-300 text-center relative text-white">
         <GoogleCalendarButton
           imgClass="text-pink-300"
-          buttonClass="border-[#4b5147] rounded-full"
+          buttonClass="border-white text-white rounded-full"
           titleCalendar="Bautismo de Isabella"
           salon="Nombre Iglesia"
           fechaComienzo="20250406T130000"

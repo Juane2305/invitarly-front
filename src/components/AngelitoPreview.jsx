@@ -23,7 +23,7 @@ const AngelitoPreview = () => {
   const { nombrePlan } = useParams();
   const navigate = useNavigate();
 
-  const targetDate = new Date("2025-07-06T13:00:00-03:00");
+  const targetDate = new Date("2027-07-06T13:00:00-03:00");
 
   useEffect(() => {
     AOS.init({
@@ -192,10 +192,10 @@ const AngelitoPreview = () => {
           </section>
         </div>
 
-        <div className="bg-white text-center relative text-[#63412a]">
+        <div className="bg-blue-300 text-center relative text-white font-semibold">
           <GoogleCalendarButton
-            imgClass="text-[#63412a]"
-            buttonClass="border-[#4b5147] rounded-full"
+            imgClass="text-white"
+            buttonClass="border-white text-white rounded-full "
             titleCalendar="Bautismo de Felipe"
             salon="Nombre Iglesia"
             fechaComienzo="20250406T130000"

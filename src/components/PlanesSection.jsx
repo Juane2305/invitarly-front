@@ -43,7 +43,7 @@ const PlanesSection = () => {
   const planesOtros = planes.filter((p) => p.tipoEvento !== "boda");
 
   return (
-    <section className="py-12 bg-gray-100" id="planes">
+    <section className="py-12 bg-gray-100" id="invitaciones">
       <div className="container mx-auto text-center">
         {/* Sección: Planes para bodas */}
         <h2 className="text-4xl font-bold mb-8">Planes para bodas</h2>

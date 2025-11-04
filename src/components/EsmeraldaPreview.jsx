@@ -28,7 +28,7 @@ const EsmeraldaPreview = () => {
   const { nombrePlan } = useParams();
   const navigate = useNavigate();
 
-  const targetDate = new Date("2025-04-06T13:00:00-03:00");
+  const targetDate = new Date("2027-04-06T13:00:00-03:00");
 
   const colorPrincipal = "#69795d";
   const colorSecundario = "#69795d";
@@ -205,10 +205,10 @@ const EsmeraldaPreview = () => {
             />
           </div>
 
-          <div className="bg-white text-center relative text-[#4b5147]">
+          <div className="bg-[#69795d] text-center relative text-white">
             <GoogleCalendarButton
               imgClass="text-[#4b5147]"
-              buttonClass="border-[#4b5147] rounded-full"
+              buttonClass="border border-[#9eba8a] bg-white text-black rounded-full"
               titleCalendar="XV de Julieta"
               salon="Nombre Salón"
               fechaComienzo="20250406T130000"
